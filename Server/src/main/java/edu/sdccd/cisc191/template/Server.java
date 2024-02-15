@@ -79,6 +79,9 @@ public class Server {
         displayPrompt.display("Continue");
 
         promptChoice = controlPrompt.answerPrompt(2);
+
+
+
         if (promptChoice == 1)
         {
             displayPrompt.display("Exploration");

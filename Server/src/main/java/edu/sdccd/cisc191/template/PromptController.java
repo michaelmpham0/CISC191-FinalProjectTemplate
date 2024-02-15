@@ -24,7 +24,7 @@ public class PromptController
             try
             {
                 int promptNumber = Integer.parseInt(answer);
-                if (promptNumber <= numOfAnswers & promptNumber > 0)
+                if (promptNumber <= numOfAnswers && promptNumber > 0)
                 {
                     hasAnswer = true;
                     promptChoice = promptNumber;
