@@ -55,6 +55,22 @@ public class Server {
         }
     }
     */
+    public static void exploreMenu(PromptDisplay displayPrompt,PromptController controlPrompt,int promptChoice, Player player) {
+        displayPrompt.display("Exploration");
+        promptChoice = controlPrompt.answerPrompt(2);
+        if (promptChoice == 1)
+        {
+            displayPrompt.display("Combat");
+        }
+        else if (promptChoice == 2)
+        {
+            System.out.println("Greetings " + player.getName() + ", you are a " + player.getPlayerClass() + " and your stats are: ");
+            System.out.println("----------------");
+            System.out.println(player.getAllStats());
+            System.out.println("----------------");
+            displayPrompt.display("Check");
+        }
+    }
 
     public static void main(String[] args)
     {
@@ -76,31 +92,19 @@ public class Server {
 
 
         displayText.display("Introduction");
-        displayPrompt.display("Continue");
-
-        promptChoice = controlPrompt.answerPrompt(2);
+        displayPrompt.display("Continue");promptChoice = controlPrompt.answerPrompt(2);
 
 
 
         if (promptChoice == 1)
         {
-            displayPrompt.display("Exploration");
-            promptChoice = controlPrompt.answerPrompt(2);
-            if (promptChoice == 1)
-            {
-                displayPrompt.display("Combat");
-            }
-            else if (promptChoice == 2) {
-                System.out.println("Greetings " + player.getName() + ", you are a " + player.getPlayerClass() + " and your stats are: ");
-                System.out.println("----------------");
-                System.out.println(player.getAllStats());
-                System.out.println("----------------");
-                displayPrompt.display("Check");
-            }
+            exploreMenu();
         }
         else
         {
             System.out.println("QUIT GAME");
         }
     }
-} //end class Server
+
+}
+ //end class Server
