@@ -2,6 +2,7 @@ package edu.sdccd.cisc191.template;
 
 import java.net.*;
 import java.io.*;
+import java.util.Scanner;
 
 /**
  * This program is a server that takes connection requests on
@@ -13,6 +14,7 @@ import java.io.*;
  * as it is received, rather than creating a separate thread
  * to process the connection.
  */
+
 public class Server {
     private ServerSocket serverSocket;
     private Socket clientSocket;
@@ -40,13 +42,46 @@ public class Server {
         serverSocket.close();
     }
 
-    public static void main(String[] args) {
+    // the old main method from the template
+    /*
+    public static void oldMain(String[] args) {
+
         Server server = new Server();
         try {
             server.start(4444);
             server.stop();
         } catch(Exception e) {
             e.printStackTrace();
+        }
+    }
+    */
+
+    public static void main(String[] args)
+    {
+        Scanner keyboard = new Scanner(System.in);
+        TextDisplay displayText = new TextDisplay();
+        PromptDisplay displayPrompt = new PromptDisplay();
+        PromptController controlPrompt = new PromptController();
+
+        int promptChoice;
+        System.out.println("----------------");
+
+        displayText.display("Introduction");
+        displayPrompt.display("Continue");
+
+        promptChoice = controlPrompt.answerPrompt(2);
+        if (promptChoice == 1)
+        {
+            displayPrompt.display("Exploration");
+            promptChoice = controlPrompt.answerPrompt(1);
+            if (promptChoice == 1)
+            {
+                displayPrompt.display("Combat");
+            }
+        }
+        else
+        {
+            System.out.println("QUIT GAME");
         }
     }
 } //end class Server
