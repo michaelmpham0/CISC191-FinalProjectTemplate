@@ -66,6 +66,9 @@ public class Server {
         int promptChoice;
         System.out.println("----------------");
 
+        Player player = new Player();
+        player.setUp();
+
         displayText.display("Introduction");
         displayPrompt.display("Continue");
 
@@ -73,10 +76,13 @@ public class Server {
         if (promptChoice == 1)
         {
             displayPrompt.display("Exploration");
-            promptChoice = controlPrompt.answerPrompt(1);
+            promptChoice = controlPrompt.answerPrompt(2);
             if (promptChoice == 1)
             {
                 displayPrompt.display("Combat");
+            }
+            else if (promptChoice == 2) {
+                displayPrompt.display("Check");
             }
         }
         else

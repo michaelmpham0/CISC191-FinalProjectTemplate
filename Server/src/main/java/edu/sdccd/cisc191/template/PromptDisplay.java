@@ -9,7 +9,10 @@ public class PromptDisplay
             {
                     {"Continue","Continue"},
                     {"Combat","Attack","Guard","Spells","Items","Run Away"},
-                    {"Exploration","Continue Forward","Check Status","Spells","Items"}
+                    {"Exploration","Continue Forward","Check Status","Spells","Items"},
+                    // Catch all for prompts that'll only have Go Back as an option
+                    {"Empty Prompt","Go Back"},
+                    {"Classes","Knight","Wizard","Bulwark","Hunter"},
             };
 
     public void display(String menuType)
@@ -29,6 +32,12 @@ public class PromptDisplay
                 break;
             case "Exploration":
                 promptNum = 2;
+                break;
+            case "Classes":
+                promptNum = 4;
+                break;
+            case "Check":
+                promptNum = 3;
                 break;
             default:
                 promptNum = 0;
