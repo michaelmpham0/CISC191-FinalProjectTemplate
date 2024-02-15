@@ -21,7 +21,7 @@ public class Player {
         put("Bulwark", new int[]{125,25,75,25,50});
         put("Hunter", new int[]{75,75,25,0,100});
     }};
-    private int HP,maxHP,ATK,DEF,GLD,MAN;
+    private int HP, maxHP, ATK, DEF, GLD, MAN;
 
     private String Name,Class;
 
@@ -29,7 +29,7 @@ public class Player {
      * Creates player, default constructor
      */
     public Player(){
-        Name=Class="Unknown";
+        Name = Class = "Unknown";
     }
 
     /**
