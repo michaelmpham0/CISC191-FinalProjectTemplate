@@ -13,14 +13,15 @@ import java.util.HashMap;
  */
 public class Player {
 
+   //HashMap to store class info. Stats correspond top from bottom of the above list, left to right.
     static HashMap<String, int[]> classStats = new HashMap<String, int[]>()
     {{
-        put("Knight", {1,1});
-        put("Wizard", 2.0);
-        put("Bulwark", 2.0);
-        put("Hunter", 2.0);
+        put("Knight", new int[]{100,50,50,50,50});
+        put("Wizard", new int[]{100,25,25,100,75});
+        put("Bulwark", new int[]{125,25,75,25,50});
+        put("Hunter", new int[]{75,75,25,0,100});
     }};
-    private int HP,ATK,DEF,GLD,MAN;
+    private int HP,maxHP,ATK,DEF,GLD,MAN;
 
     private String Name,Class;
 
@@ -39,28 +40,48 @@ public class Player {
         this.Class = Class;
     }
 
-    public String getStat(String Stat){
-        if (Stat.equals("All")) {
-            try
-            {
-                String Return = String.format("Health:%-15d \t Attack:%-15d \t Defense:%-15d \t Gold:%-15d \t Mana:%d",HP,ATK,DEF,GLD,MAN);
-                return Stat;
-            }
-            catch (NullPointerException Exception)
-            {
-                return "Unknown";
-            }
-        }
-        else
+    public String getAllStats(){
+        try
         {
-            try
-            {
-                return Stat;
-            }
-            catch (NullPointerException Exception)
-            {
-                return "Unknown";
-            }
+            return String.format("Health:%-5d \t Attack:%-5d \t Defense:%-5d \t Mana:%-5d \t Gold:%d",HP,ATK,DEF,GLD,MAN);
+        }
+        catch (NullPointerException Exception)
+        {
+            return "Unknown";
+        }
+    }
+
+    public String getName(){
+        return Name;
+    }
+
+    public String getPlayerClass(){
+        return Class;
+    }
+
+    public int getGold(){
+        return  GLD;
+    }
+    public int getDefense(){
+        return  DEF;
+    }
+
+    public int getMana(){
+        return  MAN;
+    }
+    public int getAttack(){
+        return  ATK;
+    }
+    public int getHealth(){
+        return  HP;
+    }
+
+    public void setHealth(int healthDifference){
+        if (healthDifference<0){
+            HP = Math.min((HP + healthDifference), 0);
+        }
+        else {
+            HP = Math.max((HP + healthDifference), maxHP);
         }
     }
 
@@ -74,25 +95,36 @@ public class Player {
         System.out.print("Enter your name: ");
         Name = keyboard.next();
 
+        System.out.println("----------------");
+
         displayText.display("ClassInstructions");
         displayPrompt.display("Classes");
 
         int promptChoice = controlPrompt.answerPrompt(4);
-        if (promptChoice == 1)
+
+        switch(promptChoice)
         {
-            Class = "Knight";
+            case 1:
+                Class = "Knight";
+                break;
+            case 2:
+                Class = "Wizard";
+                break;
+            case 3:
+                Class = "Bulwark";
+                break;
+            case 4:
+                Class = "Hunter";
+                break;
+            default:
+                break;
         }
-        else
-        {
-            System.out.println("Try again.");
-        }
-    }
 
-    public void setClass(String Class){
-        this.Class = Class;
-    }
 
-    public void setStat(){
-
+        maxHP = HP = classStats.get(Class)[0];
+        ATK = classStats.get(Class)[1];
+        DEF = classStats.get(Class)[2];
+        MAN = classStats.get(Class)[3];
+        GLD = classStats.get(Class)[4];
     }
 }
