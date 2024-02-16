@@ -55,20 +55,37 @@ public class Server {
         }
     }
     */
-    public static void exploreMenu(PromptDisplay displayPrompt,PromptController controlPrompt,int promptChoice, Player player) {
+    public static void exploreMenu(PromptDisplay displayPrompt,PromptController controlPrompt, Player player) {
         displayPrompt.display("Exploration");
-        promptChoice = controlPrompt.answerPrompt(2);
-        if (promptChoice == 1)
+        int promptChoice = controlPrompt.answerPrompt(2);
+
+        switch(promptChoice)
         {
-            displayPrompt.display("Combat");
-        }
-        else if (promptChoice == 2)
-        {
-            System.out.println("Greetings " + player.getName() + ", you are a " + player.getPlayerClass() + " and your stats are: ");
-            System.out.println("----------------");
-            System.out.println(player.getAllStats());
-            System.out.println("----------------");
-            displayPrompt.display("Check");
+            case 1:
+                // Continue Forward
+                displayPrompt.display("Combat");
+                break;
+            case 2:
+                // Check Status
+                System.out.println("Name: "+player.getName());
+                System.out.println("Class: "+player.getPlayerClass());
+                System.out.println(" ");
+                System.out.println(player.getAllStats());
+                System.out.println("----------------");
+                displayPrompt.display("Check");
+                promptChoice = controlPrompt.answerPrompt(1);
+                exploreMenu(displayPrompt,controlPrompt,player);
+                break;
+            case 3:
+                System.out.println("SPELLS GO HERE");
+                // Spells
+                break;
+            case 4:
+                System.out.println("ITEMS GO HERE");
+                // Items
+                break;
+            default:
+                break;
         }
     }
 
@@ -92,13 +109,14 @@ public class Server {
 
 
         displayText.display("Introduction");
-        displayPrompt.display("Continue");promptChoice = controlPrompt.answerPrompt(2);
-
+        System.out.println("[1] - Enter the Dungeon");
+        System.out.println("----------------");
+        promptChoice = controlPrompt.answerPrompt(2);
 
 
         if (promptChoice == 1)
         {
-            exploreMenu();
+            exploreMenu(displayPrompt,controlPrompt,player);
         }
         else
         {

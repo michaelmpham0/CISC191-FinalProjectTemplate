@@ -1,7 +1,7 @@
 package edu.sdccd.cisc191.template;
 import java.util.ArrayList;
 public class Inventory {
-    private ArrayList<> inventory = new ArrayList<>;
+    ArrayList inventory = new ArrayList();
 
     public Inventory(){
         inventory.add("Sword");

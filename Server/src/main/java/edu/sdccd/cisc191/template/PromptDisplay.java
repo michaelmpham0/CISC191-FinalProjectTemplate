@@ -12,7 +12,7 @@ public class PromptDisplay
                     {"Exploration","Continue Forward","Check Status","Spells","Items"},
                     // Catch all for prompts that'll only have Go Back as an option
                     {"Empty Prompt","Go Back"},
-                    {"Classes","Knight","Wizard","Bulwark","Hunter"},
+                    {"Classes","Knight","Wizard","Barbarian","Hunter"},
             };
 
     public void display(String menuType)

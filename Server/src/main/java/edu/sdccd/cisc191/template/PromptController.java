@@ -16,8 +16,6 @@ public class PromptController
         {
             System.out.print("Enter Number: ");
             String answer = keyboard.next();
-
-
             /*
             try catch, checks if user input is a number within the range
              */
