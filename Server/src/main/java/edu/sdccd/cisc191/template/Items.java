@@ -34,5 +34,6 @@ public class Items {
     public void setStackSize(int size){
         stackSize = size;
     }
+
 }
 

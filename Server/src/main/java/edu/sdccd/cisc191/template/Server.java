@@ -55,9 +55,9 @@ public class Server {
         }
     }
     */
-    public static void exploreMenu(PromptDisplay displayPrompt,PromptController controlPrompt, Player player) {
+    public static void exploreMenu(PromptDisplay displayPrompt,PromptController controlPrompt, Player player,Inventory storage) {
         displayPrompt.display("Exploration");
-        int promptChoice = controlPrompt.answerPrompt(2);
+        int promptChoice = controlPrompt.answerPrompt(4);
 
         switch(promptChoice)
         {
@@ -74,15 +74,18 @@ public class Server {
                 System.out.println("----------------");
                 displayPrompt.display("Check");
                 promptChoice = controlPrompt.answerPrompt(1);
-                exploreMenu(displayPrompt,controlPrompt,player);
+                exploreMenu(displayPrompt,controlPrompt,player,storage);
                 break;
             case 3:
                 System.out.println("SPELLS GO HERE");
-                // Spells
                 break;
             case 4:
-                System.out.println("ITEMS GO HERE");
-                // Items
+                System.out.println("Items:");
+                System.out.println(storage.printInventory());
+                System.out.println("----------------");
+                displayPrompt.display("Check");
+                promptChoice = controlPrompt.answerPrompt(1);
+                exploreMenu(displayPrompt,controlPrompt,player,storage);
                 break;
             default:
                 break;
@@ -94,6 +97,7 @@ public class Server {
         Scanner keyboard = new Scanner(System.in);
         TextDisplay displayText = new TextDisplay();
         PromptDisplay displayPrompt = new PromptDisplay();
+        Inventory storage = new Inventory();
         PromptController controlPrompt = new PromptController();
 
         int promptChoice;
@@ -116,7 +120,7 @@ public class Server {
 
         if (promptChoice == 1)
         {
-            exploreMenu(displayPrompt,controlPrompt,player);
+            exploreMenu(displayPrompt,controlPrompt,player,storage);
         }
         else
         {
