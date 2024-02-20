@@ -8,6 +8,12 @@ public class TextDisplay
     static  HashMap<String, String>  textInfo = new HashMap<String, String>()
     {{
         put("ClassInstructions", "Choose a class.");
+        put("KnightIntro","Born into a noble family that has seen its prosperity gradually decline over decades,"
+            +" desperation has driven you into leaving your once honorable estate in search for redeeming your family name");
+        put("WizardIntro","Rumors of a dungeon filled with magical artifacts reached your ears. Naturally gifted with "+
+           "magical aptitude, you seek out these treasures.");
+        put("BarbarianIntro","Driven out of your land,");
+        put("RangerIntro","");
         put("Introduction", "You stand before the dungeons of Andrew Huang.");
     }};
 
