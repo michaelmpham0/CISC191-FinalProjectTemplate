@@ -10,14 +10,14 @@ public class Inventory {
     public Inventory(String userClass) {
         switch (userClass.toLowerCase()) {
             case "knight":
-                weapons.add(new Weapons("Rusty Longsword", "A starter sword, found on the grounds of the dungeon.", 12));
+                weapons.add(new Weapons("Rusty Longsword", "A rusted heirloom sword that has been passed down countless generations.", 12));
                 weapons.add(new Weapons("Wooden Shield", "A protective gear, used to lower incoming damage.", 0));
                 inventory.add(new Items("Flask of Crimson Tears", "Used to replenish missing health", 3));
                 inventory.add(new Items("Flask of Cerulean Tears", "Used to replenish missing mana", 1));
                 break;
             case "wizard":
-                weapons.add(new Weapons("Weathered Staff", "A starter staff, worn down by time and use.", 15));
-                inventory.add(new Items("Spell book", "A magical tome, used to increase number of spells you can hold to 10.", 1));
+                weapons.add(new Weapons("Weathered Staff", "A tall wooden staff, worn down by time and use.", 15));
+                inventory.add(new Items("Spell Book", "A magical tome, used to increase number of spells you can hold to 10.", 1));
                 inventory.add(new Items("Flask of Crimson Tears", "Used to replenish missing health", 3));
                 inventory.add(new Items("Flask of Cerulean Tears", "Used to replenish missing mana", 3));
                 break;
@@ -40,54 +40,6 @@ public class Inventory {
         }
     }
 
-    public void useItem(int itemNumber, String userClass) {
-        boolean validClass = false;
-
-        while (!validClass) {
-            switch (itemNumber) {
-                case 1: // Sword: Knight
-                    if (userClass.equalsIgnoreCase("Knight")) {
-                        System.out.println("Sword has been applied to Knight. ATK: +5");
-                        validClass = true;
-                    } else {
-                        System.out.println("Sword can only be applied to Knight.");
-                    }
-                    break;
-                case 2: // Staff: Wizard
-                    if (userClass.equalsIgnoreCase("Wizard")) {
-                        System.out.println("Staff has been applied to Wizard. MANA: +5");
-                        validClass = true;
-                    } else {
-                        System.out.println("Staff can only be applied to Wizard.");
-                    }
-                    break;
-                case 3: // Health Potion: Any
-                    System.out.println("Health Potion has been applied to " + userClass + ". HP: +10");
-                    validClass = true;
-                    break;
-                case 4: // Bow: Ranger
-                    if (userClass.equalsIgnoreCase("Ranger")) {
-                        System.out.println("Bow has been applied to Ranger. ATK: +5");
-                        validClass = true;
-                    } else {
-                        System.out.println("Bow can only be applied to Ranger.");
-                    }
-                    break;
-                case 5: // Axe: Barbarian
-                    if (userClass.equalsIgnoreCase("Barbarian")) {
-                        System.out.println("Axe has been applied to Barbarian. ATK: +5");
-                        validClass = true;
-                    } else {
-                        System.out.println("Axe can only be applied to Barbarian. ");
-                    }
-                    break;
-                default:
-                    System.out.println("Invalid item number. Please enter a valid item number.");
-                    break;
-            }
-
-        }
-    }
     public String printWeapons() {
         String weaponList = "";
         for (int i = 0; i < weapons.size(); i++) {
