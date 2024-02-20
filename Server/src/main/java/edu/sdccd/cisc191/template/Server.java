@@ -80,8 +80,11 @@ public class Server {
                 System.out.println("SPELLS GO HERE");
                 break;
             case 4:
+                System.out.println("Weapons and Tools:");
+                System.out.println(storage.printWeapons());
+
                 System.out.println("Items:");
-                System.out.println(storage.printInventory());
+                System.out.println(storage.printItems());
                 System.out.println("----------------");
                 displayPrompt.display("Check");
                 promptChoice = controlPrompt.answerPrompt(1);
@@ -97,7 +100,6 @@ public class Server {
         Scanner keyboard = new Scanner(System.in);
         TextDisplay displayText = new TextDisplay();
         PromptDisplay displayPrompt = new PromptDisplay();
-        Inventory storage = new Inventory();
         PromptController controlPrompt = new PromptController();
 
         int promptChoice;
@@ -111,6 +113,7 @@ public class Server {
         System.out.println(player.getAllStats());
         System.out.println("----------------");
 
+        Inventory storage = new Inventory(player.getPlayerClass());
 
         displayText.display("Introduction");
         System.out.println("[1] - Enter the Dungeon" + "\n[0] - Quit Game");
@@ -128,6 +131,10 @@ public class Server {
             }
             promptChoice = controlPrompt.answerPrompt(2);
         } while (promptChoice != 0 && promptChoice != 1);
+
+        // now we're in the dungeon
+
+
     }
 
 }

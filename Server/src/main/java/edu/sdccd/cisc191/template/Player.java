@@ -18,7 +18,7 @@ public class Player {
         put("Knight", new int[]{35,15,30,50});
         put("Wizard", new int[]{18,5,100,50});
         put("Barbarian", new int[]{25,25,10,0});
-        put("Hunter", new int[]{20,10,20,35});
+        put("Ranger", new int[]{20,10,20,35});
     }};
     private int HP,maxHP,ATK,GOLD,MANA;
 
@@ -109,7 +109,7 @@ public class Player {
                 Class = "Barbarian";
                 break;
             case 4:
-                Class = "Hunter";
+                Class = "Ranger";
                 break;
             default:
                 break;

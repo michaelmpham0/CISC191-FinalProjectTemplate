@@ -12,7 +12,7 @@ public class PromptDisplay
                     {"Exploration",   "Continue Forward","Check Status","Spells","Items"},
                     // Catch all for prompts that'll only have Go Back as an option
                     {"Empty Prompt",   "Go Back"},
-                    {"Classes",   "Knight","Wizard","Barbarian","Hunter"},
+                    {"Classes",   "Knight","Wizard","Barbarian","Ranger"},
             };
 
     public void display(String menuType)
@@ -48,9 +48,9 @@ public class PromptDisplay
         For loop to run through items in promptInfo to print out the prompt
         Count variable "i" starts at 1 to ignore the first value
          */
-        for (int i = 1;i<promptInfo[promptNum].length;i++)
+        for (int i = 1; i < promptInfo[promptNum].length; i++)
         {
-            String printString = "["+Integer.toString(i)+"]"+" - "+promptInfo[promptNum][i];
+            String printString = "[" + Integer.toString(i) + "]" + "-" + promptInfo[promptNum][i];
             System.out.println(printString);
         }
         System.out.println("----------------");

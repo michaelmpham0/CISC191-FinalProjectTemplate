@@ -1,17 +1,42 @@
 package edu.sdccd.cisc191.template;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 public class Inventory {
-    private final ArrayList<Items> inventory = new ArrayList<Items>();
+    private final ArrayList<Weapons> weapons = new ArrayList<>();
+    private final ArrayList<Items> inventory = new ArrayList<>();
     private int size;
 
-    public Inventory() {
-        inventory.add(new Items("Sword", "A sharp weapon, can only be used with Knight, ATK+", 1));
-        inventory.add(new Items("Staff", "A magical weapon, can only be used with Wizard, MANA+", 1));
-        inventory.add(new Items("Health Potion", "A yummy potion, can be used with any class, HP+", 3));
-        inventory.add(new Items("Gun", "A dangerous firearm, can only be used with Hunter, ATK+", 1));
-        inventory.add(new Items("Axe", "A heavy weapon, can only be used with Barbarian, ATK+", 1));
-        size = 7;
-
+    public Inventory(String userClass) {
+        switch (userClass.toLowerCase()) {
+            case "knight":
+                weapons.add(new Weapons("Rusty Longsword", "A starter sword, found on the grounds of the dungeon.", 12));
+                weapons.add(new Weapons("Wooden Shield", "A protective gear, used to lower incoming damage.", 0));
+                inventory.add(new Items("Flask of Crimson Tears", "Used to replenish missing health", 3));
+                inventory.add(new Items("Flask of Cerulean Tears", "Used to replenish missing mana", 1));
+                break;
+            case "wizard":
+                weapons.add(new Weapons("Weathered Staff", "A starter staff, worn down by time and use.", 15));
+                inventory.add(new Items("Spell book", "A magical tome, used to increase number of spells you can hold to 10.", 1));
+                inventory.add(new Items("Flask of Crimson Tears", "Used to replenish missing health", 3));
+                inventory.add(new Items("Flask of Cerulean Tears", "Used to replenish missing mana", 3));
+                break;
+            case "barbarian":
+                weapons.add(new Weapons("Crude Axe", "An unadorned axe, crudely fashioned from rough materials", 18));
+                inventory.add(new Items("Frenzy Potion", "A vial of potent elixir, used to raise overall stats.", 1));
+                inventory.add(new Items("Flask of Crimson Tears", "Used to replenish missing health", 2));
+                inventory.add(new Items("Flask of Cerulean Tears", "Used to replenish missing mana", 1));
+                break;
+            case "ranger":
+                weapons.add(new Weapons("Rugged Longbow", "A used longbow, a weapon of choice for rangers who roam the untamed wilderness", 10));
+                inventory.add(new Items("Wooden Arrows", "The staple ammunition of a ranger", 15));
+                weapons.add(new Weapons("Short Dagger", "A dagger designed for swift strikes and close-quarters combat", 8));
+                inventory.add(new Items("Flask of Crimson Tears", "Used to replenish missing health", 2));
+                inventory.add(new Items("Flask of Cerulean Tears", "Used to replenish missing mana", 2));
+                break;
+            default:
+                System.out.println("Unknown class.");
+                break;
+        }
     }
 
     public void useItem(int itemNumber, String userClass) {
@@ -39,12 +64,12 @@ public class Inventory {
                     System.out.println("Health Potion has been applied to " + userClass + ". HP: +10");
                     validClass = true;
                     break;
-                case 4: // Gun: Hunter
-                    if (userClass.equalsIgnoreCase("Hunter")) {
-                        System.out.println("Gun has been applied to Hunter. ATK: +5");
+                case 4: // Bow: Ranger
+                    if (userClass.equalsIgnoreCase("Ranger")) {
+                        System.out.println("Bow has been applied to Ranger. ATK: +5");
                         validClass = true;
                     } else {
-                        System.out.println("Gun can only be applied to Hunter.");
+                        System.out.println("Bow can only be applied to Ranger.");
                     }
                     break;
                 case 5: // Axe: Barbarian
@@ -62,14 +87,24 @@ public class Inventory {
 
         }
     }
-    public String printInventory() {
-        String inventoryList = "";
+    public String printWeapons() {
+        String weaponList = "";
+        for (int i = 0; i < weapons.size(); i++) {
+            int weaponNumber = i + 1;
+            Weapons weapon = weapons.get(i);
+            weaponList += "[" + weaponNumber + "]" + " - " + weapon.getWeaponName() + ": " + weapon.getWeaponDescription() + "\n";
+        }
+        return weaponList;
+    }
+
+    public String printItems() {
+        String itemList = "";
         for (int i = 0; i < inventory.size(); i++) {
             int itemNumber = i + 1;
             Items item = inventory.get(i);
-            inventoryList += "[" + itemNumber + "]" + " - " + item.getItemName() + ": " + item.getItemDesc() + "\n";
+            itemList += "[" + itemNumber + "]" + " - " + item.getItemName() + ": " + item.getItemDesc() + "\n";
         }
-        return inventoryList;
+        return itemList;
     }
 }
 

@@ -3,15 +3,15 @@ package edu.sdccd.cisc191.template;
 public class Items {
     private String itemName;
     private String itemDesc;
-    private int stackSize;
-    public Items(){
+    private int holdSize;
+    public Items() {
         itemName = "unknown";
-        stackSize = 1;
+        holdSize = 1;
     }
     public Items(String inName, String inDesc, int inStack){
         itemName = inName;
         itemDesc = inDesc;
-        stackSize = inStack;
+        holdSize = inStack;
     }
 
     public String getItemName() {
@@ -21,8 +21,8 @@ public class Items {
         return itemDesc;
     }
 
-    public int getStackSize(){
-        return stackSize;
+    public int getHoldSize(){
+        return holdSize;
     }
 
     public void setItemName(String inName){
@@ -32,7 +32,7 @@ public class Items {
         itemDesc = inDesc;
     }
     public void setStackSize(int size){
-        stackSize = size;
+        holdSize = size;
     }
 
 }
