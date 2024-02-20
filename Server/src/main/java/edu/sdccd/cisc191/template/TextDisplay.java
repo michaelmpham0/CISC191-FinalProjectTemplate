@@ -15,7 +15,7 @@ public class TextDisplay
         put("BarbarianIntro","Your home village devastated by disaster after disaster, you aimlessly wonder the lands before "+
                 "stumbling upon an opening to a cave.");
         put("RangerIntro","Driven by crippling poverty and hunger, you are desperate to make ends meet.");
-        put("Introduction", "You stand before the cold stony entrance of a decrepit dungeon.");
+        put("Introduction", "You find yourself standing before the cold stony entrance of a decrepit dungeon.");
     }};
 
     //Get text info from HashMap textInfo and return it
