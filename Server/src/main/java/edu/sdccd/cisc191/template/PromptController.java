@@ -10,7 +10,7 @@ public class PromptController
     public int answerPrompt(int numOfAnswers)
     {
         boolean hasAnswer = false;
-        int promptChoice = 0;
+        int promptChoice = -1;
         //While pit to get user's prompt choice
         do
         {
@@ -22,7 +22,7 @@ public class PromptController
             try
             {
                 int promptNumber = Integer.parseInt(answer);
-                if (promptNumber <= numOfAnswers && promptNumber > 0)
+                if (promptNumber <= numOfAnswers && promptNumber > -1)
                 {
                     hasAnswer = true;
                     promptChoice = promptNumber;

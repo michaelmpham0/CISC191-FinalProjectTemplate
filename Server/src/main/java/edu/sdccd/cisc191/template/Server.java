@@ -113,19 +113,21 @@ public class Server {
 
 
         displayText.display("Introduction");
-        System.out.println("[1] - Enter the Dungeon");
+        System.out.println("[1] - Enter the Dungeon" + "\n[0] - Quit Game");
         System.out.println("----------------");
         promptChoice = controlPrompt.answerPrompt(2);
 
-
-        if (promptChoice == 1)
-        {
-            exploreMenu(displayPrompt,controlPrompt,player,storage);
-        }
-        else
-        {
-            System.out.println("QUIT GAME");
-        }
+        do {
+            if (promptChoice == 1) {
+                exploreMenu(displayPrompt, controlPrompt, player, storage);
+            } else if (promptChoice == 0) {
+                System.out.println("QUIT GAME");
+                break; // stop game when 0 is entered
+            } else {
+                System.out.println("Invalid Response");
+            }
+            promptChoice = controlPrompt.answerPrompt(2);
+        } while (promptChoice != 0 && promptChoice != 1);
     }
 
 }

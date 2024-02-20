@@ -7,12 +7,12 @@ public class PromptDisplay
     */
     static String[][] promptInfo =
             {
-                    {"Continue","Continue"},
-                    {"Combat","Attack","Guard","Spells","Items","Run Away"},
-                    {"Exploration","Continue Forward","Check Status","Spells","Items"},
+                    {"Continue",   "Continue"},
+                    {"Combat",   "Attack","Guard","Spells","Items","Run Away"},
+                    {"Exploration",   "Continue Forward","Check Status","Spells","Items"},
                     // Catch all for prompts that'll only have Go Back as an option
-                    {"Empty Prompt","Go Back"},
-                    {"Classes","Knight","Wizard","Barbarian","Hunter"},
+                    {"Empty Prompt",   "Go Back"},
+                    {"Classes",   "Knight","Wizard","Barbarian","Hunter"},
             };
 
     public void display(String menuType)
