@@ -96,25 +96,8 @@ public class Player {
         displayPrompt.display("Classes");
 
         int promptChoice = controlPrompt.answerPrompt(4);
-
-        switch(promptChoice)
-        {
-            case 1:
-                Class = "Knight";
-                break;
-            case 2:
-                Class = "Wizard";
-                break;
-            case 3:
-                Class = "Barbarian";
-                break;
-            case 4:
-                Class = "Ranger";
-                break;
-            default:
-                break;
-        }
-
+        String classList[] = {"Knight","Wizard","Barbarian","Ranger"};
+        Class = classList[promptChoice-1];
 
         maxHP = HP = classStats.get(Class)[0];
         ATK = classStats.get(Class)[1];
