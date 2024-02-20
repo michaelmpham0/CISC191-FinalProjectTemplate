@@ -107,10 +107,13 @@ public class Server {
 
         Player player = new Player();
         player.setUp();
+        displayText.classInfo(player.getPlayerClass());
+        /*
         System.out.println("Greetings " + player.getName() + ", you are a " + player.getPlayerClass() + " and your stats are: ");
         System.out.println("----------------");
         System.out.println(player.getAllStats());
         System.out.println("----------------");
+        */
 
         Inventory storage = new Inventory(player.getPlayerClass());
 

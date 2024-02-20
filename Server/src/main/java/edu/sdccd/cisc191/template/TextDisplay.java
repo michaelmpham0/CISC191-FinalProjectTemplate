@@ -36,4 +36,9 @@ public class TextDisplay
         System.out.println(getText(textType));
         System.out.println("----------------");
     }
+
+    public void classInfo(String playerClass)
+    {
+        System.out.println(textInfo.get(playerClass+"Intro"));
+    }
 }
