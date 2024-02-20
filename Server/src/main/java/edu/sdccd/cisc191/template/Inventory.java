@@ -4,7 +4,8 @@ import java.util.ArrayList;
 public class Inventory {
     private final ArrayList<Weapons> weapons = new ArrayList<>();
     private final ArrayList<Items> inventory = new ArrayList<>();
-    private int size;
+
+    //private int size; -- was unused, so I just commented it out for now
 
     public Inventory(String userClass) {
         switch (userClass.toLowerCase()) {
