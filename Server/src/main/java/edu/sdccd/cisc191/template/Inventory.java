@@ -1,7 +1,7 @@
 package edu.sdccd.cisc191.template;
 import java.util.ArrayList;
 public class Inventory {
-    private ArrayList<Items> inventory = new ArrayList<Items>();
+    private final ArrayList<Items> inventory = new ArrayList<Items>();
     private int size;
 
     public Inventory() {
@@ -14,11 +14,11 @@ public class Inventory {
 
     }
 
-    public void useItem(int itemNumber, String userClass) {
+    public void useItem(int itemNumbers, String userClass) {
         boolean validClass = false;
 
         while (!validClass) {
-            switch (itemNumber) {
+            switch (itemNumbers) {
                 case 1: // Sword: Knight
                     if (userClass.equalsIgnoreCase("Knight")) {
                         System.out.println("Sword has been applied to Knight. ATK: +5");
