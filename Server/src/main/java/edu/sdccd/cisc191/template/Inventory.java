@@ -14,11 +14,11 @@ public class Inventory {
 
     }
 
-    public void useItem(int itemNumbers, String userClass) {
+    public void useItem(int itemNumber, String userClass) {
         boolean validClass = false;
 
         while (!validClass) {
-            switch (itemNumbers) {
+            switch (itemNumber) {
                 case 1: // Sword: Knight
                     if (userClass.equalsIgnoreCase("Knight")) {
                         System.out.println("Sword has been applied to Knight. ATK: +5");
