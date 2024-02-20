@@ -9,12 +9,13 @@ public class TextDisplay
     {{
         put("ClassInstructions", "Choose a class.");
         put("KnightIntro","Born into a noble family that has seen its prosperity gradually decline over decades,"
-            +" desperation has driven you into leaving your once honorable estate in search for redeeming your family name");
-        put("WizardIntro","Rumors of a dungeon filled with magical artifacts reached your ears. Naturally gifted with "+
-           "magical aptitude, you seek out these treasures.");
-        put("BarbarianIntro","Driven out of your land,");
-        put("RangerIntro","");
-        put("Introduction", "You stand before the dungeons of Andrew Huang.");
+            +" desperation has driven you into leaving your once honorable estate in search for redeeming your family name.");
+        put("WizardIntro","Rumors of a dungeon filled with magical artifacts reaches your ears. Naturally gifted with "+
+           "magical aptitude, you pursue these treasures.");
+        put("BarbarianIntro","Your home village devastated by disaster after disaster, you aimlessly wonder the lands before "+
+                "stumbling upon an opening to a cave.");
+        put("RangerIntro","Driven by crippling poverty and hunger, you are desperate to make ends meet.");
+        put("Introduction", "You stand before the cold stony entrance of a decrepit dungeon.");
     }};
 
     //Get text info from HashMap textInfo and return it

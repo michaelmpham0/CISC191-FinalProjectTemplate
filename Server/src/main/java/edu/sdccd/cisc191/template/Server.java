@@ -107,7 +107,6 @@ public class Server {
 
         Player player = new Player();
         player.setUp();
-
         System.out.println("Greetings " + player.getName() + ", you are a " + player.getPlayerClass() + " and your stats are: ");
         System.out.println("----------------");
         System.out.println(player.getAllStats());
