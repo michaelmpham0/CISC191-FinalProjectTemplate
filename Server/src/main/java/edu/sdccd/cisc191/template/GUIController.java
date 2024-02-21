@@ -93,7 +93,7 @@ public class GUIController extends GUIMain {
 
         //anchor root children
         Text chooseText = createText("Choose Your Class","Arial", "Black",25,21,27);
-        Button nextBtn = createButton("Next",149,39,429,335);
+        Button nextBtn = createButton("Continue",149,39,429,335);
 
         //class actions
         knightBtn.setOnAction(e -> {
@@ -112,7 +112,7 @@ public class GUIController extends GUIMain {
         //next action
         nextBtn.setOnAction(e -> {
             try{
-                System.out.println(player.getPlayerClass());
+                gameLoop();
             }
             catch (NullPointerException exception){
                 System.out.println("no class");
@@ -125,9 +125,31 @@ public class GUIController extends GUIMain {
 
         this.stage.setScene(new Scene(root));
     }
+
+    private void gameLoop(){
+        //TO DO: While Pit here similar to the one in Server
+
+        showGameMenu();
+    }
     private void showGameMenu() {
-        TilePane root = new TilePane();
+        AnchorPane root = new AnchorPane();
         root.setPrefSize(600,400);
+
+        HBox hbox = new HBox();
+        hbox.setPrefSize(497,197);
+        hbox.setLayoutX(52);
+        hbox.setLayoutY(200);
+        hbox.setSpacing(50);
+
+        Button continueBtn = createButton("Continue Forward",149,39,0,0);
+        Button statusBtn = createButton("Check Status",149,39,0,0);
+        Button spellsBtn = createButton("Spells",149,39,0,0);
+        Button itemsBtn = createButton("Items",149,39,0,0);
+
+        hbox.getChildren().addAll(continueBtn,statusBtn,spellsBtn,itemsBtn);
+        root.getChildren().addAll(hbox);
+
+        this.stage.setScene(new Scene(root));
     }
 
    public Scene showMainMenu(){
