@@ -1,9 +1,9 @@
 package edu.sdccd.cisc191.template;
 
 public class Items {
-    private String itemName;
-    private String itemDesc;
-    private int holdSize;
+    public String itemName;
+    public String itemDesc;
+    public int holdSize;
     public Items() {
         itemName = "unknown";
         holdSize = 1;
@@ -34,6 +34,9 @@ public class Items {
     public void setStackSize(int size){
         holdSize = size;
     }
-
+    @Override
+    public String toString() {
+        return itemName;
+    }
 }
 

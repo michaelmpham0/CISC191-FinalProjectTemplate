@@ -8,14 +8,16 @@ public class TextDisplay
     static  HashMap<String, String>  textInfo = new HashMap<String, String>()
     {{
         put("ClassInstructions", "Choose a class.");
-        put("KnightIntro","Born into a noble family that has seen its prosperity gradually decline over decades,"
-            +" desperation has driven you into leaving your once honorable estate in search for redeeming your family name.");
-        put("WizardIntro","Rumors of a dungeon filled with magical artifacts reaches your ears. Naturally gifted with "+
-           "magical aptitude, you pursue these treasures.");
-        put("BarbarianIntro","Your home village devastated by disaster after disaster, you aimlessly wonder the lands before "+
-                "stumbling upon an opening to a cave.");
-        put("RangerIntro","Driven by crippling poverty and hunger, you are desperate to make ends meet.");
-        put("Introduction", "You find yourself standing before the cold stony entrance of a decrepit dungeon.");
+        put("KnightIntro","Born into a noble family that has seen its prosperity gradually decline over decades,\n"
+            +"desperation has driven you into leaving your once honorable estate in search for redeeming your family name.");
+        put("WizardIntro","Rumors of a dungeon filled with magical artifacts reaches your ears. \nNaturally gifted with "+
+           "magical aptitude, you pursue these treasures in search of greater power.");
+        put("BarbarianIntro","Your home village devastated by disaster after disaster, you aimlessly wonder the lands with\n" +
+                "no place to call home.");
+        put("RangerIntro","Driven by crippling poverty and hunger, you are desperate to make ends meet.\n" +
+                "You scrap by every day by living off the land, looking for a change.");
+        put("Introduction", "\nYour journey leads you to one location." +
+                "\nYou find yourself standing before the cold stony entrance of a decrepit dungeon.");
     }};
 
     //Get text info from HashMap textInfo and return it

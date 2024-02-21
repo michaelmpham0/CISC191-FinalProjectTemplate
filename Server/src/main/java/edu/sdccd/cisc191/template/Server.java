@@ -2,6 +2,7 @@ package edu.sdccd.cisc191.template;
 
 import java.net.*;
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -71,7 +72,9 @@ public class Server {
                 System.out.println("Class: "+player.getPlayerClass());
                 System.out.println(" ");
                 System.out.println(player.getAllStats());
-                System.out.println("----------------");
+                System.out.println("\nWeapons and Tools:");
+                //System.out.println(storage.printWeapons());
+
                 displayPrompt.display("Check");
                 promptChoice = controlPrompt.answerPrompt(1);
                 exploreMenu(displayPrompt,controlPrompt,player,storage);
@@ -80,9 +83,6 @@ public class Server {
                 System.out.println("SPELLS GO HERE");
                 break;
             case 4:
-                System.out.println("Weapons and Tools:");
-                System.out.println(storage.printWeapons());
-
                 System.out.println("Items:");
                 System.out.println(storage.printItems());
                 System.out.println("----------------");
@@ -116,6 +116,16 @@ public class Server {
         */
 
         Inventory storage = new Inventory(player.getPlayerClass());
+        ArrayList<Items> playerInventory = storage.getInventory();
+
+        // For each loop to go through starting inventory and equip weapons
+        for (Items item : playerInventory)
+        {
+            if (item instanceof Weapons)
+            {
+                player.setCurrentWeapon((Weapons) item);
+            }
+        }
 
         displayText.display("Introduction");
         System.out.println("[1] - Enter the Dungeon" + "\n[0] - Quit Game");
