@@ -10,13 +10,13 @@ public class Inventory {
         switch (userClass.toLowerCase()) {
             case "knight":
                 inventory.add(new Weapons("Rusty Longsword", "A rusted heirloom sword that has been passed down countless generations.", 12));
-                inventory.add(new Weapons("Wooden Shield", "A protective gear, used to lower incoming damage.", 0));
+                inventory.add(new Tools("Wooden Shield", "A protective gear, used to lower incoming damage."));
                 inventory.add(new Items("Flask of Crimson Tears", "Used to replenish missing health", 3));
                 inventory.add(new Items("Flask of Cerulean Tears", "Used to replenish missing mana", 1));
                 break;
             case "wizard":
                 inventory.add(new Weapons("Weathered Staff", "A tall wooden staff, worn down by time and use.", 15));
-                inventory.add(new Items("Spell Book", "A magical tome, used to increase number of spells you can hold to 10.", 1));
+                inventory.add(new Tools("Spell Book", "A magical tome, used to increase number of spells you can hold to 10."));
                 inventory.add(new Items("Flask of Crimson Tears", "Used to replenish missing health", 3));
                 inventory.add(new Items("Flask of Cerulean Tears", "Used to replenish missing mana", 3));
                 break;
