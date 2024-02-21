@@ -37,7 +37,7 @@ public class Inventory {
                 System.out.println("Unknown class.");
                 break;
         }
-        //weapons.add(new Weapons("test weapon", "meant to test switching weapons", 12));
+        inventory.add(new Weapons("test weapon", "meant to test switching weapons", 12));
     }
 
     /*
@@ -76,6 +76,19 @@ public class Inventory {
         return weaponList;
     }
      */
+
+    public void unequip(Items unequipItem)
+    {
+        if (unequipItem != null)
+        {
+            inventory.add(unequipItem);
+        }
+
+    }
+    public void equip(Items equipItem)
+    {
+        inventory.remove(equipItem);
+    }
 
     public ArrayList<Items> getInventory() {
         return inventory;

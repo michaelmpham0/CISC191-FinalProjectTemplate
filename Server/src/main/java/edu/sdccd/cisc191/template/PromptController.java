@@ -7,10 +7,15 @@ public class PromptController
 
     static Scanner keyboard = new Scanner(System.in);
 
-    public int answerPrompt(int numOfAnswers)
+    public int answerPrompt(int numOfAnswers,boolean hasZero)
     {
         boolean hasAnswer = false;
-        int promptChoice = -1;
+        int promptChoice = 0;
+        if (hasZero)
+        {
+            promptChoice = -1;
+        }
+
         //While pit to get user's prompt choice
         do
         {
@@ -22,7 +27,7 @@ public class PromptController
             try
             {
                 int promptNumber = Integer.parseInt(answer);
-                if (promptNumber <= numOfAnswers && promptNumber > -1)
+                if (promptNumber <= numOfAnswers && promptNumber > promptChoice)
                 {
                     hasAnswer = true;
                     promptChoice = promptNumber;

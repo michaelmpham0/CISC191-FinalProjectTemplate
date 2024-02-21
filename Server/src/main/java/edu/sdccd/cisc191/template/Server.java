@@ -58,7 +58,7 @@ public class Server {
     */
     public static void exploreMenu(PromptDisplay displayPrompt,PromptController controlPrompt, Player player,Inventory storage) {
         displayPrompt.display("Exploration");
-        int promptChoice = controlPrompt.answerPrompt(4);
+        int promptChoice = controlPrompt.answerPrompt(4,false);
 
         switch(promptChoice)
         {
@@ -73,10 +73,22 @@ public class Server {
                 System.out.println(" ");
                 System.out.println(player.getAllStats());
                 System.out.println("\nWeapons and Tools:");
-                //System.out.println(storage.printWeapons());
+                System.out.println("\nWeapon: "+player.getCurrentWeapon());
+
+                //Had to add this, because some classes dont have a tool, and returned null
+                Tools currentTool = player.getCurrentTool();
+                if (currentTool == null)
+                {
+                    System.out.println("Tool: None\n");
+                }
+                else
+                {
+                    System.out.println("Tool: "+currentTool+"\n");
+                }
+
 
                 displayPrompt.display("Check");
-                promptChoice = controlPrompt.answerPrompt(1);
+                promptChoice = controlPrompt.answerPrompt(1,false);
                 exploreMenu(displayPrompt,controlPrompt,player,storage);
                 break;
             case 3:
@@ -85,9 +97,18 @@ public class Server {
             case 4:
                 System.out.println("Items:");
                 System.out.println(storage.printItems());
+                System.out.println("\n[0] - Go Back");
+                ArrayList<Items> playerInventoryList = storage.getInventory();
                 System.out.println("----------------");
-                displayPrompt.display("Check");
-                promptChoice = controlPrompt.answerPrompt(1);
+                int secondPromptChoice = controlPrompt.answerPrompt(playerInventoryList.size(),true);
+                if (secondPromptChoice != 0)
+                {
+                    Items usedItem = playerInventoryList.get(secondPromptChoice-1);
+                    if (usedItem instanceof Weapons || usedItem instanceof Tools)
+                    {
+                        player.equipWeaponOrTool(storage,usedItem);
+                    }
+                }
                 exploreMenu(displayPrompt,controlPrompt,player,storage);
                 break;
             default:
@@ -116,21 +137,30 @@ public class Server {
         */
 
         Inventory storage = new Inventory(player.getPlayerClass());
-        ArrayList<Items> playerInventory = storage.getInventory();
+        ArrayList<Items> playerInventoryList = storage.getInventory();
 
+        Weapons foundWeapon = null;
+        Tools foundTool = null;
         // For each loop to go through starting inventory and equip weapons
-        for (Items item : playerInventory)
+        for (Items item : playerInventoryList)
         {
-            if (item instanceof Weapons)
+            // Checks if weapon or tool is still unequipped(null)
+            if (item instanceof Weapons && foundWeapon == null)
             {
-                player.setCurrentWeapon((Weapons) item);
+                foundWeapon = (Weapons)item;
+            }
+            else if (item instanceof Tools && foundTool == null)
+            {
+                foundTool = (Tools)item;
             }
         }
+        player.equipWeaponOrTool(storage,foundWeapon);
+        player.equipWeaponOrTool(storage,foundTool);
 
         displayText.display("Introduction");
         System.out.println("[1] - Enter the Dungeon" + "\n[0] - Quit Game");
         System.out.println("----------------");
-        promptChoice = controlPrompt.answerPrompt(2);
+        promptChoice = controlPrompt.answerPrompt(2,true);
 
         do {
             if (promptChoice == 1) {
@@ -141,7 +171,7 @@ public class Server {
             } else {
                 System.out.println("Invalid Response");
             }
-            promptChoice = controlPrompt.answerPrompt(2);
+            promptChoice = controlPrompt.answerPrompt(2,true);
         } while (promptChoice != 0 && promptChoice != 1);
 
         // now we're in the dungeon

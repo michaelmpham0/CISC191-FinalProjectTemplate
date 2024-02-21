@@ -18,18 +18,43 @@ public class Player {
         put("Knight", new int[]{35,15,30,50});
         put("Wizard", new int[]{18,5,100,50});
         put("Barbarian", new int[]{25,25,10,0});
-        put("Ranger", new int[]{20,10,20,35});
+        put("Ranger", new int[]{20,10,20,10});
     }};
     private int HP,maxHP,ATK,GOLD,MANA;
 
-    private Weapons currentWeapon;
-    private Weapons currentTool;
+    private Weapons currentWeapon = null;
+    private Tools currentTool = null;
 
     public void setCurrentWeapon(Weapons currentWeapon) {
         this.currentWeapon = currentWeapon;
     }
-    public void setCurrentTool(Weapons currentTool) {
+    public void equipWeaponOrTool(Inventory playerInventory,Items newItem)
+    {
+
+        if (newItem instanceof Weapons)
+        {
+            playerInventory.unequip(currentWeapon);
+            currentWeapon = (Weapons) newItem;
+        }
+        else
+        {
+            playerInventory.unequip(currentTool);
+            currentTool = (Tools) newItem;
+        }
+        playerInventory.equip(newItem);
+    }
+
+
+    public Weapons getCurrentWeapon() {
+
+        return currentWeapon;
+    }
+    public void setCurrentTool(Tools currentTool) {
         this.currentTool = currentTool;
+    }
+    public Tools getCurrentTool() {
+
+        return currentTool;
     }
 
     private String Name,Class;
@@ -105,7 +130,7 @@ public class Player {
         displayText.display("ClassInstructions");
         displayPrompt.display("Classes");
 
-        int promptChoice = controlPrompt.answerPrompt(4);
+        int promptChoice = controlPrompt.answerPrompt(4,false);
         String classList[] = {"Knight","Wizard","Barbarian","Ranger"};
         Class = classList[promptChoice-1];
 

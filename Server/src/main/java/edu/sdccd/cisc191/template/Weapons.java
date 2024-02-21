@@ -14,6 +14,9 @@ public class Weapons extends Items {
         itemDesc = description;
         weaponDamage = damage;
     }
+
+
+
     // Getters
     public int getWeaponDamage() {
         return this.weaponDamage;
