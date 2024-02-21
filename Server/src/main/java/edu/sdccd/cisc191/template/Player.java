@@ -22,6 +22,16 @@ public class Player {
     }};
     private int HP,maxHP,ATK,GOLD,MANA;
 
+    private Weapons currentWeapon;
+    private Weapons currentTool;
+
+    public void setCurrentWeapon(Weapons currentWeapon) {
+        this.currentWeapon = currentWeapon;
+    }
+    public void setCurrentTool(Weapons currentTool) {
+        this.currentTool = currentTool;
+    }
+
     private String Name,Class;
 
     /**
