@@ -11,24 +11,23 @@ import javafx.fxml.FXMLLoader;
 */
 
 public class GUIMain extends Application {
-
-
     public static void main(String[] args)
     {
        launch(args);
     }
 
+    protected  static Stage stage;
     @Override
     public void start(Stage stage) throws Exception {
         try {
-
+            this.stage = stage;
             GUIController guiController = new GUIController();
 
-            stage.setScene(guiController.showMenu());
-            stage.setResizable(false);
+            this.stage .setScene(guiController.showMainMenu());
+            this.stage .setResizable(false);
 
 
-            stage.show();
+            this.stage .show();
         } catch (Exception e) {
             e.printStackTrace();
         }

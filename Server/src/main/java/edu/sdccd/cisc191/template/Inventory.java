@@ -29,7 +29,7 @@ public class Inventory {
                 break;
             case "ranger":
                 weapons.add(new Weapons("Rugged Longbow", "A used longbow, a weapon of choice for rangers who roam the untamed wilderness", 10));
-                inventory.add(new Items("Wooden Arrows", "The staple ammunition of a ranger", 15));
+       //         inventory.add(new Items("Wooden Arrows", "The staple ammunition of a ranger", 15));
                 weapons.add(new Weapons("Short Dagger", "A dagger designed for swift strikes and close-quarters combat", 8));
                 inventory.add(new Items("Flask of Crimson Tears", "Used to replenish missing health", 2));
                 inventory.add(new Items("Flask of Cerulean Tears", "Used to replenish missing mana", 2));
