@@ -126,9 +126,9 @@ public class Server {
         int promptChoice;
         System.out.println("----------------");
 
-        Player player = new Player();
+       Player player = new Player();
         player.setUp();
-        displayText.classInfo(player.getPlayerClass());
+       displayText.classInfo(player.getPlayerClass());
         /*
         System.out.println("Greetings " + player.getName() + ", you are a " + player.getPlayerClass() + " and your stats are: ");
         System.out.println("----------------");
@@ -164,7 +164,7 @@ public class Server {
 
         do {
             if (promptChoice == 1) {
-                exploreMenu(displayPrompt, controlPrompt, player, storage);
+              exploreMenu(displayPrompt, controlPrompt, player, storage);
             } else if (promptChoice == 0) {
                 System.out.println("QUIT GAME");
                 break; // stop game when 0 is entered
