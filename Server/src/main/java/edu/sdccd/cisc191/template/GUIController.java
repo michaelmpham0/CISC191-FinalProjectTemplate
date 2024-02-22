@@ -70,7 +70,7 @@ public class GUIController extends GUIMain {
         hBox.getStylesheets().add("styleSheet.css");
         hBox.getStyleClass().add("customBorder");
 
-        Text titleText = createText("Character Creation","Century","White",(screenHeight+screenWidth)/50,0,0);
+        Text titleText = createText("Character Creation","Century","White",(screenHeight+screenWidth)/50,500,100);
 
         String classList[] = {"Knight","Wizard","Barbarian","Ranger"};
         for (int i=1;i<=4;i++)
@@ -79,6 +79,8 @@ public class GUIController extends GUIMain {
             newButton.setAlignment(Pos.CENTER);
             hBox.getChildren().add(newButton);
         }
+
+        root.getChildren().addAll(titleText);
 
         this.stage.setScene(new Scene(root));
     }
@@ -91,14 +93,11 @@ public class GUIController extends GUIMain {
 
 
         VBox vBox = new VBox();
-        //setAlignment doesn't seem to work
-        //vBox.setAlignment(Pos.CENTER_LEFT);
         vBox.setPrefSize(screenWidth*0.12,screenHeight*0.5);
         vBox.getStylesheets().add("styleSheet.css");
         vBox.getStyleClass().add("customBorder");
-        vBox.setLayoutX(screenWidth*0.1);
-        vBox.setLayoutY(screenHeight*0.435);
-
+        vBox.setLayoutX(screenWidth*0.45);
+        vBox.setLayoutY(screenHeight*0.2);
 
         //root.getChildren().addAll(nextBtn,chooseText,hbox,bpane);
         vBox.getChildren().addAll();
@@ -117,23 +116,23 @@ public class GUIController extends GUIMain {
         //class buttons
         HBox hbox = new HBox();
         hbox.setAlignment(Pos.CENTER);
-        hbox.setPrefSize(screenWidth,screenHeight);
-        hbox.setLayoutX(132);
-        hbox.setLayoutY(14);
+        hbox.setPrefSize(screenWidth*.5,screenHeight*.2);
+        hbox.setLayoutX(screenWidth*.25);
+        hbox.setLayoutY(screenHeight*.01);
 
         javaFXPlayer player = new javaFXPlayer();
 
         //hbox children
-        Button knightBtn = createButton("Knight",149,39,0,0);
-        Button wizardBtn = createButton("Wizard",149,39,0,0);
-        Button barbarianBtn = createButton("Barbarian",149,39,0,0);
-        Button rangerBtn = createButton("Ranger",149,39,0,0);
+        Button knightBtn = createButton("Knight",screenWidth*0.1,screenHeight*0.05,0,0);
+        Button wizardBtn = createButton("Wizard",screenWidth*0.1,screenHeight*0.05,0,0);
+        Button barbarianBtn = createButton("Barbarian",screenWidth*0.1,screenHeight*0.05,0,0);
+        Button rangerBtn = createButton("Ranger",screenWidth*0.1,screenHeight*0.05,0,0);
 
         //class details container
         BorderPane bpane = new BorderPane();
-        bpane.setPrefSize(380,303);
-        bpane.setLayoutX(32);
-        bpane.setLayoutY(71);
+        bpane.setPrefSize(screenWidth*.5,screenHeight*.75);
+        bpane.setLayoutX(screenWidth*.2);
+        bpane.setLayoutY(screenHeight*.2);
 
         //children for bpane
         Text introText = createText("ClassIntro","Century","White",15,0,0);
