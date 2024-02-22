@@ -2,15 +2,26 @@ package edu.sdccd.cisc191.template;
 
 import javafx.geometry.Pos;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.text.Text;
+import javafx.scene.shape.*;
+
+import java.awt.Toolkit;
+import java.awt.Dimension;
+
 
 public class GUIController extends GUIMain {
 
     private  Scene scene;
+
+
+    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    double screenWidth = screenSize.getWidth()*0.8;
+    double screenHeight = screenSize.getHeight()*0.8;
 
     private Text createText(String textString, String font, String color , double size, double xPos, double yPos) {
         Text text = new Text(textString);
@@ -28,24 +39,49 @@ public class GUIController extends GUIMain {
         return button;
     }
 
-    private  void refreshIntro(int playerClass, javaFXPlayer player,Text hp, Text atk, Text mna, Text gld, Text itm1, Text itm2, Text itm3, Text itm4) {
+    private  void refreshIntro(int playerClass, javaFXPlayer player,Text hp, Text atk, Text mana, Text gold, Text item1, Text item2, Text item3, Text item4) {
         player.setUp(playerClass);
         hp.setText("Health: "+ player.getHealth());
         atk.setText("Attack: " + player.getAttack());
-        mna.setText("Mana: " + player.getMana());
-        gld.setText("Gold: " + player.getGold());
+        mana.setText("Mana: " + player.getMana());
+        gold.setText("Gold: " + player.getGold());
+    }
+
+
+    private void newShowIntro()
+    {
+        Pane root = new Pane();
+        root.getStylesheets().add("styleSheet.css");
+        root.setPrefSize(screenWidth,screenHeight);
+
+
+        VBox vBox = new VBox();
+        //setAlignment doesn't seem to work
+        //vBox.setAlignment(Pos.CENTER_LEFT);
+        vBox.setPrefSize(screenWidth*0.12,screenHeight*0.5);
+        vBox.getStylesheets().add("styleSheet.css");
+        vBox.getStyleClass().add("customBorder");
+        vBox.setLayoutX(screenWidth*0.1);
+        vBox.setLayoutY(screenHeight*0.435);
+
+
+        //root.getChildren().addAll(nextBtn,chooseText,hbox,bpane);
+        vBox.getChildren().addAll();
+        root.getChildren().addAll(vBox);
+        this.stage.setScene(new Scene(root));
     }
 
     private void showIntro() {
 
         //main dude
         AnchorPane root = new AnchorPane();
-        root.setPrefSize(600,400);
+        root.getStylesheets().add("styleSheet.css");
+        root.setPrefSize(screenWidth,screenHeight);
 
         //class buttons
         HBox hbox = new HBox();
         hbox.setAlignment(Pos.CENTER);
-        hbox.setPrefSize(337,75);
+        hbox.setPrefSize(screenWidth,screenHeight);
         hbox.setLayoutX(132);
         hbox.setLayoutY(14);
 
@@ -64,7 +100,7 @@ public class GUIController extends GUIMain {
         bpane.setLayoutY(71);
 
         //children for bpane
-        Text introText = createText("ClassIntro","Arial","Black",15,0,0);
+        Text introText = createText("ClassIntro","Century","White",15,0,0);
         VBox statVBox = new VBox();
         statVBox.setSpacing(25);
         VBox itemVBox = new VBox();
@@ -76,37 +112,37 @@ public class GUIController extends GUIMain {
         bpane.setCenter(introText);
 
         //children for itemVbox
-        Text item1Text = createText("Item 1: ","Arial","Black",15,0,0);
-        Text item2Text = createText("Item 2: ","Arial","Black",15,0,0);
-        Text item3Text = createText("Item 3: ","Arial","Black",15,0,0);
-        Text item4Text = createText("Item 4: ","Arial","Black",15,0,0);
+        Text item1Text = createText("Item 1: ","Century","White",15,0,0);
+        Text item2Text = createText("Item 2: ","Century","White",15,0,0);
+        Text item3Text = createText("Item 3: ","Century","White",15,0,0);
+        Text item4Text = createText("Item 4: ","Century","White",15,0,0);
 
         //children for statVbox
-        Text hpText = createText("Health: ","Arial","Black",15,0,0);
-        Text atkText = createText("Attack: ","Arial","Black",15,0,0);
-        Text mnaText = createText("Mana: ","Arial","Black",15,0,0);
-        Text gldText = createText("Gold: ","Arial","Black",15,0,0);
+        Text hpText = createText("Health: ","Century","White",15,0,0);
+        Text atkText = createText("Attack: ","Century","White",15,0,0);
+        Text manaText = createText("Mana: ","Century","White",15,0,0);
+        Text goldText = createText("Gold: ","Century","White",15,0,0);
 
         //adding children to Vboxes
-        statVBox.getChildren().addAll(hpText,atkText,mnaText,gldText);
+        statVBox.getChildren().addAll(hpText,atkText,manaText,goldText);
         itemVBox.getChildren().addAll(item1Text,item2Text,item3Text,item4Text);
 
         //anchor root children
-        Text chooseText = createText("Choose Your Class","Arial", "Black",25,21,27);
+        Text chooseText = createText("Choose Your Class","Century", "White",25,21,27);
         Button nextBtn = createButton("Continue",149,39,429,335);
 
         //class actions
         knightBtn.setOnAction(e -> {
-            refreshIntro(0,player,hpText,atkText,mnaText,gldText,item1Text,item2Text,item3Text,item4Text);
+            refreshIntro(0,player,hpText,atkText,manaText,goldText,item1Text,item2Text,item3Text,item4Text);
         });
         wizardBtn.setOnAction(e -> {
-            refreshIntro(1,player,hpText,atkText,mnaText,gldText,item1Text,item2Text,item3Text,item4Text);
+            refreshIntro(1,player,hpText,atkText,manaText,goldText,item1Text,item2Text,item3Text,item4Text);
         });
         barbarianBtn.setOnAction(e -> {
-            refreshIntro(2,player,hpText,atkText,mnaText,gldText,item1Text,item2Text,item3Text,item4Text);
+            refreshIntro(2,player,hpText,atkText,manaText,goldText,item1Text,item2Text,item3Text,item4Text);
         });
         rangerBtn.setOnAction(e -> {
-            refreshIntro(3,player,hpText,atkText,mnaText,gldText,item1Text,item2Text,item3Text,item4Text);
+            refreshIntro(3,player,hpText,atkText,manaText,goldText,item1Text,item2Text,item3Text,item4Text);
         });
 
         //next action
@@ -133,6 +169,8 @@ public class GUIController extends GUIMain {
     }
     private void showGameMenu() {
         AnchorPane root = new AnchorPane();
+        root.getStylesheets().add("styleSheet.css");
+
         root.setPrefSize(600,400);
 
         HBox hbox = new HBox();
@@ -155,24 +193,35 @@ public class GUIController extends GUIMain {
    public Scene showMainMenu(){
 
         VBox vbox = new VBox();
-       vbox.setPrefSize(600,400);
-       vbox.setAlignment(Pos.TOP_CENTER);
-
-
+        vbox.setPrefSize(screenWidth,screenHeight);
+        vbox.setAlignment(Pos.TOP_CENTER);
+        vbox.setStyle("-fx-background-color: #000000;");
         scene = new Scene(vbox);
+        scene.getStylesheets().add("styleSheet.css");
+
+        Rectangle divider = new Rectangle();
+        divider.setHeight(screenHeight*0.005);
+        divider.setWidth(screenWidth*0.7);
+        divider.setTranslateY(screenHeight*0.05);
+        divider.setFill(Color.color(1,1,1));
 
         scene.setFill(Paint.valueOf("Black"));
 
-        Text text = createText("Game","Arial","Black",100,0,0);
-        Button btn1 = createButton("Start",200,50,0,25);
-       // btn1.setStyle("-fx-background-radius: 25; -fx-background-color: white;");
+        Text text = createText("Game","Century","White",(screenHeight+screenWidth)/30,0,screenHeight*0.075);
+        Button btn1 = createButton("Start",screenWidth*0.1,screenHeight*0.025,0,screenHeight*0.3);
+        Button quitButton = createButton("Quit",screenWidth*0.1,screenHeight*0.025,0,screenHeight*0.325);
 
-         btn1.setOnAction(e -> {
+        btn1.setOnAction(e ->
+        {
         //Intro
-             showIntro();
+            showIntro();
         });
+        quitButton.setOnAction(e ->
+       {
+           System.exit(0);
+       });
 
-       vbox.getChildren().addAll(text,btn1);
+        vbox.getChildren().addAll(text,btn1,quitButton,divider);
         
         return scene;
     }
