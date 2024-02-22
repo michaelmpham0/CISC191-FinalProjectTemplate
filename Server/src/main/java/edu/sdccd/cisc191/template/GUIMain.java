@@ -23,11 +23,11 @@ public class GUIMain extends Application {
             this.stage = stage;
             GUIController guiController = new GUIController();
 
-            this.stage .setScene(guiController.showMainMenu());
-            this.stage .setResizable(false);
+            this.stage.setScene(guiController.showMainMenu());
+            this.stage.setResizable(false);
 
 
-            this.stage .show();
+            this.stage.show();
         } catch (Exception e) {
             e.printStackTrace();
         }
