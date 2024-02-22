@@ -1,5 +1,6 @@
 package edu.sdccd.cisc191.template;
 
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -9,9 +10,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.text.Text;
 import javafx.scene.shape.*;
+import javafx.scene.text.TextAlignment;
 
 import java.awt.Toolkit;
 import java.awt.Dimension;
+import java.util.ArrayList;
 
 
 public class GUIController extends GUIMain {
@@ -31,8 +34,9 @@ public class GUIController extends GUIMain {
         text.setTranslateY(yPos);
         return text;
     }
-    private Button createButton(String textString, double width, double height, double xPos, double yPos) {
+    private Button createButton(String textString, String styleType,double width, double height, double xPos, double yPos) {
         Button button = new Button(textString);
+        button.getStyleClass().add(styleType);
         button.setPrefSize(width,height);
         button.setTranslateX(xPos);
         button.setTranslateY(yPos);
@@ -47,6 +51,37 @@ public class GUIController extends GUIMain {
         gold.setText("Gold: " + player.getGold());
     }
 
+
+    private void newNewShowIntro()
+    {
+        BorderPane root = new BorderPane();
+        root.getStylesheets().add("styleSheet.css");
+        root.setPrefSize(screenWidth,screenHeight);
+
+
+        HBox hBox = new HBox();
+        //alligns box in the middle
+        root.setCenter(hBox);
+        BorderPane.setMargin(hBox, new Insets(-screenHeight*0.6,0,0,0));
+
+        hBox.setSpacing(8);
+        hBox.setPadding(new Insets(8,8,8,8));
+        hBox.setMaxSize(screenWidth*0.7,screenHeight*0.05);
+        hBox.getStylesheets().add("styleSheet.css");
+        hBox.getStyleClass().add("customBorder");
+
+        Text titleText = createText("Character Creation","Century","White",(screenHeight+screenWidth)/50,0,0);
+
+        String classList[] = {"Knight","Wizard","Barbarian","Ranger"};
+        for (int i=1;i<=4;i++)
+        {
+            Button newButton = createButton(classList[i-1],"Button2",8000,8000,0,0);
+            newButton.setAlignment(Pos.CENTER);
+            hBox.getChildren().add(newButton);
+        }
+
+        this.stage.setScene(new Scene(root));
+    }
 
     private void newShowIntro()
     {
@@ -71,6 +106,7 @@ public class GUIController extends GUIMain {
         this.stage.setScene(new Scene(root));
     }
 
+    /*
     private void showIntro() {
 
         //main dude
@@ -162,11 +198,15 @@ public class GUIController extends GUIMain {
         this.stage.setScene(new Scene(root));
     }
 
+     */
+
+    /*
     private void gameLoop(){
         //TO DO: While Pit here similar to the one in Server
 
         showGameMenu();
     }
+
     private void showGameMenu() {
         AnchorPane root = new AnchorPane();
         root.getStylesheets().add("styleSheet.css");
@@ -189,6 +229,7 @@ public class GUIController extends GUIMain {
 
         this.stage.setScene(new Scene(root));
     }
+     */
 
    public Scene showMainMenu(){
 
@@ -208,13 +249,13 @@ public class GUIController extends GUIMain {
         scene.setFill(Paint.valueOf("Black"));
 
         Text text = createText("Game","Century","White",(screenHeight+screenWidth)/30,0,screenHeight*0.075);
-        Button btn1 = createButton("Start",screenWidth*0.1,screenHeight*0.025,0,screenHeight*0.3);
-        Button quitButton = createButton("Quit",screenWidth*0.1,screenHeight*0.025,0,screenHeight*0.325);
+        Button btn1 = createButton("Start","Button1",screenWidth*0.1,screenHeight*0.025,0,screenHeight*0.3);
+        Button quitButton = createButton("Quit","Button1",screenWidth*0.1,screenHeight*0.025,0,screenHeight*0.325);
 
         btn1.setOnAction(e ->
         {
         //Intro
-            showIntro();
+            newNewShowIntro();
         });
         quitButton.setOnAction(e ->
        {
