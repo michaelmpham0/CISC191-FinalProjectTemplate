@@ -24,6 +24,7 @@ public class GUIMain extends Application {
             GUIController guiController = new GUIController();
 
             this.stage.setScene(guiController.showMainMenu());
+            stage.setTitle("Group 1 Architect Game");
             this.stage.setResizable(false);
 
 
@@ -33,4 +34,3 @@ public class GUIMain extends Application {
         }
     }
 }
-;
