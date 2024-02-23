@@ -2,6 +2,7 @@ package edu.sdccd.cisc191.template;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
@@ -51,57 +52,67 @@ public class GUIController extends GUIMain {
         gold.setText("Gold: " + player.getGold());
     }
 
-
-    private void newNewShowIntro()
+    private void newShowIntro()
     {
+        //main container to align things to center
         BorderPane root = new BorderPane();
         root.getStylesheets().add("styleSheet.css");
         root.setPrefSize(screenWidth,screenHeight);
 
+        //second container to align things to center, is slightly smaller than full screen
+        VBox vBox = new VBox();
+        //sets this vbox to center with the border pane
+        root.setCenter(vBox);
+        vBox.setAlignment(Pos.CENTER);
+        vBox.setMaxSize(screenWidth*0.9,screenHeight*0.9);
+        vBox.getStylesheets().add("styleSheet.css");
+
+        //VBox container at the top to contain text and class list
+        //when adding things to vbox, the first thing added will be at the top, second thing below it, etc
+        VBox topContainer = new VBox();
+        vBox.getChildren().add(topContainer);
+        topContainer.setAlignment(Pos.TOP_CENTER);
+        topContainer.setPrefSize(screenWidth,screenHeight);
+        topContainer.setMaxSize(screenWidth,screenHeight);
+        topContainer.getStylesheets().add("styleSheet.css");
+
+        Label titleText = new Label();
+        titleText.setAlignment(Pos.CENTER);
+        titleText.setText("Character Creation");
+        titleText.setPrefSize(screenWidth*0.3,screenHeight*0.05);
+        titleText.setMaxSize(screenWidth*0.3,screenHeight*0.05);
+        topContainer.getChildren().add(titleText);
+        titleText.getStylesheets().add("styleSheet.css");
+        //i set margins to 0, so i had more manual control over the placement
+        VBox.setMargin(titleText,new Insets(0,0,0,0));
 
         HBox hBox = new HBox();
-        //alligns box in the middle
-        root.setCenter(hBox);
-        BorderPane.setMargin(hBox, new Insets(-screenHeight*0.6,0,0,0));
-
-        hBox.setSpacing(8);
-        hBox.setPadding(new Insets(8,8,8,8));
-        hBox.setMaxSize(screenWidth*0.7,screenHeight*0.05);
+        //hbox container to contain the class list
+        hBox.setAlignment(Pos.CENTER);
+        //padding, the empty space between buttons and the border
+        hBox.setPadding(new Insets(screenWidth*0.015,screenWidth*0.015,screenWidth*0.015,screenWidth*0.015));
+        //spacing, the horizontal distance between each button
+        hBox.setSpacing(screenWidth*0.025);
+        hBox.setPrefSize(screenWidth*0.8,screenHeight*0.1);
+        hBox.setMaxSize(screenWidth*0.8,screenHeight*0.1);
+        //moves the class list slightly down so it's not colliding with the title
+        hBox.setTranslateY(screenHeight*0.05);
         hBox.getStylesheets().add("styleSheet.css");
-        hBox.getStyleClass().add("customBorder");
+        hBox.getStyleClass().add("borders");
+        topContainer.getChildren().add(hBox);
+        //I set margins to 0, so I had more manual control over the placement
+        VBox.setMargin(hBox,new Insets(0,0,0,0));
 
-        Text titleText = createText("Character Creation","Century","White",(screenHeight+screenWidth)/50,500,100);
+
 
         String classList[] = {"Knight","Wizard","Barbarian","Ranger"};
         for (int i=1;i<=4;i++)
         {
+            //the width and height of the button is huge, because it seems to automatically scale it to fit the HBox
             Button newButton = createButton(classList[i-1],"Button2",8000,8000,0,0);
-            newButton.setAlignment(Pos.CENTER);
             hBox.getChildren().add(newButton);
         }
 
-        root.getChildren().addAll(titleText);
-
-        this.stage.setScene(new Scene(root));
-    }
-
-    private void newShowIntro()
-    {
-        Pane root = new Pane();
-        root.getStylesheets().add("styleSheet.css");
-        root.setPrefSize(screenWidth,screenHeight);
-
-
-        VBox vBox = new VBox();
-        vBox.setPrefSize(screenWidth*0.12,screenHeight*0.5);
-        vBox.getStylesheets().add("styleSheet.css");
-        vBox.getStyleClass().add("customBorder");
-        vBox.setLayoutX(screenWidth*0.45);
-        vBox.setLayoutY(screenHeight*0.2);
-
-        //root.getChildren().addAll(nextBtn,chooseText,hbox,bpane);
-        vBox.getChildren().addAll();
-        root.getChildren().addAll(vBox);
         this.stage.setScene(new Scene(root));
     }
 
@@ -254,7 +265,7 @@ public class GUIController extends GUIMain {
         btn1.setOnAction(e ->
         {
         //Intro
-            newNewShowIntro();
+            newShowIntro();
         });
         quitButton.setOnAction(e ->
        {

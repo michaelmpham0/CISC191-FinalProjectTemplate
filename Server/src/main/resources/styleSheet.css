@@ -45,18 +45,31 @@
     -fx-padding: 3 6 6 6;
 }
 
+.label{
+    -fx-border-color: rgb(255, 255, 255);
+    -fx-text-fill: rgb(255, 255, 255);
+    -fx-font-size: 16pt;
+    -fx-font-family: "Century";
+    -fx-border-style: solid;
+    -fx-border-width: 1.5;
+    -fx-border-insets: -5;
+}
+
+
 .customBorder{
     -fx-base: rgb(255, 255, 255);
-    -fx-background-color: rgb(0, 0, 0);
+    -fx-background-color: rgb(255, 0, 0);
     -fx-border-color: rgb(255, 255, 255);
     -fx-border-style: solid;
     -fx-border-width: 1.5;
     -fx-border-insets: -5;
 }
 
+
 .borders{
+    -fx-base: rgb(255, 255, 255);
     -fx-border-color: rgb(255, 255, 255);
-    -fx-border-style: dotted;
+    -fx-border-style: solid;
     -fx-border-width: 1.5;
     -fx-border-insets: -5;
 }
