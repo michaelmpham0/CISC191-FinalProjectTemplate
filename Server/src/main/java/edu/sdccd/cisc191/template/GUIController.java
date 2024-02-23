@@ -258,7 +258,7 @@ public class GUIController extends GUIMain {
 
         scene.setFill(Paint.valueOf("Black"));
 
-        Text text = createText("Game","Century","White",(screenHeight+screenWidth)/30,0,screenHeight*0.075);
+        Text text = createText("Game","Century","White",(screenHeight+screenWidth)/10,0,screenHeight*0.1);
         Button btn1 = createButton("Start","Button1",screenWidth*0.1,screenHeight*0.025,0,screenHeight*0.3);
         Button quitButton = createButton("Quit","Button1",screenWidth*0.1,screenHeight*0.025,0,screenHeight*0.325);
 
