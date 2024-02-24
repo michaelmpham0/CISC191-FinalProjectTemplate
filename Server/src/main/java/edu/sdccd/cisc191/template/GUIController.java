@@ -8,15 +8,16 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.text.Text;
+import javafx.scene.control.TextField;
 import javafx.scene.shape.*;
 import javafx.scene.text.TextAlignment;
 
-import java.awt.Toolkit;
-import java.awt.Dimension;
+import java.awt.*;
 import java.util.ArrayList;
 
 
@@ -101,6 +102,14 @@ public class GUIController extends GUIMain {
         titleText.getStylesheets().add("styleSheet.css");
         //i set margins to 0, so i had more manual control over the placement
         VBox.setMargin(titleText,new Insets(0,0,0,0));
+
+
+        TextField nameField = new TextField();
+        nameField.setVisible(false);
+        nameField.setTranslateY(screenWidth*0.025);
+        nameField.setPrefSize(screenWidth*0.15,screenHeight*0.02);
+        nameField.setMaxSize(screenWidth*0.15,screenHeight*0.02);
+        topContainer.getChildren().addAll(nameField);
 
         HBox middleContainer = new HBox();
 
@@ -188,6 +197,7 @@ public class GUIController extends GUIMain {
             newButton.setOnAction(e -> {
                 if (imageView.isVisible() == false)
                 {
+                    nameField.setVisible(true);
                     confirmButton.setVisible(true);
                     imageView.setVisible(true);
                     leftText.setVisible(true);
