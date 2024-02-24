@@ -3,6 +3,8 @@ package edu.sdccd.cisc191.template;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
@@ -96,7 +98,7 @@ public class GUIController extends GUIMain {
         hBox.setPrefSize(screenWidth*0.8,screenHeight*0.1);
         hBox.setMaxSize(screenWidth*0.8,screenHeight*0.1);
         //moves the class list slightly down so it's not colliding with the title
-        hBox.setTranslateY(screenHeight*0.05);
+        hBox.setTranslateY(screenHeight*0.75);
         hBox.getStylesheets().add("styleSheet.css");
         hBox.getStyleClass().add("borders");
         topContainer.getChildren().add(hBox);
@@ -110,6 +112,30 @@ public class GUIController extends GUIMain {
         {
             //the width and height of the button is huge, because it seems to automatically scale it to fit the HBox
             Button newButton = createButton(classList[i-1],"Button2",8000,8000,0,0);
+
+            final int index = i;
+
+            newButton.setOnAction(e -> {
+                switch (index) {
+                    case 1:
+                        VBox middleContainer = new VBox();
+                        vBox.getChildren().add(middleContainer);
+                        middleContainer.setAlignment(Pos.CENTER);
+                        middleContainer.setPrefSize(screenWidth,screenHeight);
+                        middleContainer.setMaxSize(screenWidth,screenHeight);
+
+                        Image knightImage = new Image("file:Server/src/knightclass.png");
+                        ImageView knightView = new ImageView(knightImage);
+
+                        Label knightimage = new Label("",knightView);
+                        knightimage.setAlignment(Pos.CENTER);
+
+                        knightimage.setPrefSize(screenWidth*0.8,screenHeight*1);
+                        knightimage.setMaxSize(screenWidth*0.8,screenHeight*1);
+                        middleContainer.getChildren().add(knightimage);
+                }
+            });
+
             hBox.getChildren().add(newButton);
         }
 
