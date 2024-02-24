@@ -38,7 +38,7 @@
     -fx-font-size: 16pt;
     -fx-border-width: 0;
     -fx-font-family: "Century";
-    -fx-background-color: rgb(105, 105, 105);
+    -fx-background-color: rgb(255, 255, 255);
     -fx-text-fill: rgb(0, 0, 0);
     -fx-border-color: rgb(255, 255, 255);
     -fx-border-radius: 20;
@@ -48,17 +48,29 @@
 .label{
     -fx-border-color: rgb(255, 255, 255);
     -fx-text-fill: rgb(255, 255, 255);
-    -fx-font-size: 16pt;
-    -fx-font-family: "Century";
+
     -fx-border-style: solid;
     -fx-border-width: 1.5;
     -fx-border-insets: -5;
+}
+
+.noBorder{
+    -fx-border-width: 0;
 }
 
 
 .customBorder{
     -fx-base: rgb(255, 255, 255);
     -fx-background-color: rgb(255, 0, 0);
+    -fx-border-color: rgb(255, 255, 255);
+    -fx-border-style: solid;
+    -fx-border-width: 1.5;
+    -fx-border-insets: -5;
+}
+
+.customBorder14{
+    -fx-base: rgb(255, 255, 255);
+    -fx-background-color: rgb(15, 220, 187);
     -fx-border-color: rgb(255, 255, 255);
     -fx-border-style: solid;
     -fx-border-width: 1.5;

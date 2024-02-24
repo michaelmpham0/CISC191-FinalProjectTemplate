@@ -46,6 +46,18 @@ public class GUIController extends GUIMain {
         return button;
     }
 
+    private void newRefreshIntro(String playerClass,Label leftText,Label rightText)
+    {
+        player.setClass(playerClass);
+        String leftString = "";
+        leftString += "Health\n"+player.getHealth()+"\n\n";
+        leftString += "Attack\n"+player.getAttack()+"\n\n";
+        leftString += "Mana\n"+player.getMana()+"\n\n";
+        leftString += "Gold\n"+player.getGold()+"\n\n";
+        leftText.setText(leftString);
+        rightText.setText(TextDisplay.getText(playerClass+"Intro"));
+    }
+
     private  void refreshIntro(int playerClass, javaFXPlayer player,Text hp, Text atk, Text mana, Text gold, Text item1, Text item2, Text item3, Text item4) {
         player.setUp(playerClass);
         hp.setText("Health: "+ player.getHealth());
@@ -54,7 +66,7 @@ public class GUIController extends GUIMain {
         gold.setText("Gold: " + player.getGold());
     }
 
-    private void newShowIntro()
+    private void newShowIntro(Player player)
     {
         //main container to align things to center
         BorderPane root = new BorderPane();
@@ -67,6 +79,8 @@ public class GUIController extends GUIMain {
         root.setCenter(vBox);
         vBox.setAlignment(Pos.CENTER);
         vBox.setMaxSize(screenWidth*0.9,screenHeight*0.9);
+        vBox.setSpacing(0.0);
+        vBox.setPadding(new Insets(0,0,0,0));
         vBox.getStylesheets().add("styleSheet.css");
 
         //VBox container at the top to contain text and class list
@@ -88,6 +102,66 @@ public class GUIController extends GUIMain {
         //i set margins to 0, so i had more manual control over the placement
         VBox.setMargin(titleText,new Insets(0,0,0,0));
 
+        HBox middleContainer = new HBox();
+
+        double imageWidth = (screenHeight+screenWidth)/9;
+        double imageHeight = (screenHeight+screenWidth)/6;
+
+        middleContainer.getStylesheets().add("styleSheet.css");
+        middleContainer.setAlignment(Pos.CENTER);
+        middleContainer.setPrefSize(screenWidth*0.8,imageHeight*1.2);
+        middleContainer.setMinSize(screenWidth*0.8,imageHeight*1.2);
+        middleContainer.setMaxSize(screenWidth*0.8,imageHeight*1.2);
+        middleContainer.setSpacing(screenWidth*0.025);
+        HBox.setMargin(middleContainer,new Insets(0,0,0,0));
+        middleContainer.setTranslateY(-screenHeight*0.175);
+        vBox.getChildren().add(middleContainer);
+
+        Label leftText = new Label();
+        leftText.setVisible(false);
+        leftText.setFont(new Font("Century",(screenHeight+screenWidth)/75));
+        leftText.setTextAlignment(TextAlignment.CENTER);
+        leftText.setAlignment(Pos.CENTER);
+        leftText.setPrefSize(imageWidth*1.2,imageHeight*1.25);
+        leftText.setMinSize(imageWidth*1.2,imageHeight*1.25);
+        leftText.setMaxSize(imageWidth*1.2,imageHeight*1.25);
+        leftText.setTranslateX(-screenWidth*0.025);
+        middleContainer.getChildren().add(leftText);
+
+        Label imageContainer = new Label();
+        imageContainer.getStylesheets().add("styleSheet.css");
+        imageContainer.getStyleClass().add("noBorder");
+        imageContainer.setAlignment(Pos.CENTER);
+        imageContainer.setPrefSize(imageWidth,imageHeight);
+        imageContainer.setMinSize(imageWidth,imageHeight);
+        imageContainer.setMaxSize(imageWidth,imageHeight);
+        middleContainer.getChildren().add(imageContainer);
+        Image newImage = new Image("file:Server/src/main/resources/Images/knightclass.png");
+        ImageView imageView = new ImageView(newImage);
+        imageView.setPreserveRatio(true);
+        imageView.setFitHeight(imageHeight);
+        imageView.setFitWidth(imageWidth);
+        imageContainer.setGraphic(imageView);
+        imageView.setVisible(false);
+
+        Button confirmButton = createButton("Confirm","Button2",screenWidth*0.1,screenHeight*0.025,0,0);
+        confirmButton.setVisible(false);
+        confirmButton.setTranslateY(-screenHeight*0.2);
+        vBox.setMargin(confirmButton,new Insets(0,0,0,0));
+        vBox.getChildren().add(confirmButton);
+
+        Label rightText = new Label();
+        rightText.setVisible(false);
+        rightText.setWrapText(true);
+        rightText.setFont(new Font("Century",(screenHeight+screenWidth)/80));
+        rightText.setTextAlignment(TextAlignment.CENTER);
+        rightText.setAlignment(Pos.CENTER);
+        rightText.setPrefSize(imageWidth*1.3,imageHeight*1.25);
+        rightText.setMinSize(imageWidth*1.3,imageHeight*1.25);
+        rightText.setMaxSize(imageWidth*1.3,imageHeight*1.25);
+        rightText.setTranslateX(screenWidth*0.025);
+        middleContainer.getChildren().add(rightText);
+
         HBox hBox = new HBox();
         //hbox container to contain the class list
         hBox.setAlignment(Pos.CENTER);
@@ -98,14 +172,11 @@ public class GUIController extends GUIMain {
         hBox.setPrefSize(screenWidth*0.8,screenHeight*0.1);
         hBox.setMaxSize(screenWidth*0.8,screenHeight*0.1);
         //moves the class list slightly down so it's not colliding with the title
-        hBox.setTranslateY(screenHeight*0.75);
+        hBox.setTranslateY(screenHeight*0.7);
         hBox.getStylesheets().add("styleSheet.css");
         hBox.getStyleClass().add("borders");
         topContainer.getChildren().add(hBox);
-        //I set margins to 0, so I had more manual control over the placement
         VBox.setMargin(hBox,new Insets(0,0,0,0));
-
-
 
         String classList[] = {"Knight","Wizard","Barbarian","Ranger"};
         for (int i=1;i<=4;i++)
@@ -113,27 +184,17 @@ public class GUIController extends GUIMain {
             //the width and height of the button is huge, because it seems to automatically scale it to fit the HBox
             Button newButton = createButton(classList[i-1],"Button2",8000,8000,0,0);
 
-            final int index = i;
-
+            int index = i;
             newButton.setOnAction(e -> {
-                switch (index) {
-                    case 1:
-                        VBox middleContainer = new VBox();
-                        vBox.getChildren().add(middleContainer);
-                        middleContainer.setAlignment(Pos.CENTER);
-                        middleContainer.setPrefSize(screenWidth,screenHeight);
-                        middleContainer.setMaxSize(screenWidth,screenHeight);
-
-                        Image knightImage = new Image("file:Server/src/knightclass.png");
-                        ImageView knightView = new ImageView(knightImage);
-
-                        Label knightimage = new Label("",knightView);
-                        knightimage.setAlignment(Pos.CENTER);
-
-                        knightimage.setPrefSize(screenWidth*0.8,screenHeight*1);
-                        knightimage.setMaxSize(screenWidth*0.8,screenHeight*1);
-                        middleContainer.getChildren().add(knightimage);
+                if (imageView.isVisible() == false)
+                {
+                    confirmButton.setVisible(true);
+                    imageView.setVisible(true);
+                    leftText.setVisible(true);
+                    rightText.setVisible(true);
                 }
+                newRefreshIntro(classList[index-1],leftText,rightText);
+                System.out.println(classList[index -1]);
             });
 
             hBox.getChildren().add(newButton);
@@ -267,7 +328,7 @@ public class GUIController extends GUIMain {
     }
      */
 
-   public Scene showMainMenu(){
+   public Scene showMainMenu(Player player){
 
         VBox vbox = new VBox();
         vbox.setPrefSize(screenWidth,screenHeight);
@@ -284,14 +345,14 @@ public class GUIController extends GUIMain {
 
         scene.setFill(Paint.valueOf("Black"));
 
-        Text text = createText("Game","Century","White",(screenHeight+screenWidth)/10,0,screenHeight*0.1);
+        Text text = createText("Game","Century","White",(screenHeight+screenWidth)/15,0,screenHeight*0.1);
         Button btn1 = createButton("Start","Button1",screenWidth*0.1,screenHeight*0.025,0,screenHeight*0.3);
         Button quitButton = createButton("Quit","Button1",screenWidth*0.1,screenHeight*0.025,0,screenHeight*0.325);
 
         btn1.setOnAction(e ->
         {
         //Intro
-            newShowIntro();
+            newShowIntro(player);
         });
         quitButton.setOnAction(e ->
        {

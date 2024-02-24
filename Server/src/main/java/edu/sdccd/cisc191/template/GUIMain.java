@@ -16,6 +16,8 @@ public class GUIMain extends Application {
        launch(args);
     }
 
+    Player player = new Player();
+
     protected  static Stage stage;
     @Override
     public void start(Stage stage) throws Exception {
@@ -23,7 +25,7 @@ public class GUIMain extends Application {
             this.stage = stage;
             GUIController guiController = new GUIController();
 
-            this.stage.setScene(guiController.showMainMenu());
+            this.stage.setScene(guiController.showMainMenu(player));
             stage.setTitle("Group 1 Architect Game");
             this.stage.setResizable(false);
 

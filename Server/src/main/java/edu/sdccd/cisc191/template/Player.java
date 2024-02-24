@@ -115,6 +115,18 @@ public class Player {
         }
     }
 
+
+    String classList[] = {"Knight","Wizard","Barbarian","Ranger"};
+
+    public void setClass(String setClass)
+    {
+        Class = setClass;
+        maxHP = HP = classStats.get(Class)[0];
+        ATK = classStats.get(Class)[1];
+        MANA = classStats.get(Class)[2];
+        GOLD = classStats.get(Class)[3];
+    }
+
     public void setUp(){
         TextDisplay displayText = new TextDisplay();
         PromptDisplay displayPrompt = new PromptDisplay();
@@ -131,7 +143,7 @@ public class Player {
         displayPrompt.display("Classes");
 
         int promptChoice = controlPrompt.answerPrompt(4,false);
-        String classList[] = {"Knight","Wizard","Barbarian","Ranger"};
+
         Class = classList[promptChoice-1];
 
         maxHP = HP = classStats.get(Class)[0];
