@@ -2,8 +2,8 @@ package edu.sdccd.cisc191.template;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -60,22 +60,114 @@ public class GUIController extends GUIMain {
         rightText.setText(TextDisplay.getText(player.getPlayerClass()+"Intro"));
     }
 
-    private Label createLabel(String text,String fontType,double fontDividor,double width,double height)
-    {
-        Label newLabel = new Label();
-        newLabel.setText(text);
-        newLabel.getStylesheets().add("styleSheet.css");
-        newLabel.setFont(new Font(fontType,(screenHeight+screenWidth)/fontDividor));
-        newLabel.setMinSize(screenWidth*width,screenHeight*height);
-        newLabel.setPrefSize(screenWidth*width,screenHeight*height);
-        newLabel.setMaxSize(screenWidth*width,screenHeight*height);
-        newLabel.setTextAlignment(TextAlignment.CENTER);
-        newLabel.setAlignment(Pos.CENTER);
-        newLabel.getStylesheets().add("styleSheet.css");
-        return newLabel;
+    private void updateItem(Items item,Text name,Text description,Text count){
+        name.setText(item.getItemName());
+        description.setText(item.getItemDesc());
+        count.setText("x" + item.getHoldSize() + " "+item.getItemName());
     }
 
-    private void statusMenu(Player player,Inventory storage)
+    private void itemMenu(Player player){
+        BorderPane root = new BorderPane();
+        root.getStylesheets().add("styleSheet.css");
+        root.getStyleClass().add("borders");
+        root.setPrefSize(screenWidth,screenHeight);
+
+        ScrollPane scrollPane = new ScrollPane();
+        
+        root.setCenter(scrollPane);
+        scrollPane.setMaxSize(screenWidth*0.5,screenHeight*0.2);
+        scrollPane.setTranslateY(-screenHeight*0.3);
+        scrollPane.setTranslateX(-screenWidth*0.1);
+        scrollPane.getStylesheets().add("styleSheet.css");
+
+        Label titleText = new Label();
+        titleText.setAlignment(Pos.CENTER);
+        titleText.setText("Inventory");
+        titleText.setPrefSize(screenWidth*0.3,screenHeight*0.05);
+        titleText.setMaxSize(screenWidth*0.3,screenHeight*0.05);
+        root.setTop(titleText);
+        titleText.setTranslateY(screenHeight*0.05);
+        titleText.setTranslateX(screenWidth*0.2);
+        titleText.getStylesheets().add("styleSheet.css");
+
+        HBox itemContainer = new HBox();
+        itemContainer.setSpacing(25);
+
+        //Console check
+        Inventory inventoryCheck = new Inventory(player.getPlayerClass());
+        System.out.println(inventoryCheck.printItems());
+
+        //Borderpane for easier organization
+        BorderPane itemDetails = new BorderPane();
+        itemDetails.setMaxSize(screenWidth*0.05,screenHeight*0.75);
+        itemDetails.setTranslateY(screenHeight*0.01);
+        itemDetails.setTranslateX(-screenWidth*0.1);
+        itemDetails.setPadding(new Insets(0,0,0,0));
+        itemDetails.getStylesheets().add("styleSheet.css");
+        itemDetails.getStyleClass().add("borders");
+
+        //Details for each item when clicked
+        Text itemName = createText("Item Name","Century","White",(screenHeight+screenWidth)/100,0,screenHeight*0.05);
+        itemName.setTextAlignment(TextAlignment.CENTER);
+        itemName.setWrappingWidth(screenWidth*0.2);
+
+        Text itemDescription = createText("Item Description","Century","White",(screenHeight+screenWidth)/100,0,0);
+        itemDescription.setTextAlignment(TextAlignment.CENTER);
+        itemDescription.setWrappingWidth(screenWidth*0.2);
+
+        Text itemCount = createText("xCount Item","Century","White",(screenHeight+screenWidth)/100,0,-screenHeight*0.05);
+        itemCount.setTextAlignment(TextAlignment.CENTER);
+        itemCount.setWrappingWidth(screenWidth*0.2);
+
+        itemDetails.setTop(itemName);
+        itemDetails.setCenter(itemDescription);
+        itemDetails.setBottom(itemCount);
+
+        //Creates buttons for each item
+        for (Items invItems: inventoryCheck.getInventory()) {
+            Button itemButton = createButton(invItems.getItemName(),"Button2",screenWidth*0.1,screenHeight*0.15,0,0);
+            itemButton.setWrapText(true);
+            itemContainer.getChildren().add(itemButton);
+            //Item Button activation
+            itemButton.setOnAction(e -> {
+                updateItem(invItems,itemName,itemDescription,itemCount);
+            });
+        }
+
+        //this hides itemdetails for some reason
+     //   Button useButton = createButton("Use","Button2",screenWidth*0.1,screenHeight*0.05,-screenWidth*0.05,screenHeight*0.8);
+
+        Button backButton = createButton("Back","Button2",screenWidth*0.1,screenHeight*0.05,screenWidth*0.05,screenHeight*0.9);
+
+        backButton.setOnAction(e -> {
+            exploreMenu(player);
+                });
+
+        root.setLeft(backButton);
+        root.setRight(itemDetails);
+ //       root.setRight(useButton);
+
+        scrollPane.setContent(itemContainer);
+        scrollPane.setPannable(true);
+        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+
+        stage.setScene(new Scene(root));
+    }
+
+    private void updateStatus(Player player,Label leftTextLabel,Label rightTextLabel)
+    {
+        String leftString = String.format("Health:");
+        //return String.format("Health:%-5d \t Attack:%-5d \t\nMana:%-5d \t\t Gold:%d",HP,ATK,MANA,GOLD);
+
+        leftString += "Health\tAttack\n";
+        leftString += player.getHealth()+"\t"+player.getAttack()+"\n";
+        leftString += "Mana\tGold\n";
+        leftString += player.getMana()+"\t"+player.getGold();
+        leftTextLabel.setText(leftString);
+        //rightTextLabel.setText(leftString);
+    }
+
+    private void statusMenu(Player player)
     {
         BorderPane root = new BorderPane();
         root.getStylesheets().add("styleSheet.css");
@@ -90,9 +182,14 @@ public class GUIController extends GUIMain {
         vBox.setPadding(new Insets(0,0,0,0));
         vBox.getStylesheets().add("styleSheet.css");
 
-        Label titleText = createLabel("Status","Century",90,0.3,0.05);
+        Label titleText = new Label();
+        titleText.setAlignment(Pos.CENTER);
+        titleText.setText("Status");
+        titleText.setPrefSize(screenWidth*0.3,screenHeight*0.05);
+        titleText.setMaxSize(screenWidth*0.3,screenHeight*0.05);
         titleText.setTranslateY(-screenHeight*0.1);
         vBox.getChildren().add(titleText);
+        titleText.getStylesheets().add("styleSheet.css");
 
         HBox textContainer =  new HBox();
         textContainer.setAlignment(Pos.CENTER);
@@ -103,55 +200,34 @@ public class GUIController extends GUIMain {
         textContainer.getStyleClass().add("borders");
         vBox.getChildren().add(textContainer);
 
-        Label leftText = createLabel("","Century",80,0.25,0.5);
+        Label leftText = new Label();
+        leftText.setFont(new Font("Century",(screenHeight+screenWidth)/65));
+        leftText.setTextAlignment(TextAlignment.LEFT);
+        leftText.setAlignment(Pos.CENTER_LEFT);
+        leftText.setPrefSize(screenWidth*0.25,screenHeight*0.5);
+        leftText.setMinSize(screenWidth*0.25,screenHeight*0.5);
+        leftText.setMaxSize(screenWidth*0.25,screenHeight*0.5);
+        leftText.getStylesheets().add("styleSheet.css");
         leftText.getStyleClass().add("noBorder");
         textContainer.getChildren().add(leftText);
 
-        String leftString = "";
-        leftString += "Health\n"+player.getHealth()+"\n\n";
-        leftString += "Attack\n"+player.getAttack()+"\n\n";
-        leftString += "Mana\n"+player.getMana()+"\n\n";
-        leftString += "Gold\n"+player.getGold()+"\n\n";
-        leftText.setText(leftString);
+        Label rightText = new Label();
+        rightText.setFont(new Font("Century",(screenHeight+screenWidth)/75));
+        rightText.setTextAlignment(TextAlignment.CENTER);
+        rightText.setAlignment(Pos.CENTER_RIGHT);
+        rightText.setPrefSize(screenWidth*0.25,screenHeight*0.5);
+        rightText.setMinSize(screenWidth*0.25,screenHeight*0.5);
+        rightText.setMaxSize(screenWidth*0.25,screenHeight*0.5);
+        rightText.getStylesheets().add("styleSheet.css");
+        rightText.getStyleClass().add("noBorder");
+        textContainer.getChildren().add(rightText);
 
-        VBox rightTextBox = new VBox();
-        rightTextBox.setAlignment(Pos.TOP_CENTER);
-        rightTextBox.setPrefSize(screenWidth*0.25,screenHeight*0.5);
-        rightTextBox.setMinSize(screenWidth*0.25,screenHeight*0.5);
-        rightTextBox.setMaxSize(screenWidth*0.25,screenHeight*0.5);
-        rightTextBox.getStylesheets().add("styleSheet.css");
-        rightTextBox.getStyleClass().add("noBorder");
-        textContainer.getChildren().add(rightTextBox);
-
-        Label nameLabel = createLabel("Name - "+player.getName(),"Century",120,0.25,0.025);
-        nameLabel.getStyleClass().add("noBorder");
-        rightTextBox.getChildren().add(nameLabel);
-
-        Label weaponLabel = createLabel("","Century",120,0.25,0.15);
-        weaponLabel.getStyleClass().add("noBorder");
-        weaponLabel.setWrapText(true);
-        weaponLabel.setText("Current Weapon - "+player.getCurrentWeapon()+"\n"+player.getCurrentWeapon().getItemDesc()+"\n Damage: "+player.getCurrentWeapon().getWeaponDamage());
-        weaponLabel.setTranslateY(screenHeight*0.025);
-        rightTextBox.getChildren().add(weaponLabel);
-
-        Label toolLabel = createLabel("","Century",120,0.25,0.15);
-        toolLabel.getStyleClass().add("noBorder");
-        toolLabel.setWrapText(true);
-        toolLabel.setText("Current Tool - "+player.getCurrentTool()+"\n"+player.getCurrentTool().getItemDesc());
-        toolLabel.setTranslateY(screenHeight*0.05);
-        rightTextBox.getChildren().add(toolLabel);
-
-        Button confirmButton = createButton("Go Back","Button2",screenWidth*0.1,screenHeight*0.025,0,0);
-        confirmButton.setTranslateY(screenHeight*0.05);
-        vBox.getChildren().add(confirmButton);
-        confirmButton.setOnAction(e -> {
-            exploreMenu(player,storage);
-        });
+        updateStatus(player,leftText,rightText);
 
         stage.setScene(new Scene(root));
     }
 
-    private void exploreMenu(Player player,Inventory storage)
+    private void exploreMenu(Player player)
     {
         BorderPane root = new BorderPane();
         root.getStylesheets().add("styleSheet.css");
@@ -208,13 +284,14 @@ public class GUIController extends GUIMain {
                         break;
                     case 2:
                         // Check Status
-                        statusMenu(player,storage);
+                        statusMenu(player);
                         //stage.setScene(new Scene(root));
                         break;
                     case 3:
                         // Spells
                         break;
                     case 4:
+                        itemMenu(player);
                         // Items
                         break;
                 }
@@ -382,75 +459,12 @@ public class GUIController extends GUIMain {
                     player.setName(nameField.getText());
                     // else, name is "Unknown"
                 }
-
-                Inventory storage = new Inventory(player.getPlayerClass());
-                ArrayList<Items> playerInventoryList = storage.getInventory();
-                Boolean foundWeapon = false;
-                Boolean foundTool = false;
-
-                //equip variables, because i got an error for modifiying an array while looping through it
-                Items equipWeapon = player.getCurrentWeapon();
-                Items equipTool = player.getCurrentTool();
-
-                // For each loop to go through starting inventory and equip weapons
-                for (Items item : playerInventoryList)
-                {
-                    if (item instanceof Weapons && foundWeapon == false)
-                    {
-                        if (player.getCurrentWeapon().getItemName().equals("None"))
-                        {
-                            foundWeapon = true;
-                            equipWeapon = item;
-                        }
-                    }
-                    else if (item instanceof Tools && foundTool == false)
-                    {
-                        if (player.getCurrentTool().getItemName().equals("None"))
-                        {
-                            foundTool = true;
-                            equipTool = item;
-                        }
-                    }
-                }
-                player.equipWeaponOrTool(storage,equipWeapon);
-                player.equipWeaponOrTool(storage,equipTool);
-                exploreMenu(player,storage);
+                exploreMenu(player);
             }
         });
 
         this.stage.setScene(new Scene(root));
     }
-
-    /*
-    private void gameLoop(){
-        //TO DO: While Pit here similar to the one in Server
-
-        showGameMenu();
-    }
-
-    private void showGameMenu() {
-        AnchorPane root = new AnchorPane();
-        root.getStylesheets().add("styleSheet.css");
-
-        root.setPrefSize(600,400);
-
-        HBox hbox = new HBox();
-        hbox.setPrefSize(497,197);
-        hbox.setLayoutX(52);
-        hbox.setLayoutY(200);
-        hbox.setSpacing(50);
-
-        Button continueBtn = createButton("Continue Forward",149,39,0,0);
-        Button statusBtn = createButton("Check Status",149,39,0,0);
-        Button spellsBtn = createButton("Spells",149,39,0,0);
-        Button itemsBtn = createButton("Items",149,39,0,0);
-
-        hbox.getChildren().addAll(continueBtn,statusBtn,spellsBtn,itemsBtn);
-        root.getChildren().addAll(hbox);
-
-        this.stage.setScene(new Scene(root));
-    }
-     */
 
    public Scene showMainMenu(Player player){
 
