@@ -3,8 +3,8 @@ package edu.sdccd.cisc191.template;
 public class Tools extends Items {
 
     public Tools() {
-        itemName = "unknown";
-        itemDesc = "unknown";
+        itemName = "None";
+        itemDesc = "";
     }
     // Constructor
     public Tools(String name, String description) {

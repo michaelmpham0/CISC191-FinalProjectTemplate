@@ -4,8 +4,8 @@ public class Weapons extends Items {
     private int weaponDamage;
 
     public Weapons() {
-        itemName = "unknown";
-        itemDesc = "unknown";
+        itemName = "None";
+        itemDesc = "";
         weaponDamage = 0;
     }
     // Constructor

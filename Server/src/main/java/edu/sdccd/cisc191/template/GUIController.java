@@ -2,6 +2,7 @@ package edu.sdccd.cisc191.template;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -59,20 +60,22 @@ public class GUIController extends GUIMain {
         rightText.setText(TextDisplay.getText(player.getPlayerClass()+"Intro"));
     }
 
-    private void updateStatus(Player player,Label leftTextLabel,Label rightTextLabel)
+    private Label createLabel(String text,String fontType,double fontDividor,double width,double height)
     {
-        String leftString = String.format("Health:");
-        //return String.format("Health:%-5d \t Attack:%-5d \t\nMana:%-5d \t\t Gold:%d",HP,ATK,MANA,GOLD);
-
-        leftString += "Health\tAttack\n";
-        leftString += player.getHealth()+"\t"+player.getAttack()+"\n";
-        leftString += "Mana\tGold\n";
-        leftString += player.getMana()+"\t"+player.getGold();
-        leftTextLabel.setText(leftString);
-        //rightTextLabel.setText(leftString);
+        Label newLabel = new Label();
+        newLabel.setText(text);
+        newLabel.getStylesheets().add("styleSheet.css");
+        newLabel.setFont(new Font(fontType,(screenHeight+screenWidth)/fontDividor));
+        newLabel.setMinSize(screenWidth*width,screenHeight*height);
+        newLabel.setPrefSize(screenWidth*width,screenHeight*height);
+        newLabel.setMaxSize(screenWidth*width,screenHeight*height);
+        newLabel.setTextAlignment(TextAlignment.CENTER);
+        newLabel.setAlignment(Pos.CENTER);
+        newLabel.getStylesheets().add("styleSheet.css");
+        return newLabel;
     }
 
-    private void statusMenu(Player player)
+    private void statusMenu(Player player,Inventory storage)
     {
         BorderPane root = new BorderPane();
         root.getStylesheets().add("styleSheet.css");
@@ -87,14 +90,9 @@ public class GUIController extends GUIMain {
         vBox.setPadding(new Insets(0,0,0,0));
         vBox.getStylesheets().add("styleSheet.css");
 
-        Label titleText = new Label();
-        titleText.setAlignment(Pos.CENTER);
-        titleText.setText("Status");
-        titleText.setPrefSize(screenWidth*0.3,screenHeight*0.05);
-        titleText.setMaxSize(screenWidth*0.3,screenHeight*0.05);
+        Label titleText = createLabel("Status","Century",90,0.3,0.05);
         titleText.setTranslateY(-screenHeight*0.1);
         vBox.getChildren().add(titleText);
-        titleText.getStylesheets().add("styleSheet.css");
 
         HBox textContainer =  new HBox();
         textContainer.setAlignment(Pos.CENTER);
@@ -105,34 +103,55 @@ public class GUIController extends GUIMain {
         textContainer.getStyleClass().add("borders");
         vBox.getChildren().add(textContainer);
 
-        Label leftText = new Label();
-        leftText.setFont(new Font("Century",(screenHeight+screenWidth)/65));
-        leftText.setTextAlignment(TextAlignment.LEFT);
-        leftText.setAlignment(Pos.CENTER_LEFT);
-        leftText.setPrefSize(screenWidth*0.25,screenHeight*0.5);
-        leftText.setMinSize(screenWidth*0.25,screenHeight*0.5);
-        leftText.setMaxSize(screenWidth*0.25,screenHeight*0.5);
-        leftText.getStylesheets().add("styleSheet.css");
+        Label leftText = createLabel("","Century",80,0.25,0.5);
         leftText.getStyleClass().add("noBorder");
         textContainer.getChildren().add(leftText);
 
-        Label rightText = new Label();
-        rightText.setFont(new Font("Century",(screenHeight+screenWidth)/75));
-        rightText.setTextAlignment(TextAlignment.CENTER);
-        rightText.setAlignment(Pos.CENTER_RIGHT);
-        rightText.setPrefSize(screenWidth*0.25,screenHeight*0.5);
-        rightText.setMinSize(screenWidth*0.25,screenHeight*0.5);
-        rightText.setMaxSize(screenWidth*0.25,screenHeight*0.5);
-        rightText.getStylesheets().add("styleSheet.css");
-        rightText.getStyleClass().add("noBorder");
-        textContainer.getChildren().add(rightText);
+        String leftString = "";
+        leftString += "Health\n"+player.getHealth()+"\n\n";
+        leftString += "Attack\n"+player.getAttack()+"\n\n";
+        leftString += "Mana\n"+player.getMana()+"\n\n";
+        leftString += "Gold\n"+player.getGold()+"\n\n";
+        leftText.setText(leftString);
 
-        updateStatus(player,leftText,rightText);
+        VBox rightTextBox = new VBox();
+        rightTextBox.setAlignment(Pos.TOP_CENTER);
+        rightTextBox.setPrefSize(screenWidth*0.25,screenHeight*0.5);
+        rightTextBox.setMinSize(screenWidth*0.25,screenHeight*0.5);
+        rightTextBox.setMaxSize(screenWidth*0.25,screenHeight*0.5);
+        rightTextBox.getStylesheets().add("styleSheet.css");
+        rightTextBox.getStyleClass().add("noBorder");
+        textContainer.getChildren().add(rightTextBox);
+
+        Label nameLabel = createLabel("Name - "+player.getName(),"Century",120,0.25,0.025);
+        nameLabel.getStyleClass().add("noBorder");
+        rightTextBox.getChildren().add(nameLabel);
+
+        Label weaponLabel = createLabel("","Century",120,0.25,0.15);
+        weaponLabel.getStyleClass().add("noBorder");
+        weaponLabel.setWrapText(true);
+        weaponLabel.setText("Current Weapon - "+player.getCurrentWeapon()+"\n"+player.getCurrentWeapon().getItemDesc()+"\n Damage: "+player.getCurrentWeapon().getWeaponDamage());
+        weaponLabel.setTranslateY(screenHeight*0.025);
+        rightTextBox.getChildren().add(weaponLabel);
+
+        Label toolLabel = createLabel("","Century",120,0.25,0.15);
+        toolLabel.getStyleClass().add("noBorder");
+        toolLabel.setWrapText(true);
+        toolLabel.setText("Current Tool - "+player.getCurrentTool()+"\n"+player.getCurrentTool().getItemDesc());
+        toolLabel.setTranslateY(screenHeight*0.05);
+        rightTextBox.getChildren().add(toolLabel);
+
+        Button confirmButton = createButton("Go Back","Button2",screenWidth*0.1,screenHeight*0.025,0,0);
+        confirmButton.setTranslateY(screenHeight*0.05);
+        vBox.getChildren().add(confirmButton);
+        confirmButton.setOnAction(e -> {
+            exploreMenu(player,storage);
+        });
 
         stage.setScene(new Scene(root));
     }
 
-    private void exploreMenu(Player player)
+    private void exploreMenu(Player player,Inventory storage)
     {
         BorderPane root = new BorderPane();
         root.getStylesheets().add("styleSheet.css");
@@ -189,7 +208,7 @@ public class GUIController extends GUIMain {
                         break;
                     case 2:
                         // Check Status
-                        statusMenu(player);
+                        statusMenu(player,storage);
                         //stage.setScene(new Scene(root));
                         break;
                     case 3:
@@ -363,7 +382,39 @@ public class GUIController extends GUIMain {
                     player.setName(nameField.getText());
                     // else, name is "Unknown"
                 }
-                exploreMenu(player);
+
+                Inventory storage = new Inventory(player.getPlayerClass());
+                ArrayList<Items> playerInventoryList = storage.getInventory();
+                Boolean foundWeapon = false;
+                Boolean foundTool = false;
+
+                //equip variables, because i got an error for modifiying an array while looping through it
+                Items equipWeapon = player.getCurrentWeapon();
+                Items equipTool = player.getCurrentTool();
+
+                // For each loop to go through starting inventory and equip weapons
+                for (Items item : playerInventoryList)
+                {
+                    if (item instanceof Weapons && foundWeapon == false)
+                    {
+                        if (player.getCurrentWeapon().getItemName().equals("None"))
+                        {
+                            foundWeapon = true;
+                            equipWeapon = item;
+                        }
+                    }
+                    else if (item instanceof Tools && foundTool == false)
+                    {
+                        if (player.getCurrentTool().getItemName().equals("None"))
+                        {
+                            foundTool = true;
+                            equipTool = item;
+                        }
+                    }
+                }
+                player.equipWeaponOrTool(storage,equipWeapon);
+                player.equipWeaponOrTool(storage,equipTool);
+                exploreMenu(player,storage);
             }
         });
 

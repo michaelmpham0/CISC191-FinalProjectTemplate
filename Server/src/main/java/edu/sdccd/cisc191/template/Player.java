@@ -23,8 +23,8 @@ public class Player {
     }};
     private int HP,maxHP,ATK,GOLD,MANA,level;
 
-    private Weapons currentWeapon = null;
-    private Tools currentTool = null;
+    private Weapons currentWeapon = new Weapons();
+    private Tools currentTool = new Tools();
 
     public void setCurrentWeapon(Weapons currentWeapon) {
         this.currentWeapon = currentWeapon;
@@ -136,6 +136,11 @@ public class Player {
     public void setName(String newName)
     {
         Name = newName;
+    }
+
+    public void newSetup()
+    {
+
     }
 
     public void setUp(){
