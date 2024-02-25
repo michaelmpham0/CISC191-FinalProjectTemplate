@@ -2,6 +2,7 @@ package edu.sdccd.cisc191.template;
 
 import  java.util.Scanner;
 import java.util.HashMap;
+import java.util.logging.Level;
 
 /**
  * Stats used for the player:
@@ -20,7 +21,7 @@ public class Player {
         put("Barbarian", new int[]{25,25,10,0});
         put("Ranger", new int[]{20,10,20,5});
     }};
-    private int HP,maxHP,ATK,GOLD,MANA;
+    private int HP,maxHP,ATK,GOLD,MANA,level;
 
     private Weapons currentWeapon = null;
     private Tools currentTool = null;
@@ -63,6 +64,7 @@ public class Player {
      * Creates player, default constructor
      */
     public Player(){
+        level = 1;
         Name = Class = "Unknown";
     }
 
@@ -76,6 +78,7 @@ public class Player {
      * Simple constructor
      */
     public Player(String Name, String Class){
+        level =  1;
         this.Name = Name;
         this.Class = Class;
     }
