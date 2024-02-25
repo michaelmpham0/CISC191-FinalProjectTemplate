@@ -81,7 +81,7 @@ public class Inventory {
     {
         if (unequipItem != null)
         {
-            if (unequipItem.equals("None") == false)
+            if (unequipItem.getItemName().equals("None") == false)
             {
                 inventory.add(unequipItem);
             }

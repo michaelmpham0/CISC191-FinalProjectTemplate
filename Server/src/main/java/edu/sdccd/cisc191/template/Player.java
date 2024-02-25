@@ -98,6 +98,11 @@ public class Player {
         return Name;
     }
 
+    public int getLevel()
+    {
+        return level;
+    }
+
     public String getPlayerClass(){
         return Class;
     }
