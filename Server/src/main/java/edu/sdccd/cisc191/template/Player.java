@@ -15,10 +15,10 @@ public class Player {
    //HashMap to store class info. Stats correspond top from bottom of the above list, left to right.
     static HashMap<String, int[]> classStats = new HashMap<String, int[]>()
     {{
-        put("Knight", new int[]{35,15,30,50});
+        put("Knight", new int[]{35,15,30,30});
         put("Wizard", new int[]{18,5,100,50});
         put("Barbarian", new int[]{25,25,10,0});
-        put("Ranger", new int[]{20,10,20,10});
+        put("Ranger", new int[]{20,10,20,5});
     }};
     private int HP,maxHP,ATK,GOLD,MANA;
 
@@ -64,6 +64,12 @@ public class Player {
      */
     public Player(){
         Name = Class = "Unknown";
+    }
+
+    String classList[] = {"Knight","Wizard","Barbarian","Ranger"};
+    public String[] getClassList()
+    {
+        return  classList;
     }
 
     /**
@@ -116,8 +122,6 @@ public class Player {
     }
 
 
-    String classList[] = {"Knight","Wizard","Barbarian","Ranger"};
-
     public void setClass(String setClass)
     {
         Class = setClass;
@@ -125,6 +129,10 @@ public class Player {
         ATK = classStats.get(Class)[1];
         MANA = classStats.get(Class)[2];
         GOLD = classStats.get(Class)[3];
+    }
+    public void setName(String newName)
+    {
+        Name = newName;
     }
 
     public void setUp(){

@@ -47,7 +47,7 @@ public class GUIController extends GUIMain {
         return button;
     }
 
-    private void newRefreshIntro(String playerClass,Label leftText,Label rightText)
+    private void refreshIntro(String playerClass,Label leftText,Label rightText)
     {
         player.setClass(playerClass);
         String leftString = "";
@@ -59,15 +59,16 @@ public class GUIController extends GUIMain {
         rightText.setText(TextDisplay.getText(playerClass+"Intro"));
     }
 
-    private  void refreshIntro(int playerClass, javaFXPlayer player,Text hp, Text atk, Text mana, Text gold, Text item1, Text item2, Text item3, Text item4) {
-        player.setUp(playerClass);
-        hp.setText("Health: "+ player.getHealth());
-        atk.setText("Attack: " + player.getAttack());
-        mana.setText("Mana: " + player.getMana());
-        gold.setText("Gold: " + player.getGold());
+    private void exploreMenu(Player player)
+    {
+        BorderPane root = new BorderPane();
+        root.getStylesheets().add("styleSheet.css");
+        root.setPrefSize(screenWidth,screenHeight);
+
+        stage.setScene(new Scene(root));
     }
 
-    private void newShowIntro(Player player)
+    private void showIntro(Player player)
     {
         //main container to align things to center
         BorderPane root = new BorderPane();
@@ -104,7 +105,10 @@ public class GUIController extends GUIMain {
         VBox.setMargin(titleText,new Insets(0,0,0,0));
 
 
+        //name field for typing player name
         TextField nameField = new TextField();
+        nameField.setAlignment(Pos.CENTER);
+        nameField.setText("Enter Name");
         nameField.setVisible(false);
         nameField.setTranslateY(screenWidth*0.025);
         nameField.setPrefSize(screenWidth*0.15,screenHeight*0.02);
@@ -126,6 +130,7 @@ public class GUIController extends GUIMain {
         middleContainer.setTranslateY(-screenHeight*0.175);
         vBox.getChildren().add(middleContainer);
 
+        //left text box for stats
         Label leftText = new Label();
         leftText.setVisible(false);
         leftText.setFont(new Font("Century",(screenHeight+screenWidth)/75));
@@ -159,6 +164,7 @@ public class GUIController extends GUIMain {
         vBox.setMargin(confirmButton,new Insets(0,0,0,0));
         vBox.getChildren().add(confirmButton);
 
+        //right text box for class backstory
         Label rightText = new Label();
         rightText.setVisible(false);
         rightText.setWrapText(true);
@@ -187,7 +193,7 @@ public class GUIController extends GUIMain {
         topContainer.getChildren().add(hBox);
         VBox.setMargin(hBox,new Insets(0,0,0,0));
 
-        String classList[] = {"Knight","Wizard","Barbarian","Ranger"};
+        String classList[] = player.getClassList();
         for (int i=1;i<=4;i++)
         {
             //the width and height of the button is huge, because it seems to automatically scale it to fit the HBox
@@ -203,109 +209,27 @@ public class GUIController extends GUIMain {
                     leftText.setVisible(true);
                     rightText.setVisible(true);
                 }
-                newRefreshIntro(classList[index-1],leftText,rightText);
-                System.out.println(classList[index -1]);
+                player.setClass(classList[index-1]);
+                refreshIntro(classList[index-1],leftText,rightText);
             });
 
             hBox.getChildren().add(newButton);
         }
-
-        this.stage.setScene(new Scene(root));
-    }
-
-    /*
-    private void showIntro() {
-
-        //main dude
-        AnchorPane root = new AnchorPane();
-        root.getStylesheets().add("styleSheet.css");
-        root.setPrefSize(screenWidth,screenHeight);
-
-        //class buttons
-        HBox hbox = new HBox();
-        hbox.setAlignment(Pos.CENTER);
-        hbox.setPrefSize(screenWidth*.5,screenHeight*.2);
-        hbox.setLayoutX(screenWidth*.25);
-        hbox.setLayoutY(screenHeight*.01);
-
-        javaFXPlayer player = new javaFXPlayer();
-
-        //hbox children
-        Button knightBtn = createButton("Knight",screenWidth*0.1,screenHeight*0.05,0,0);
-        Button wizardBtn = createButton("Wizard",screenWidth*0.1,screenHeight*0.05,0,0);
-        Button barbarianBtn = createButton("Barbarian",screenWidth*0.1,screenHeight*0.05,0,0);
-        Button rangerBtn = createButton("Ranger",screenWidth*0.1,screenHeight*0.05,0,0);
-
-        //class details container
-        BorderPane bpane = new BorderPane();
-        bpane.setPrefSize(screenWidth*.5,screenHeight*.75);
-        bpane.setLayoutX(screenWidth*.2);
-        bpane.setLayoutY(screenHeight*.2);
-
-        //children for bpane
-        Text introText = createText("ClassIntro","Century","White",15,0,0);
-        VBox statVBox = new VBox();
-        statVBox.setSpacing(25);
-        VBox itemVBox = new VBox();
-        itemVBox.setSpacing(50);
-
-        //setting bpane children alignment
-        bpane.setLeft(statVBox);
-        bpane.setRight(itemVBox);
-        bpane.setCenter(introText);
-
-        //children for itemVbox
-        Text item1Text = createText("Item 1: ","Century","White",15,0,0);
-        Text item2Text = createText("Item 2: ","Century","White",15,0,0);
-        Text item3Text = createText("Item 3: ","Century","White",15,0,0);
-        Text item4Text = createText("Item 4: ","Century","White",15,0,0);
-
-        //children for statVbox
-        Text hpText = createText("Health: ","Century","White",15,0,0);
-        Text atkText = createText("Attack: ","Century","White",15,0,0);
-        Text manaText = createText("Mana: ","Century","White",15,0,0);
-        Text goldText = createText("Gold: ","Century","White",15,0,0);
-
-        //adding children to Vboxes
-        statVBox.getChildren().addAll(hpText,atkText,manaText,goldText);
-        itemVBox.getChildren().addAll(item1Text,item2Text,item3Text,item4Text);
-
-        //anchor root children
-        Text chooseText = createText("Choose Your Class","Century", "White",25,21,27);
-        Button nextBtn = createButton("Continue",149,39,429,335);
-
-        //class actions
-        knightBtn.setOnAction(e -> {
-            refreshIntro(0,player,hpText,atkText,manaText,goldText,item1Text,item2Text,item3Text,item4Text);
-        });
-        wizardBtn.setOnAction(e -> {
-            refreshIntro(1,player,hpText,atkText,manaText,goldText,item1Text,item2Text,item3Text,item4Text);
-        });
-        barbarianBtn.setOnAction(e -> {
-            refreshIntro(2,player,hpText,atkText,manaText,goldText,item1Text,item2Text,item3Text,item4Text);
-        });
-        rangerBtn.setOnAction(e -> {
-            refreshIntro(3,player,hpText,atkText,manaText,goldText,item1Text,item2Text,item3Text,item4Text);
-        });
-
-        //next action
-        nextBtn.setOnAction(e -> {
-            try{
-                gameLoop();
-            }
-            catch (NullPointerException exception){
-                System.out.println("no class");
+        confirmButton.setOnAction(e ->
+        {
+            if (!player.getPlayerClass().equals("Unknown"))
+            {
+                if (!nameField.getText().equals("Enter Name"))
+                {
+                    player.setName(nameField.getText());
+                    // else, name is "Unknown"
+                }
+                exploreMenu(player);
             }
         });
 
-        //adding children to HBox and Root
-        hbox.getChildren().addAll(knightBtn,wizardBtn,barbarianBtn,rangerBtn);
-        root.getChildren().addAll(nextBtn,chooseText,hbox,bpane);
-
         this.stage.setScene(new Scene(root));
     }
-
-     */
 
     /*
     private void gameLoop(){
@@ -362,7 +286,7 @@ public class GUIController extends GUIMain {
         btn1.setOnAction(e ->
         {
         //Intro
-            newShowIntro(player);
+            showIntro(player);
         });
         quitButton.setOnAction(e ->
        {
