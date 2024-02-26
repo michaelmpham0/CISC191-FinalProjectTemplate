@@ -301,7 +301,7 @@ public class GUIController extends GUIMain {
             {
                 player.equipWeaponOrTool(storage,currentItem);
             }
-            exploreMenu(player,storage);
+            itemMenu(player,storage);
         });
 
         Button backButton = createButton("Go Back","Button2",screenWidth*0.1,screenHeight*0.05,0,0);
