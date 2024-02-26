@@ -71,7 +71,22 @@
     -fx-border-width: 1.5;
     -fx-border-insets: -5;
 }
-
+.customBorder15{
+    -fx-base: rgb(255, 255, 255);
+    -fx-background-color: rgb(175, 99, 148);
+    -fx-border-color: rgb(255, 255, 255);
+    -fx-border-style: solid;
+    -fx-border-width: 1.5;
+    -fx-border-insets: -5;
+}
+.scroll-pane {
+    -fx-base: rgb(255, 255, 255);
+    -fx-border-color: rgb(255, 255, 255);
+    -fx-background-color: transparent;
+}
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
 
 .borders{
     -fx-base: rgb(255, 255, 255);
