@@ -21,6 +21,8 @@ import javafx.scene.text.TextAlignment;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class GUIController extends GUIMain {
@@ -480,6 +482,10 @@ public class GUIController extends GUIMain {
         leftText.setTranslateX(-screenWidth*0.025);
         middleContainer.getChildren().add(leftText);
 
+
+        //images for the classes
+
+        /*
         Label imageContainer = new Label();
         imageContainer.getStylesheets().add("styleSheet.css");
         imageContainer.getStyleClass().add("noBorder");
@@ -488,6 +494,7 @@ public class GUIController extends GUIMain {
         imageContainer.setMinSize(imageWidth,imageHeight);
         imageContainer.setMaxSize(imageWidth,imageHeight);
         middleContainer.getChildren().add(imageContainer);
+
         Image newImage = new Image("file:Server/src/main/resources/Images/knightclass.png");
         ImageView imageView = new ImageView(newImage);
         imageView.setPreserveRatio(true);
@@ -495,6 +502,7 @@ public class GUIController extends GUIMain {
         imageView.setFitWidth(imageWidth);
         imageContainer.setGraphic(imageView);
         imageView.setVisible(false);
+        */
 
         Button confirmButton = createButton("Confirm","Button2",screenWidth*0.1,screenHeight*0.025,0,0);
         confirmButton.setVisible(false);
@@ -531,14 +539,38 @@ public class GUIController extends GUIMain {
         topContainer.getChildren().add(hBox);
         VBox.setMargin(hBox,new Insets(0,0,0,0));
 
+
         String classList[] = player.getClassList();
-        for (int i=1;i<=4;i++)
+        Map<String, Image> classImages = new HashMap<>();
+        classImages.put("Knight", new Image("file:Server/src/main/resources/Images/knightclass.png"));
+        classImages.put("Wizard", new Image("file:Server/src/main/resources/Images/wizardclass.png"));
+        classImages.put("Barbarian", new Image("file:Server/src/main/resources/Images/barbarianclass.png"));
+        classImages.put("Ranger", new Image("file:Server/src/main/resources/Images/rangerclass.png"));
+
+        for (int i = 0; i < classList.length; i++)
         {
+            Label imageContainer = new Label();
+            imageContainer.getStylesheets().add("styleSheet.css");
+            imageContainer.getStyleClass().add("noBorder");
+            imageContainer.setAlignment(Pos.CENTER);
+            imageContainer.setPrefSize(imageWidth,imageHeight);
+            imageContainer.setMinSize(imageWidth,imageHeight);
+            imageContainer.setMaxSize(imageWidth,imageHeight);
+            middleContainer.getChildren().add(imageContainer);
+
             //the width and height of the button is huge, because it seems to automatically scale it to fit the HBox
-            Button newButton = createButton(classList[i-1],"Button2",8000,8000,0,0);
+            String className = classList[i];
+            Button newButton = createButton(className,"Button2",8000,8000,0,0);
 
             int index = i;
             newButton.setOnAction(e -> {
+
+            ImageView newImageView = new ImageView(classImages.get(className));
+
+            newImageView.setImage(classImages.get(className));
+            //player.setClass(className);
+
+
                 if (imageView.isVisible() == false)
                 {
                     nameField.setVisible(true);
@@ -547,7 +579,7 @@ public class GUIController extends GUIMain {
                     leftText.setVisible(true);
                     rightText.setVisible(true);
                 }
-                player.setClass(classList[index-1]);
+                player.setClass(classList[index]);
                 refreshIntro(player,leftText,rightText);
             });
 
