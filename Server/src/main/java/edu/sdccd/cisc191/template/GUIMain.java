@@ -18,7 +18,7 @@ public class GUIMain extends Application {
 
     Player player = new Player();
 
-    protected  static Stage stage;
+    protected static Stage stage;
     @Override
     public void start(Stage stage) throws Exception {
         try {

@@ -485,7 +485,7 @@ public class GUIController extends GUIMain {
 
         //images for the classes
 
-        /*
+
         Label imageContainer = new Label();
         imageContainer.getStylesheets().add("styleSheet.css");
         imageContainer.getStyleClass().add("noBorder");
@@ -495,6 +495,7 @@ public class GUIController extends GUIMain {
         imageContainer.setMaxSize(imageWidth,imageHeight);
         middleContainer.getChildren().add(imageContainer);
 
+        /*
         Image newImage = new Image("file:Server/src/main/resources/Images/knightclass.png");
         ImageView imageView = new ImageView(newImage);
         imageView.setPreserveRatio(true);
@@ -502,7 +503,9 @@ public class GUIController extends GUIMain {
         imageView.setFitWidth(imageWidth);
         imageContainer.setGraphic(imageView);
         imageView.setVisible(false);
-        */
+
+         */
+
 
         Button confirmButton = createButton("Confirm","Button2",screenWidth*0.1,screenHeight*0.025,0,0);
         confirmButton.setVisible(false);
@@ -549,14 +552,6 @@ public class GUIController extends GUIMain {
 
         for (int i = 0; i < classList.length; i++)
         {
-            Label imageContainer = new Label();
-            imageContainer.getStylesheets().add("styleSheet.css");
-            imageContainer.getStyleClass().add("noBorder");
-            imageContainer.setAlignment(Pos.CENTER);
-            imageContainer.setPrefSize(imageWidth,imageHeight);
-            imageContainer.setMinSize(imageWidth,imageHeight);
-            imageContainer.setMaxSize(imageWidth,imageHeight);
-            middleContainer.getChildren().add(imageContainer);
 
             //the width and height of the button is huge, because it seems to automatically scale it to fit the HBox
             String className = classList[i];
@@ -565,17 +560,19 @@ public class GUIController extends GUIMain {
             int index = i;
             newButton.setOnAction(e -> {
 
-            ImageView newImageView = new ImageView(classImages.get(className));
+            Image classImage = new Image(classImages.get(className).toString());
+            ImageView newImageView = new ImageView(classImage);
+            newImageView.setPreserveRatio(true);
+            newImageView.setFitHeight(imageHeight);
+            newImageView.setFitWidth(imageWidth);
+            imageContainer.setGraphic(newImageView);
 
-            newImageView.setImage(classImages.get(className));
-            //player.setClass(className);
 
-
-                if (imageView.isVisible() == false)
+                if (newImageView.isVisible() == false)
                 {
                     nameField.setVisible(true);
                     confirmButton.setVisible(true);
-                    imageView.setVisible(true);
+                    newImageView.setVisible(true);
                     leftText.setVisible(true);
                     rightText.setVisible(true);
                 }
