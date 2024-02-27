@@ -6,6 +6,7 @@ public class Items {
     public int holdSize;
     public Items() {
         itemName = "unknown";
+        itemDesc = "unknown";
         holdSize = 1;
     }
     public Items(String inName, String inDesc, int inStack){
