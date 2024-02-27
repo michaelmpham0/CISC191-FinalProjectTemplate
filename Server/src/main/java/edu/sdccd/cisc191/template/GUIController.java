@@ -495,7 +495,7 @@ public class GUIController extends GUIMain {
         imageContainer.setMaxSize(imageWidth,imageHeight);
         middleContainer.getChildren().add(imageContainer);
 
-        /*
+
         Image newImage = new Image("file:Server/src/main/resources/Images/knightclass.png");
         ImageView imageView = new ImageView(newImage);
         imageView.setPreserveRatio(true);
@@ -503,9 +503,6 @@ public class GUIController extends GUIMain {
         imageView.setFitWidth(imageWidth);
         imageContainer.setGraphic(imageView);
         imageView.setVisible(false);
-
-         */
-
 
         Button confirmButton = createButton("Confirm","Button2",screenWidth*0.1,screenHeight*0.025,0,0);
         confirmButton.setVisible(false);
@@ -544,11 +541,6 @@ public class GUIController extends GUIMain {
 
 
         String classList[] = player.getClassList();
-        Map<String, Image> classImages = new HashMap<>();
-        classImages.put("Knight", new Image("file:Server/src/main/resources/Images/knightclass.png"));
-        classImages.put("Wizard", new Image("file:Server/src/main/resources/Images/wizardclass.png"));
-        classImages.put("Barbarian", new Image("file:Server/src/main/resources/Images/barbarianclass.png"));
-        classImages.put("Ranger", new Image("file:Server/src/main/resources/Images/rangerclass.png"));
 
         for (int i = 0; i < classList.length; i++)
         {
@@ -559,20 +551,15 @@ public class GUIController extends GUIMain {
 
             int index = i;
             newButton.setOnAction(e -> {
-
-            Image classImage = new Image(classImages.get(className).toString());
-            ImageView newImageView = new ImageView(classImage);
-            newImageView.setPreserveRatio(true);
-            newImageView.setFitHeight(imageHeight);
-            newImageView.setFitWidth(imageWidth);
-            imageContainer.setGraphic(newImageView);
+            imageView.setImage(new Image("file:Server/src/main/resources/Images/"+className+"class.png"));
 
 
-                if (newImageView.isVisible() == false)
+
+                if (imageView.isVisible() == false)
                 {
                     nameField.setVisible(true);
                     confirmButton.setVisible(true);
-                    newImageView.setVisible(true);
+                    imageView.setVisible(true);
                     leftText.setVisible(true);
                     rightText.setVisible(true);
                 }
@@ -662,7 +649,7 @@ public class GUIController extends GUIMain {
        });
 
         vbox.getChildren().addAll(text,btn1,quitButton,divider);
-        
+
         return scene;
     }
 
