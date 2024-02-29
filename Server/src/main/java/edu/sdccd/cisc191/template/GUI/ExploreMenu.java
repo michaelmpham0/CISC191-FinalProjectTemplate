@@ -1,5 +1,7 @@
-package edu.sdccd.cisc191.template;
+package edu.sdccd.cisc191.template.GUI;
 
+import edu.sdccd.cisc191.template.Inventory;
+import edu.sdccd.cisc191.template.Player;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -58,7 +60,7 @@ public class ExploreMenu extends GUIController {
         for (int i=1;i<=4;i++)
         {
             //the width and height of the button is huge, because it seems to automatically scale it to fit the HBox
-            Button newButton = createButton(buttonList[i-1],"Button2",8000,8000,0,0);
+            Button newButton = createButton(buttonList[i-1],"Button2","Times New Roman",100,8000,8000,0,0);
 
             int index = i;
             newButton.setOnAction(e -> {

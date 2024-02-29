@@ -1,5 +1,6 @@
-package edu.sdccd.cisc191.template;
+package edu.sdccd.cisc191.template.GUI;
 
+import edu.sdccd.cisc191.template.*;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -11,7 +12,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.TextAlignment;
 
-public class ItemMenu extends GUIController{
+public class ItemMenu extends GUIController {
     protected static Items currentItem = null;
 
     protected static void updateItem(Items item, Label name, Label description, Label count){
@@ -130,7 +131,7 @@ public class ItemMenu extends GUIController{
 
         //Creates buttons for each item
         for (Items invItems: storage.getInventory()) {
-            Button itemButton = createButton(invItems.getItemName(),"Button2",0.25,0.075,0,0);
+            Button itemButton = createButton(invItems.getItemName(),"Button2","Times New Roman",100,0.25,0.075,0,0);
             itemButton.setWrapText(true);
             itemList.getChildren().add(itemButton);
             //Item Button activation
@@ -146,7 +147,7 @@ public class ItemMenu extends GUIController{
         }
 
         //this hides itemdetails for some reason
-        Button useButton = createButton("Use Item","Button2",0.1,0.05,0,0);
+        Button useButton = createButton("Use Item","Button2","Times New Roman",100,0.1,0.05,0,0);
         itemDetails.getChildren().add(useButton);
         useButton.setTranslateY(screenHeight*0.1);
         useButton.setOnAction(e ->{
@@ -158,7 +159,7 @@ public class ItemMenu extends GUIController{
             itemMenu(player,storage);
         });
 
-        Button backButton = createButton("Go Back","Button2",0.1,0.05,0,0);
+        Button backButton = createButton("Go Back","Button2","Times New Roman",100,0.1,0.05,0,0);
         backButton.setTranslateY(screenHeight*0.2);
         vbox.getChildren().add(backButton);
         backButton.setOnAction(e -> {

@@ -1,5 +1,6 @@
-package edu.sdccd.cisc191.template;
+package edu.sdccd.cisc191.template.GUI;
 
+import edu.sdccd.cisc191.template.*;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -11,14 +12,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
-import javafx.scene.text.TextAlignment;
 
 import java.util.ArrayList;
 
 public class CharacterCreationMenu extends GUIController {
 
-    private static void refreshIntro(Player player,Label leftText,Label rightText)
+    private static void refreshIntro(Player player, Label leftText, Label rightText)
     {
 
         String leftString = "";
@@ -125,7 +124,7 @@ public class CharacterCreationMenu extends GUIController {
         imageContainer.setGraphic(imageView);
         imageView.setVisible(false);
 
-        Button confirmButton = createButton("Confirm","Button2",0.1,0.025,0,0);
+        Button confirmButton = createButton("Confirm","Button2","Times New Roman",100,0.1,0.025,0,0);
         confirmButton.setVisible(false);
         confirmButton.setTranslateY(-screenHeight*0.2);
         vBox.setMargin(confirmButton,new Insets(0,0,0,0));
@@ -163,7 +162,7 @@ public class CharacterCreationMenu extends GUIController {
 
             //the width and height of the button is huge, because it seems to automatically scale it to fit the HBox
             String className = classList[i];
-            Button newButton = createButton(className,"Button2",8000,8000,0,0);
+            Button newButton = createButton(className,"Button2","Times New Roman",100,8000,8000,0,0);
             System.out.println(className);
             int index = i;
             newButton.setOnAction(e -> {

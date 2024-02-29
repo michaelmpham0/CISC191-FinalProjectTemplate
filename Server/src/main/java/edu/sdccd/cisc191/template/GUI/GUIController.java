@@ -1,11 +1,10 @@
-package edu.sdccd.cisc191.template;
+package edu.sdccd.cisc191.template.GUI;
 
-import javafx.geometry.Insets;
+import edu.sdccd.cisc191.template.GUI.CharacterCreationMenu;
+import edu.sdccd.cisc191.template.GUI.GUIMain;
+import edu.sdccd.cisc191.template.Player;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
@@ -14,15 +13,10 @@ import javafx.scene.text.Font;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.text.Text;
-import javafx.scene.control.TextField;
-import javafx.scene.shape.*;
 import javafx.scene.text.TextAlignment;
 
 
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 
 public class GUIController extends GUIMain {
@@ -40,9 +34,11 @@ public class GUIController extends GUIMain {
         text.setTranslateY(yPos);
         return text;
     }
-    static protected Button createButton(String textString, String styleType,double width, double height, double xPos, double yPos) {
+    static protected Button createButton(String textString, String styleType,String fontType,double fontDividor,double width, double height, double xPos, double yPos) {
         Button button = new Button(textString);
         button.getStyleClass().add(styleType);
+        button.setWrapText(true);
+        button.setFont(new Font(fontType,(screenHeight+screenWidth)/fontDividor));
         button.setPrefSize(screenWidth*width,screenHeight*height);
         button.setTranslateX(xPos);
         button.setTranslateY(yPos);
@@ -64,7 +60,7 @@ public class GUIController extends GUIMain {
     }
     
 
-    private void updateStatus(Player player,Label leftTextLabel,Label rightTextLabel)
+    private void updateStatus(Player player, Label leftTextLabel, Label rightTextLabel)
     {
         String leftString = String.format("Health:");
         //return String.format("Health:%-5d \t Attack:%-5d \t\nMana:%-5d \t\t Gold:%d",HP,ATK,MANA,GOLD);
@@ -97,8 +93,8 @@ public class GUIController extends GUIMain {
         scene.setFill(Paint.valueOf("Black"));
 
         Text text = createText("Game","Times New Roman","White",(screenHeight+screenWidth)/15,0,screenHeight*0.1);
-        Button btn1 = createButton("Start","Button1",0.1,0.05,0,screenHeight*0.3);
-        Button quitButton = createButton("Quit","Button1",0.1,0.05,0,screenHeight*0.325);
+        Button btn1 = createButton("Start","Button1","Times New Roman",100,0.1,0.05,0,screenHeight*0.3);
+        Button quitButton = createButton("Quit","Button1","Times New Roman",100,0.1,0.05,0,screenHeight*0.325);
 
         btn1.setOnAction(e ->
         {
@@ -107,6 +103,7 @@ public class GUIController extends GUIMain {
         });
         quitButton.setOnAction(e ->
        {
+           System.out.println("GAME IS CLOSING, SAVE HERE");
            System.exit(0);
        });
 

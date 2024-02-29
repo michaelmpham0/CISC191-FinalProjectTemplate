@@ -1,5 +1,7 @@
-package edu.sdccd.cisc191.template;
+package edu.sdccd.cisc191.template.GUI;
 
+import edu.sdccd.cisc191.template.Inventory;
+import edu.sdccd.cisc191.template.Player;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -9,8 +11,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-public class StatusMenu extends GUIController{
-    protected static void statusMenu(Player player,Inventory storage)
+public class StatusMenu extends GUIController {
+    protected static void statusMenu(Player player, Inventory storage)
     {
         BorderPane root = new BorderPane();
         root.getStylesheets().add("styleSheet.css");
@@ -82,7 +84,7 @@ public class StatusMenu extends GUIController{
         toolLabel.setTranslateY(screenHeight*0.05);
         rightTextBox.getChildren().add(toolLabel);
 
-        Button confirmButton = createButton("Go Back","Button2",0.1,0.025,0,0);
+        Button confirmButton = createButton("Go Back","Button2","Times New Roman",100,0.1,0.025,0,0);
         confirmButton.setTranslateY(screenHeight*0.05);
         vBox.getChildren().add(confirmButton);
         confirmButton.setOnAction(e -> {

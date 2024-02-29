@@ -1,10 +1,8 @@
-package edu.sdccd.cisc191.template;
+package edu.sdccd.cisc191.template.GUI;
 
+import edu.sdccd.cisc191.template.Player;
 import javafx.application.Application;
 import javafx.stage.Stage;
-import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
-import javafx.fxml.FXMLLoader;
 
 /**
 * GUI using javafx
@@ -24,6 +22,10 @@ public class GUIMain extends Application {
         try {
             this.stage = stage;
             GUIController guiController = new GUIController();
+
+            this.stage.setOnCloseRequest(e ->{
+                System.out.println("GAME IS CLOSING, SAVE HERE");
+            });
 
             this.stage.setScene(guiController.showMainMenu(player));
             stage.setTitle("Group 1 Architect Game");
