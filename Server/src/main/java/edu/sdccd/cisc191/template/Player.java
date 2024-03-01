@@ -172,4 +172,5 @@ public class Player {
         MANA = classStats.get(Class)[2];
         GOLD = classStats.get(Class)[3];
     }
+
 }

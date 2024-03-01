@@ -4,6 +4,8 @@ import edu.sdccd.cisc191.template.Player;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
+import java.io.*;
+
 /**
 * GUI using javafx
 */
@@ -23,8 +25,23 @@ public class GUIMain extends Application {
             this.stage = stage;
             GUIController guiController = new GUIController();
 
-            this.stage.setOnCloseRequest(e ->{
+            this.stage.setOnCloseRequest(e -> {
                 System.out.println("GAME IS CLOSING, SAVE HERE");
+                FileOutputStream saveFile;
+                try {
+                    saveFile = new FileOutputStream("Save");
+                } catch (FileNotFoundException ex) {
+                    throw new RuntimeException(ex);
+                }
+                try {
+                    ObjectOutputStream objWriter = new ObjectOutputStream(saveFile);
+                    objWriter.writeObject(player);
+
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+
+
             });
 
             this.stage.setScene(guiController.showMainMenu(player));
