@@ -1,6 +1,8 @@
 package edu.sdccd.cisc191.template;
 
-public class Weapons extends Items {
+import java.io.Serializable;
+
+public class Weapons extends Items implements Serializable {
     private int weaponDamage;
 
     public Weapons() {

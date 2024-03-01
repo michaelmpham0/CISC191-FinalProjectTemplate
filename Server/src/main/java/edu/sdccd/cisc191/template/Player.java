@@ -1,5 +1,6 @@
 package edu.sdccd.cisc191.template;
 
+import java.io.Serializable;
 import  java.util.Scanner;
 import java.util.HashMap;
 import java.util.logging.Level;
@@ -11,7 +12,7 @@ import java.util.logging.Level;
  * MANA = Mana
  * GOLD = Gold
  */
-public class Player {
+public class Player implements Serializable {
 
    //HashMap to store class info. Stats correspond top from bottom of the above list, left to right.
     static HashMap<String, int[]> classStats = new HashMap<String, int[]>()

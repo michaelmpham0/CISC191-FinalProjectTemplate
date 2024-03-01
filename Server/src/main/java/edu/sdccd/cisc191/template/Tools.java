@@ -1,6 +1,8 @@
 package edu.sdccd.cisc191.template;
 
-public class Tools extends Items {
+import java.io.Serializable;
+
+public class Tools extends Items implements Serializable {
 
     public Tools() {
         itemName = "None";

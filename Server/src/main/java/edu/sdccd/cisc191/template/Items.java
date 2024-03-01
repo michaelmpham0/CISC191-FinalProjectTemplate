@@ -1,6 +1,8 @@
 package edu.sdccd.cisc191.template;
 
-public class Items {
+import java.io.Serializable;
+
+public class Items implements Serializable {
     public String itemName;
     public String itemDesc;
     public int holdSize;

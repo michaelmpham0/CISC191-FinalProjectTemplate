@@ -1,7 +1,8 @@
 package edu.sdccd.cisc191.template;
+import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
-public class Inventory {
+public class Inventory implements Serializable {
     private final ArrayList<Items> inventory = new ArrayList<>();
 
     //private int size; -- was unused, so I just commented it out for now

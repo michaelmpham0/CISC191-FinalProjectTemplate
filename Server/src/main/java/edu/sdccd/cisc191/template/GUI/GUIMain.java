@@ -30,14 +30,24 @@ public class GUIMain extends Application {
                 FileOutputStream saveFile;
                 try {
                     saveFile = new FileOutputStream("Save");
-                } catch (FileNotFoundException ex) {
-                    throw new RuntimeException(ex);
-                }
-                try {
-                    ObjectOutputStream objWriter = new ObjectOutputStream(saveFile);
-                    objWriter.writeObject(player);
+                    try {
+                        ObjectOutputStream objWriter = new ObjectOutputStream(saveFile);
+                        objWriter.writeObject(player);
+                        /**
+                         * ObjectOutputStream objWriter = new ObjectOutputStream(saveFile);
+                         * objWriter.writeObject(player.getName());
+                         * objWriter.writeObject(player.getPlayerClass());
+                         * objWriter.writeInt(player.getLevel());
+                         * objWriter.writeInt(player.getHealth());
+                         * objWriter.writeInt(player.getAttack());
+                         * objWriter.writeInt(player.getMana());
+                         */
 
-                } catch (IOException ex) {
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    }
+
+                } catch (FileNotFoundException ex) {
                     throw new RuntimeException(ex);
                 }
 
