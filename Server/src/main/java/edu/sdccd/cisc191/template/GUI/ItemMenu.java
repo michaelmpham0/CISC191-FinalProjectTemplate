@@ -22,7 +22,7 @@ public class ItemMenu extends GUIController {
         count.setText("x" + item.getHoldSize() + " "+item.getItemName());
     }
 
-    protected static void itemMenu(Player player, Inventory storage){
+    protected static void itemMenu(){
         BorderPane root = new BorderPane();
         root.setPrefSize(screenWidth,screenHeight);
         root.setMinSize(screenWidth,screenHeight);
@@ -156,14 +156,14 @@ public class ItemMenu extends GUIController {
             {
                 player.equipWeaponOrTool(storage,currentItem);
             }
-            itemMenu(player,storage);
+            itemMenu();
         });
 
         Button backButton = createButton("Go Back","Button2","Times New Roman",100,0.1,0.05,0,0);
         backButton.setTranslateY(screenHeight*0.2);
         vbox.getChildren().add(backButton);
         backButton.setOnAction(e -> {
-            ExploreMenu.exploreMenu(player,storage);
+            ExploreMenu.exploreMenu();
         });
         stage.setScene(new Scene(root));
     }

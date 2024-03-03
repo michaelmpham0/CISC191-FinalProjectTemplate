@@ -2,6 +2,8 @@ package edu.sdccd.cisc191.template.GUI;
 
 import edu.sdccd.cisc191.template.GUI.CharacterCreationMenu;
 import edu.sdccd.cisc191.template.GUI.GUIMain;
+import edu.sdccd.cisc191.template.GameData;
+import edu.sdccd.cisc191.template.Inventory;
 import edu.sdccd.cisc191.template.Player;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -14,7 +16,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
-
+import java.io.*;
 
 import java.awt.*;
 
@@ -36,6 +38,7 @@ public class GUIController extends GUIMain {
     }
     static protected Button createButton(String textString, String styleType,String fontType,double fontDividor,double width, double height, double xPos, double yPos) {
         Button button = new Button(textString);
+        button.setTextAlignment(TextAlignment.CENTER);
         button.getStyleClass().add(styleType);
         button.setWrapText(true);
         button.setFont(new Font(fontType,(screenHeight+screenWidth)/fontDividor));
@@ -74,8 +77,31 @@ public class GUIController extends GUIMain {
     }
 
 
+   public GameData loadGame()
+   {
+       FileInputStream saveFile;
+       String savePath = "Server/src/main/resources/SaveFile.ser";
+       try {
+           saveFile = new FileInputStream(savePath);
+           try
+           {
+               ObjectInputStream objectInputStream = new ObjectInputStream(saveFile);
+               GameData saveData = (GameData) objectInputStream.readObject();
+               return saveData;
+           } catch (IOException ex) {
+               ex.printStackTrace();
+               throw new RuntimeException(ex);
+           } catch (ClassNotFoundException ex) {
+               ex.printStackTrace();
+               throw new RuntimeException(ex);
+           }
+       } catch (FileNotFoundException ex) {
+           ex.printStackTrace();
+           throw new RuntimeException(ex);
+       }
+   }
 
-   public Scene showMainMenu(Player player){
+   public Scene showMainMenu(){
 
         VBox vbox = new VBox();
         vbox.setPrefSize(screenWidth,screenHeight);
@@ -93,13 +119,47 @@ public class GUIController extends GUIMain {
         scene.setFill(Paint.valueOf("Black"));
 
         Text text = createText("Game","Times New Roman","White",(screenHeight+screenWidth)/15,0,screenHeight*0.1);
-        Button btn1 = createButton("Start","Button1","Times New Roman",100,0.1,0.05,0,screenHeight*0.3);
-        Button quitButton = createButton("Quit","Button1","Times New Roman",100,0.1,0.05,0,screenHeight*0.325);
+        Button startButton = createButton("New Game","Button1","Times New Roman",120,0.2,0.02,0,screenHeight*0.3);
+        Button loadButton = createButton("Load Game","Button3","Times New Roman",120,0.2,0.02,0,screenHeight*0.325);
+        Button quitButton = createButton("Quit","Button1","Times New Roman",120,0.2,0.02,0,screenHeight*0.35);
 
-        btn1.setOnAction(e ->
+        loadButton.setOpacity(0.2);
+
+        Boolean hasSave = false;
+
+        String filePath = "Server/src/main/resources/SaveFile.ser";
+        File file = new File(filePath);
+        if (file.exists())
+        {
+            hasSave = true;
+        }
+
+        if (hasSave == true)
+        {
+            GameData saveData = loadGame();
+            loadButton.getStyleClass().add("Button1");
+            loadButton.setOpacity(1);
+
+            loadButton.setOnAction(e ->
+            {
+                player = saveData.getPlayerData();
+                storage = saveData.getInventoryData();
+                ExploreMenu.exploreMenu();
+            });
+            loadButton.setOnMouseEntered(e ->
+            {
+                loadButton.setText(saveData.getPlayerData().getPlayerClass()+" - Level "+saveData.getPlayerData().getLevel());
+            });
+            loadButton.setOnMouseExited(e ->
+            {
+                loadButton.setText("Load Game");
+            });
+        }
+
+       startButton.setOnAction(e ->
         {
         //Intro
-            CharacterCreationMenu.showIntro(player);
+            CharacterCreationMenu.showIntro();
         });
         quitButton.setOnAction(e ->
        {
@@ -107,7 +167,7 @@ public class GUIController extends GUIMain {
            System.exit(0);
        });
 
-        vbox.getChildren().addAll(text,btn1,quitButton,divider);
+        vbox.getChildren().addAll(text,startButton,loadButton,quitButton,divider);
 
         return scene;
     }

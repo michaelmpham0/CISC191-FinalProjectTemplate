@@ -30,7 +30,7 @@ public class CharacterCreationMenu extends GUIController {
     }
 
 
-    public static void showIntro(Player player)
+    public static void showIntro()
     {
         //main container to align things to center
         BorderPane root = new BorderPane();
@@ -194,7 +194,7 @@ public class CharacterCreationMenu extends GUIController {
                     // else, name is "Unknown"
                 }
 
-                Inventory storage = new Inventory(player.getPlayerClass());
+                storage = new Inventory(player.getPlayerClass());
                 ArrayList<Items> playerInventoryList = storage.getInventory();
                 Boolean foundWeapon = false;
                 Boolean foundTool = false;
@@ -225,7 +225,7 @@ public class CharacterCreationMenu extends GUIController {
                 }
                 player.equipWeaponOrTool(storage,equipWeapon);
                 player.equipWeaponOrTool(storage,equipTool);
-                ExploreMenu.exploreMenu(player,storage);
+                ExploreMenu.exploreMenu();
             }
         });
 

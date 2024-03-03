@@ -14,7 +14,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 
 public class ExploreMenu extends GUIController {
-    protected static void exploreMenu(Player player, Inventory storage)
+    protected static void exploreMenu()
     {
         BorderPane root = new BorderPane();
         root.getStylesheets().add("styleSheet.css");
@@ -71,14 +71,14 @@ public class ExploreMenu extends GUIController {
                         break;
                     case 2:
                         // Check Status
-                        StatusMenu.statusMenu(player,storage);
+                        StatusMenu.statusMenu();
                         //stage.setScene(new Scene(root));
                         break;
                     case 3:
                         // Spells
                         break;
                     case 4:
-                        ItemMenu.itemMenu(player,storage);
+                        ItemMenu.itemMenu();
                         // Items
                         break;
                 }

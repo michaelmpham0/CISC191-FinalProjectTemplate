@@ -12,7 +12,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 public class StatusMenu extends GUIController {
-    protected static void statusMenu(Player player, Inventory storage)
+    protected static void statusMenu()
     {
         BorderPane root = new BorderPane();
         root.getStylesheets().add("styleSheet.css");
@@ -88,7 +88,7 @@ public class StatusMenu extends GUIController {
         confirmButton.setTranslateY(screenHeight*0.05);
         vBox.getChildren().add(confirmButton);
         confirmButton.setOnAction(e -> {
-            ExploreMenu.exploreMenu(player,storage);
+            ExploreMenu.exploreMenu();
         });
 
         stage.setScene(new Scene(root));
