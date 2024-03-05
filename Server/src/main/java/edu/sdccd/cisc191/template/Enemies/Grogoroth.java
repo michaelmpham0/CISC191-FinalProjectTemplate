@@ -5,14 +5,15 @@ import edu.sdccd.cisc191.template.Player;
 
 public class Grogoroth extends Enemy {
 
-    private int health,maxHealth,damage,damageDealt,skill;
+    private int health,maxHealth,damage,damageDealt,skill=0;
 
     public String name;
-    private void skillPeaceForAll(Player player){
-
+    private int skillPeaceForAll(){
+        return (damage/2);
     }
 
-    private void skillDestroy(Player player){
+    private int skillDestroy(){
+        return (damage/3);
     }
 
     public String enemyTurn(Player player){
@@ -25,19 +26,22 @@ public class Grogoroth extends Enemy {
 
         switch (skill){
             case 1:
-           //     damageDealt = skillDestroy(player);
-                returnStr = "Grogoroth destroys you.";
+                damageDealt = skillDestroy();
+                returnStr = "Grogoroth destroys you. You took " + damageDealt + " damage!";
                 break;
             case 2:
-                skillPeaceForAll(player);
-                returnStr = "Grogoroth summon peace for all.";
+                damageDealt = skillPeaceForAll();
+                returnStr = "Grogoroth summon peace for all. You took " + damageDealt + " damage!";
                 break;
         }
+        player.setHealth(-damageDealt);
         return returnStr;
     }
 
     public Grogoroth(){
         super(1000,50,"Grogoroth, Destroyer of Worlds");
         this.health = maxHealth = 1000;
+        damage = 50;
+        name = "Grogoroth, Destroyer of Worlds";
     }
 }
