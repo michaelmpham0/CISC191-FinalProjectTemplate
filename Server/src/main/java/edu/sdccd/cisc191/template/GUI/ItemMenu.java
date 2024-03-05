@@ -163,7 +163,7 @@ public class ItemMenu extends GUIController {
         backButton.setTranslateY(screenHeight*0.2);
         vbox.getChildren().add(backButton);
         backButton.setOnAction(e -> {
-            ExploreMenu.exploreMenu();
+            previousSceneCheck();
         });
         stage.setScene(new Scene(root));
     }

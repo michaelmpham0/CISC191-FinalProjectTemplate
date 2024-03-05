@@ -16,6 +16,7 @@ import javafx.scene.text.TextAlignment;
 public class ExploreMenu extends GUIController {
     protected static void exploreMenu()
     {
+        previousStage = "Explore";
         BorderPane root = new BorderPane();
         root.getStylesheets().add("styleSheet.css");
         root.setPrefSize(screenWidth,screenHeight);

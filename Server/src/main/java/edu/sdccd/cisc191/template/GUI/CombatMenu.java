@@ -1,9 +1,8 @@
 package edu.sdccd.cisc191.template.GUI;
 
+import edu.sdccd.cisc191.template.Enemies.Grogoroth;
 import edu.sdccd.cisc191.template.Enemy;
 import edu.sdccd.cisc191.template.EnemyHandler;
-import edu.sdccd.cisc191.template.EnemyInterface;
-import edu.sdccd.cisc191.template.Weapons;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -15,23 +14,26 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
-import javafx.scene.text.TextAlignment;
 
 public class CombatMenu extends GUIController{
-   protected  static  void refreshGUI(Label name, Label health,Enemy enemy,String action){
+    private static int turn = 1;
+   protected  static  void refreshGUI(Label name, Label health,Label acts,Enemy enemy,String action,String act){
        name.setText(enemy.getName());
       if (action.equals("Attack")) {
           health.setText("Health: " + enemy.takeDamage(player.getAttack()+player.getCurrentWeapon().getWeaponDamage()) + "/" + enemy.getMaxHealth());
+          acts.setText(player.getName() + " attacks " + enemy.getName()  + " for " + (player.getAttack()+player.getCurrentWeapon().getWeaponDamage()) + " damage.");
           if (enemy.getHealth() <= 0) {
               name.setText(enemy.getName() + " has perished!");
           }
       }
       else {
           health.setText("Health: " + enemy.getHealth() + "/" + enemy.getMaxHealth());
+          acts.setText(act);
        }
    }
     protected static void combatMenu()
     {
+        previousStage = "Combat";
         BorderPane root = new BorderPane();
         root.getStylesheets().add("styleSheet.css");
         root.setPrefSize(screenWidth,screenHeight);
@@ -63,15 +65,23 @@ public class CombatMenu extends GUIController{
         enemyGUIContainer.setPadding(new Insets(screenWidth*0.015,0,screenWidth*0.015,0));
         enemyGUIContainer.getStylesheets().add("styleSheet.css");
         enemyGUIContainer.getStyleClass().add("borders");
-        enemyGUIContainer.setPrefSize(screenWidth*0.8,screenHeight*0.5);
-        enemyGUIContainer.setMinSize(screenWidth*0.8,screenHeight*0.5);
-        enemyGUIContainer.setMaxSize(screenWidth*0.8,screenHeight*0.5);
-        enemyGUIContainer.setTranslateY(screenHeight*0.1);
+        enemyGUIContainer.setPrefSize(screenWidth*0.8,screenHeight*0.4);
+        enemyGUIContainer.setMinSize(screenWidth*0.8,screenHeight*0.4);
+        enemyGUIContainer.setMaxSize(screenWidth*0.8,screenHeight*0.4);
+        enemyGUIContainer.setTranslateY(screenHeight*0.05);
         enemyGUIContainer.setTranslateX(screenWidth*0.1);
         root.setTop(enemyGUIContainer);
 
-        Enemy enemy = EnemyHandler.createEnemy(true,"0",0,0);
+        Enemy enemy = EnemyHandler.createEnemy(true,0);
 
+        Label allActions = new Label();
+        allActions.getStylesheets().add("styleSheet.css");
+        allActions.setText(enemy.getName() + " examines you.");
+        allActions.setFont(new Font("Times New Roman",(screenHeight+screenWidth)/100 ));
+        allActions.setTranslateY(-screenHeight*0.35);
+        BorderPane.setAlignment(allActions,Pos.CENTER);
+
+        root.setBottom(allActions);
 
         //intro text
         Label introText = new Label();
@@ -91,8 +101,8 @@ public class CombatMenu extends GUIController{
 
         enemyGUIContainer.setBottom(enemyStats);
 
-        double imageWidth = (screenHeight+screenWidth)/9;
-        double imageHeight = (screenHeight+screenWidth)/8;
+        double imageWidth = (screenHeight+screenWidth)/11;
+        double imageHeight = (screenHeight+screenWidth)/11;
         //image
         Label imageContainer = createLabel("","Times New Roman",0,imageWidth,imageHeight);
         imageContainer.setMinSize(imageWidth,imageHeight);
@@ -123,7 +133,14 @@ public class CombatMenu extends GUIController{
                 {
                     case 1:
                         // Attack
-                        refreshGUI(introText,enemyStats,enemy,"Attack");
+                        if (turn==1){
+                            refreshGUI(introText,enemyStats,allActions,enemy,"Attack",null);
+                            turn++;
+                        }
+                        else {
+                            refreshGUI(introText,enemyStats,allActions,enemy,"Enemy", enemy.enemyTurn());
+                            turn--;
+                        }
                         break;
                     case 2:
                         // Check Status

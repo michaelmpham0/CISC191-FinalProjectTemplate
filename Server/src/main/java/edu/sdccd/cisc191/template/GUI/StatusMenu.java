@@ -88,7 +88,7 @@ public class StatusMenu extends GUIController {
         confirmButton.setTranslateY(screenHeight*0.05);
         vBox.getChildren().add(confirmButton);
         confirmButton.setOnAction(e -> {
-            ExploreMenu.exploreMenu();
+            previousSceneCheck();
         });
 
         stage.setScene(new Scene(root));

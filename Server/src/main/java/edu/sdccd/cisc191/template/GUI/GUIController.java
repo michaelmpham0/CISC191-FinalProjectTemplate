@@ -101,6 +101,17 @@ public class GUIController extends GUIMain {
        }
    }
 
+   public static void previousSceneCheck(){
+       switch (previousStage) {
+       case "Explore":
+           ExploreMenu.exploreMenu();
+           break;
+           case "Combat":
+               CombatMenu.combatMenu();
+               break;
+       }
+   }
+
    public Scene showMainMenu(){
 
         VBox vbox = new VBox();
