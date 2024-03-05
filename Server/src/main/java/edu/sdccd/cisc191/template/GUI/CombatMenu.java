@@ -138,7 +138,7 @@ public class CombatMenu extends GUIController{
                             turn++;
                         }
                         else {
-                            refreshGUI(introText,enemyStats,allActions,enemy,"Enemy", enemy.enemyTurn());
+                            refreshGUI(introText,enemyStats,allActions,enemy,"Enemy", enemy.enemyTurn(player));
                             turn--;
                         }
                         break;

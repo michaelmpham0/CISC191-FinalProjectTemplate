@@ -16,14 +16,15 @@ public class EnemyHandler {
     public static Enemy createEnemy(boolean isRandom,int ID){
         if (isRandom) {
             int max = 2;
-            int min = 0;
-            int range = (max - min) +1;
+            int min = 1;
+            int range = (max - min) + 1;
 
             enemyID = (int)((Math.random() *range)+min);
         }
         else {
            enemyID = ID;
         }
+        System.out.println(enemyID);
         switch(enemyID){
             case 1:
                 enemy = new Grogoroth();

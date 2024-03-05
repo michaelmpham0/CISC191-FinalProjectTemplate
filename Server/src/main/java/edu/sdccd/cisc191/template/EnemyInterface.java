@@ -29,7 +29,7 @@ public interface EnemyInterface{
 
     }
 
-    public String enemyTurn();
+    public String enemyTurn(Player player);
 
     public static int takeDamage(int damage) {
         return 0;

@@ -56,7 +56,7 @@ public class Enemy implements EnemyInterface{
         }
     }
 
-    public String enemyTurn() {
+    public String enemyTurn(Player player) {
         return null;
     }
 }
