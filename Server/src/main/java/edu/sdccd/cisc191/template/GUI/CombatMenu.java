@@ -49,6 +49,7 @@ public class CombatMenu extends GUIController{
         vBox.getStylesheets().add("styleSheet.css");
         //vBox.getStyleClass().add("borders");
 
+        /*
         HBox barContainer = new HBox();
         barContainer.getStylesheets().add("styleSheet.css");
         barContainer.getStyleClass().add("noBorder");
@@ -61,6 +62,8 @@ public class CombatMenu extends GUIController{
         barContainer.setSpacing(screenWidth*0.025);
         vBox.getChildren().add(barContainer);
 
+         */
+
         ProgressBar healthBar = new ProgressBar();
         healthBar.getStylesheets().add("styleSheet.css");
         healthBar.getStyleClass().add("healthBar");
@@ -69,7 +72,7 @@ public class CombatMenu extends GUIController{
         healthBar.setMaxSize(screenWidth*0.2,screenHeight*0.025);
         healthBar.setProgress((double) player.getHealth() /player.getMaxHealth());
         currentHealthBar = healthBar;
-        barContainer.getChildren().add(healthBar);
+        vBox.getChildren().add(healthBar);
 
         ProgressBar manaBar = new ProgressBar();
         manaBar.getStylesheets().add("styleSheet.css");
@@ -77,9 +80,10 @@ public class CombatMenu extends GUIController{
         manaBar.setPrefSize(screenWidth*0.2,screenHeight*0.025);
         manaBar.setMinSize(screenWidth*0.2,screenHeight*0.025);
         manaBar.setMaxSize(screenWidth*0.2,screenHeight*0.025);
+        manaBar.setTranslateY(screenHeight*0.035);
         manaBar.setProgress((double) player.getMana() /player.getMaxMana());
         currentManaBar = manaBar;
-        barContainer.getChildren().add(manaBar);
+        vBox.getChildren().add(manaBar);
 
         HBox buttonContainer = new HBox();
         buttonContainer.getStylesheets().add("styleSheet.css");
