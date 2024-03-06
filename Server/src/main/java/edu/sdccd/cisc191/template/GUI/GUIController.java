@@ -102,6 +102,7 @@ public class GUIController extends GUIMain {
    }
 
    public static void previousSceneCheck(){
+        /*
        switch (previousStage) {
        case "Explore":
            ExploreMenu.exploreMenu();
@@ -110,6 +111,9 @@ public class GUIController extends GUIMain {
                CombatMenu.combatMenu();
                break;
        }
+
+         */
+       stage.setScene(lastScene);
    }
 
    public Scene showMainMenu(){

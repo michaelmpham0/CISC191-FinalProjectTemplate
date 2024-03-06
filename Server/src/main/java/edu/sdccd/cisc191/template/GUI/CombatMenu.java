@@ -72,11 +72,11 @@ public class CombatMenu extends GUIController{
         enemyGUIContainer.setTranslateX(screenWidth*0.1);
         root.setTop(enemyGUIContainer);
 
-        Enemy enemy = EnemyHandler.createEnemy(true,0);
+        currentEnemy = EnemyHandler.createEnemy(true,0);
 
         Label allActions = new Label();
         allActions.getStylesheets().add("styleSheet.css");
-        allActions.setText(enemy.getName() + " examines you.");
+        allActions.setText(currentEnemy.getName() + " examines you.");
         allActions.setFont(new Font("Times New Roman",(screenHeight+screenWidth)/100 ));
         allActions.setTranslateY(-screenHeight*0.35);
         BorderPane.setAlignment(allActions,Pos.CENTER);
@@ -86,7 +86,7 @@ public class CombatMenu extends GUIController{
         //intro text
         Label introText = new Label();
         introText.getStylesheets().add("styleSheet.css");
-        introText.setText("You encountered " + enemy.getName() + "!");
+        introText.setText(currentEnemy.getEncounterText());
         introText.setFont(new Font("Times New Roman",(screenHeight+screenWidth)/100 ));
         BorderPane.setAlignment(introText,Pos.CENTER);
 
@@ -95,7 +95,7 @@ public class CombatMenu extends GUIController{
         //enemy stats
         Label enemyStats = new Label();
         enemyStats.getStylesheets().add("styleSheet.css");
-        enemyStats.setText("Health: " + enemy.getHealth() + "/" + enemy.getMaxHealth());
+        enemyStats.setText("Health: " + currentEnemy.getHealth() + "/" + currentEnemy.getMaxHealth());
         enemyStats.setFont(new Font("Times New Roman",(screenHeight+screenWidth)/100));
         BorderPane.setAlignment(enemyStats,Pos.CENTER);
 
@@ -111,7 +111,7 @@ public class CombatMenu extends GUIController{
         imageContainer.setAlignment(Pos.CENTER);
         enemyGUIContainer.setCenter(imageContainer);
 
-        Image newImage = new Image("file:Server/src/main/resources/Images/" + enemy.getName() + ".png");
+        Image newImage = new Image("file:Server/src/main/resources/Images/" + currentEnemy.getName() + ".png");
         ImageView imageView = new ImageView(newImage);
         imageView.setPreserveRatio(true);
         imageView.setFitHeight(imageHeight);
@@ -134,11 +134,11 @@ public class CombatMenu extends GUIController{
                     case 1:
                         // Attack
                         if (turn==1){
-                            refreshGUI(introText,enemyStats,allActions,enemy,"Attack",null);
+                            refreshGUI(introText,enemyStats,allActions,currentEnemy,"Attack",null);
                             turn++;
                         }
                         else {
-                            refreshGUI(introText,enemyStats,allActions,enemy,"Enemy", enemy.enemyTurn(player));
+                            refreshGUI(introText,enemyStats,allActions,currentEnemy,"Enemy", currentEnemy.enemyTurn(player));
                             turn--;
                         }
                         break;
@@ -159,7 +159,7 @@ public class CombatMenu extends GUIController{
 
             buttonContainer.getChildren().add(newButton);
         }
-
-        stage.setScene(new Scene(root));
+        lastScene = new Scene(root);
+        stage.setScene(lastScene);
     }
 }

@@ -20,7 +20,9 @@ public interface EnemyInterface{
     public static void setDamage(int damage) {
 
     }
-
+    public static String getEncounterText() {
+        return null;
+    }
     public static void setHealth(int health) {
 
     }

@@ -1,9 +1,12 @@
 package edu.sdccd.cisc191.template.GUI;
 
+import edu.sdccd.cisc191.template.Enemy;
 import edu.sdccd.cisc191.template.GameData;
 import edu.sdccd.cisc191.template.Inventory;
 import edu.sdccd.cisc191.template.Player;
 import javafx.application.Application;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.*;
@@ -21,7 +24,9 @@ public class GUIMain extends Application {
     protected static Inventory storage;
     protected static Player player = new Player();
     protected static Stage stage;
+    protected static Enemy currentEnemy;
 
+    protected static Scene lastScene;
     protected static String previousStage;
     @Override
     public void start(Stage stage) throws Exception {

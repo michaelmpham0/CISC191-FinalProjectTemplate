@@ -88,8 +88,8 @@ public class ExploreMenu extends GUIController {
 
             buttonContainer.getChildren().add(newButton);
         }
-
-        stage.setScene(new Scene(root));
+        lastScene = new Scene(root);
+        stage.setScene(lastScene);
     }
 
 }

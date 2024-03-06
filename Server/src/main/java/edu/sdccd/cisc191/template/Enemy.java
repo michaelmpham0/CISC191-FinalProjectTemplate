@@ -6,14 +6,17 @@ public class Enemy implements EnemyInterface{
     private static int damage;
 
     private static String name;
+    private static String encounterText;
 
     public Enemy(){
         this.health = maxHealth = damage= 0;
         name = "Unknown";
     }
-    public Enemy(int health,int damage, String name) {
+    public Enemy(int health,int damage, String name,String encounterText) {
         this.health = maxHealth = health;
+        this.damage = damage;
         this.name = name;
+        this.encounterText = encounterText;
     }
 
     public static int getDamage() {
@@ -30,6 +33,11 @@ public class Enemy implements EnemyInterface{
 
     public static int getMaxHealth() {
         return maxHealth;
+    }
+
+    public String getEncounterText()
+    {
+        return encounterText;
     }
 
     public void setDamage(int damage) {
