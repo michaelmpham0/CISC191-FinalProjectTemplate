@@ -22,7 +22,7 @@ public class Player implements Serializable {
         put("Barbarian", new int[]{25,25,10,0});
         put("Ranger", new int[]{20,10,20,5});
     }};
-    private int HP,maxHP,ATK,GOLD,MANA,level;
+    private int HP,maxHP,ATK,GOLD,MANA,maxMana,level;
 
     private Weapons currentWeapon = new Weapons();
     private Tools currentTool = new Tools();
@@ -120,14 +120,16 @@ public class Player implements Serializable {
     public int getHealth(){
         return  HP;
     }
+    public int getMaxHealth(){
+        return  maxHP;
+    }
 
-    public void setHealth(int healthDifference){
-        if (healthDifference<0){
-            HP = Math.min((HP + healthDifference), 0);
-        }
-        else {
-            HP = Math.max((HP + healthDifference), maxHP);
-        }
+    public int getMaxMana(){
+        return  maxMana;
+    }
+
+    public void setHealth(int newHealth){
+       HP = newHealth;
     }
 
 
@@ -136,7 +138,7 @@ public class Player implements Serializable {
         Class = setClass;
         maxHP = HP = classStats.get(Class)[0];
         ATK = classStats.get(Class)[1];
-        MANA = classStats.get(Class)[2];
+        MANA = maxMana = classStats.get(Class)[2];
         GOLD = classStats.get(Class)[3];
     }
     public void setName(String newName)

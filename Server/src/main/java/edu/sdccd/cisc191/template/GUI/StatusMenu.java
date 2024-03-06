@@ -47,9 +47,9 @@ public class StatusMenu extends GUIController {
 
         String leftString = "";
         leftString += "Level - "+player.getLevel()+"\n\n";
-        leftString += "Health - "+player.getHealth()+"\n\n";
+        leftString += "Health - "+player.getHealth()+"/"+player.getMaxHealth()+"\n\n";
         leftString += "Attack - "+player.getAttack()+"\n\n";
-        leftString += "Mana - "+player.getMana()+"\n\n";
+        leftString += "Mana - "+player.getMana()+"/"+player.getMaxMana()+"\n\n";
         leftString += "Gold - "+player.getGold()+"\n\n";
         leftText.setText(leftString);
 

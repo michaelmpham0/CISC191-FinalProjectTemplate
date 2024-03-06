@@ -102,6 +102,29 @@
     -fx-border-width: 1.5;
     -fx-border-insets: -5;
 }
+.healthBar{
+    -fx-base: transparent;
+    -fx-background-color: transparent;
+    -fx-accent: rgb(203, 30, 30);
+    -fx-border-color: rgb(255, 255, 255);
+    -fx-border-style: solid;
+    -fx-border-width: 1.5;
+    -fx-border-insets: -5;
+    -fx-border-radius: 6;
+    -fx-padding: 2 2 2 2;
+}
+.manaBar{
+    -fx-base: transparent;
+    -fx-background-color: transparent;
+    -fx-accent: rgb(49, 90, 238);
+    -fx-border-color: rgb(255, 255, 255);
+    -fx-border-style: solid;
+    -fx-border-width: 1.5;
+    -fx-border-insets: -5;
+    -fx-border-radius: 6;
+    -fx-padding: 2 2 2 2;
+}
+
 .noBorder{
     -fx-border-width: 0;
 }

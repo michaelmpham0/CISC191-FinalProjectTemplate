@@ -7,6 +7,7 @@ import edu.sdccd.cisc191.template.Player;
 import javafx.application.Application;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.ProgressBar;
 import javafx.stage.Stage;
 
 import java.io.*;
@@ -28,6 +29,10 @@ public class GUIMain extends Application {
 
     protected static Scene lastScene;
     protected static String previousStage;
+
+    public static ProgressBar currentHealthBar;
+    protected static ProgressBar currentManaBar;
+
     @Override
     public void start(Stage stage) throws Exception {
         try {

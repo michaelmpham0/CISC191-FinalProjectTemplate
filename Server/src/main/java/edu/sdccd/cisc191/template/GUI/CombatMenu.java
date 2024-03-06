@@ -8,6 +8,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
@@ -48,6 +49,38 @@ public class CombatMenu extends GUIController{
         vBox.getStylesheets().add("styleSheet.css");
         //vBox.getStyleClass().add("borders");
 
+        HBox barContainer = new HBox();
+        barContainer.getStylesheets().add("styleSheet.css");
+        barContainer.getStyleClass().add("noBorder");
+        barContainer.setAlignment(Pos.CENTER);
+        barContainer.setPrefSize(screenWidth*0.8,screenHeight*0.025);
+        barContainer.setMinSize(screenWidth*0.8,screenHeight*0.025);
+        barContainer.setMaxSize(screenWidth*0.8,screenHeight*0.025);
+        barContainer.setTranslateY(screenHeight*0);
+        barContainer.setPadding(new Insets(screenWidth*0.015,screenWidth*0.015,screenWidth*0.015,screenWidth*0.015));
+        barContainer.setSpacing(screenWidth*0.025);
+        vBox.getChildren().add(barContainer);
+
+        ProgressBar healthBar = new ProgressBar();
+        healthBar.getStylesheets().add("styleSheet.css");
+        healthBar.getStyleClass().add("healthBar");
+        healthBar.setPrefSize(screenWidth*0.2,screenHeight*0.025);
+        healthBar.setMinSize(screenWidth*0.2,screenHeight*0.025);
+        healthBar.setMaxSize(screenWidth*0.2,screenHeight*0.025);
+        healthBar.setProgress((double) player.getHealth() /player.getMaxHealth());
+        currentHealthBar = healthBar;
+        barContainer.getChildren().add(healthBar);
+
+        ProgressBar manaBar = new ProgressBar();
+        manaBar.getStylesheets().add("styleSheet.css");
+        manaBar.getStyleClass().add("manaBar");
+        manaBar.setPrefSize(screenWidth*0.2,screenHeight*0.025);
+        manaBar.setMinSize(screenWidth*0.2,screenHeight*0.025);
+        manaBar.setMaxSize(screenWidth*0.2,screenHeight*0.025);
+        manaBar.setProgress((double) player.getMana() /player.getMaxMana());
+        currentManaBar = manaBar;
+        barContainer.getChildren().add(manaBar);
+
         HBox buttonContainer = new HBox();
         buttonContainer.getStylesheets().add("styleSheet.css");
         buttonContainer.getStyleClass().add("borders");
@@ -59,6 +92,8 @@ public class CombatMenu extends GUIController{
         buttonContainer.setPadding(new Insets(screenWidth*0.015,screenWidth*0.015,screenWidth*0.015,screenWidth*0.015));
         buttonContainer.setSpacing(screenWidth*0.025);
         vBox.getChildren().add(buttonContainer);
+
+
 
         //enemy GUI container
         BorderPane enemyGUIContainer = new BorderPane();
@@ -78,7 +113,7 @@ public class CombatMenu extends GUIController{
         allActions.getStylesheets().add("styleSheet.css");
         allActions.setText(currentEnemy.getName() + " examines you.");
         allActions.setFont(new Font("Times New Roman",(screenHeight+screenWidth)/100 ));
-        allActions.setTranslateY(-screenHeight*0.35);
+        allActions.setTranslateY(-screenHeight*0.45);
         BorderPane.setAlignment(allActions,Pos.CENTER);
 
         root.setBottom(allActions);

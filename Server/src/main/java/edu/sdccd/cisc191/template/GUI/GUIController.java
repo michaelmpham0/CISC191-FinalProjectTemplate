@@ -102,18 +102,24 @@ public class GUIController extends GUIMain {
    }
 
    public static void previousSceneCheck(){
+        if (previousStage.equals("Combat"))
+        {
+            stage.setScene(lastScene);
+        }
+        else
+        {
+            ExploreMenu.exploreMenu();
+        }
         /*
        switch (previousStage) {
        case "Explore":
-           ExploreMenu.exploreMenu();
+
            break;
            case "Combat":
                CombatMenu.combatMenu();
                break;
        }
-
-         */
-       stage.setScene(lastScene);
+        */
    }
 
    public Scene showMainMenu(){
