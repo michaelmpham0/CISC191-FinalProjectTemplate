@@ -61,7 +61,27 @@ public class GUIController extends GUIMain {
         newLabel.getStylesheets().add("styleSheet.css");
         return newLabel;
     }
-    
+
+    public static void updateHealthAndMana()
+    {
+        if (currentHealthBar != null)
+        {
+            currentHealthBar.setProgress((double) player.getHealth() /player.getMaxHealth());
+        }
+        if (currentManaBar != null)
+        {
+            currentManaBar.setProgress((double) player.getMana() /player.getMaxMana());
+        }
+        if (currentHealthBarText != null)
+        {
+            currentHealthBarText.setText(player.getHealth()+"/"+player.getMaxHealth());
+        }
+        if (currentManaBarText != null)
+        {
+            currentManaBarText.setText(player.getMana()+"/"+player.getMaxMana());
+        }
+    }
+
 
     private void updateStatus(Player player, Label leftTextLabel, Label rightTextLabel)
     {

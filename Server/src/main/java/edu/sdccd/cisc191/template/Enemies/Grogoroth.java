@@ -1,9 +1,9 @@
 package edu.sdccd.cisc191.template.Enemies;
 
 import edu.sdccd.cisc191.template.Enemy;
+import edu.sdccd.cisc191.template.GUI.GUIController;
 import edu.sdccd.cisc191.template.Player;
 
-import static edu.sdccd.cisc191.template.GUI.GUIMain.currentHealthBar;
 
 public class Grogoroth extends Enemy {
 
@@ -42,7 +42,7 @@ public class Grogoroth extends Enemy {
         System.out.println(damageDealt);
         System.out.println(player.getHealth()-damageDealt);
         player.setHealth(player.getHealth()-damageDealt);
-        currentHealthBar.setProgress((double) player.getHealth() /player.getMaxHealth());
+        GUIController.updateHealthAndMana();
         return returnStr;
     }
 

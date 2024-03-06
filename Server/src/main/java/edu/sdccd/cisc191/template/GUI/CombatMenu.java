@@ -64,6 +64,12 @@ public class CombatMenu extends GUIController{
 
          */
 
+        Label healthBarText = createLabel(player.getHealth()+"/"+player.getMaxHealth(),"Times New Roman",200,0.075,0.025);
+        healthBarText.getStyleClass().add("noBorder");
+        healthBarText.setTranslateY(screenHeight*-0.01);
+        currentHealthBarText = healthBarText;
+        vBox.getChildren().add(healthBarText);
+
         ProgressBar healthBar = new ProgressBar();
         healthBar.getStylesheets().add("styleSheet.css");
         healthBar.getStyleClass().add("healthBar");
@@ -73,6 +79,12 @@ public class CombatMenu extends GUIController{
         healthBar.setProgress((double) player.getHealth() /player.getMaxHealth());
         currentHealthBar = healthBar;
         vBox.getChildren().add(healthBar);
+
+        Label manaBarText = createLabel(player.getMana()+"/"+player.getMaxMana(),"Times New Roman",200,0.075,0.025);
+        manaBarText.getStyleClass().add("noBorder");
+        manaBarText.setTranslateY(screenHeight*0.025);
+        currentManaBarText = manaBarText;
+        vBox.getChildren().add(manaBarText);
 
         ProgressBar manaBar = new ProgressBar();
         manaBar.getStylesheets().add("styleSheet.css");
