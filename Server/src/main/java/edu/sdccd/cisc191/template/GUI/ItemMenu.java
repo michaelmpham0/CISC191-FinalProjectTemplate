@@ -19,7 +19,7 @@ public class ItemMenu extends GUIController {
         currentItem = item;
         name.setText(item.getItemName());
         description.setText(item.getItemDesc());
-        count.setText("x" + item.getHoldSize() + " "+item.getItemName());
+        count.setText("x" + item.getStackSize() + " "+item.getItemName());
     }
 
     protected static void itemMenu(){
@@ -155,6 +155,12 @@ public class ItemMenu extends GUIController {
             if (currentItem instanceof Weapons || currentItem instanceof Tools)
             {
                 player.equipWeaponOrTool(storage,currentItem);
+            }
+            else
+            {
+                currentItem.useItem();
+                GUIController.updateHealthAndMana();
+                storage.useOneItem(currentItem);
             }
             itemMenu();
         });

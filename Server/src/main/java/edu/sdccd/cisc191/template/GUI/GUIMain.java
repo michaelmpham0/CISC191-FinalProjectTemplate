@@ -24,7 +24,10 @@ public class GUIMain extends Application {
     }
 
     protected static Inventory storage;
-    protected static Player player = new Player();
+    public static Player player = new Player();
+    public static Player getPlayer() {
+        return player;
+    }
     protected static Stage stage;
     protected static Enemy currentEnemy;
 
@@ -53,21 +56,13 @@ public class GUIMain extends Application {
                     String outputPath = "Server/src/main/resources/SaveFile.ser";
                     try {
                         saveFile = new FileOutputStream(outputPath);
-                        try {
-                            ObjectOutputStream objWriter = new ObjectOutputStream(saveFile);
-                            objWriter.writeObject(new GameData(player,storage));
-
-                        } catch (IOException ex) {
-                            throw new RuntimeException(ex);
-                        }
-
-                    } catch (FileNotFoundException ex) {
+                        ObjectOutputStream objWriter = new ObjectOutputStream(saveFile);
+                        objWriter.writeObject(new GameData(player,storage));
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
                         throw new RuntimeException(ex);
                     }
-
                 }
-
-
             });
 
             this.stage.setScene(guiController.showMainMenu());

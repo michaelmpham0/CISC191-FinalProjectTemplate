@@ -132,6 +132,14 @@ public class Player implements Serializable {
        HP = newHealth;
     }
 
+    public void restoreHealth(int healAmount)
+    {
+        HP += healAmount;
+        if (HP > maxHP)
+        {
+            HP = maxHP;
+        }
+    }
 
     public void setClass(String setClass)
     {

@@ -2,6 +2,8 @@ package edu.sdccd.cisc191.template;
 
 import java.io.Serializable;
 
+import edu.sdccd.cisc191.template.GUI.GUIMain;
+
 public class Items implements Serializable {
     public String itemName;
     public String itemDesc;
@@ -23,7 +25,7 @@ public class Items implements Serializable {
         return itemDesc;
     }
 
-    public int getHoldSize(){
+    public int getStackSize(){
         return holdSize;
     }
 
@@ -35,6 +37,20 @@ public class Items implements Serializable {
     }
     public void setStackSize(int size){
         holdSize = size;
+    }
+    public void useItem()
+    {
+        System.out.println("Tried To Use: "+itemName);
+        switch (itemName)
+        {
+            case "Flask of Crimson Tears":
+                System.out.println("Use Health Potion");
+                Player playerRefrence = GUIMain.getPlayer();
+                playerRefrence.restoreHealth(20);
+                break;
+            default:
+                System.out.println("Item Not Usable");
+        }
     }
     @Override
     public String toString() {

@@ -94,6 +94,15 @@ public class Inventory implements Serializable {
         inventory.remove(equipItem);
     }
 
+    public void useOneItem(Items itemToRemove)
+    {
+        itemToRemove.setStackSize(itemToRemove.getStackSize()-1);
+        if (itemToRemove.getStackSize()<1)
+        {
+            inventory.remove(itemToRemove);
+        }
+    }
+
     public ArrayList<Items> getInventory() {
         return inventory;
     }
@@ -103,7 +112,7 @@ public class Inventory implements Serializable {
         for (int i = 0; i < inventory.size(); i++) {
             int itemNumber = i + 1;
             Items item = inventory.get(i);
-            itemList += "[" + itemNumber + "]" + " - " + item.getItemName() + " x"+item.getHoldSize()+": " + item.getItemDesc() + "\n";
+            itemList += "[" + itemNumber + "]" + " - " + item.getItemName() + " x"+item.getStackSize()+": " + item.getItemDesc() + "\n";
         }
         return itemList;
     }
