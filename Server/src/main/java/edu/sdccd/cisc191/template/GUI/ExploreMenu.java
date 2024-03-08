@@ -7,6 +7,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -44,6 +45,25 @@ public class ExploreMenu extends GUIController {
 
         vBox.getChildren().add(middleTextBox);
 
+        Label healthBarText = createLabel(player.getHealth()+"/"+player.getMaxHealth(),"Times New Roman",200,0.075,0.025);
+        healthBarText.getStyleClass().add("noBorder");
+        healthBarText.setTranslateY(screenHeight*-0.11);
+        currentHealthBarText = healthBarText;
+        vBox.getChildren().add(healthBarText);
+        ProgressBar healthBar = createHealthBar();
+        healthBar.setTranslateY(screenHeight*-0.1);
+        currentHealthBar = healthBar;
+        vBox.getChildren().add(healthBar);
+        Label manaBarText = createLabel(player.getMana()+"/"+player.getMaxMana(),"Times New Roman",200,0.075,0.025);
+        manaBarText.getStyleClass().add("noBorder");
+        manaBarText.setTranslateY(screenHeight*-0.051);
+        currentManaBarText = manaBarText;
+        vBox.getChildren().add(manaBarText);
+        ProgressBar manaBar = createManaBar();
+        manaBar.setTranslateY(screenHeight*-0.05);
+        currentManaBar = manaBar;
+        vBox.getChildren().add(manaBar);
+
         HBox buttonContainer = new HBox();
         buttonContainer.getStylesheets().add("styleSheet.css");
         buttonContainer.getStyleClass().add("borders");
@@ -51,7 +71,7 @@ public class ExploreMenu extends GUIController {
         buttonContainer.setPrefSize(screenWidth*0.8,screenHeight*0.1);
         buttonContainer.setMinSize(screenWidth*0.8,screenHeight*0.1);
         buttonContainer.setMaxSize(screenWidth*0.8,screenHeight*0.1);
-        buttonContainer.setTranslateY(screenHeight*0.125);
+        buttonContainer.setTranslateY(screenHeight*0.05);
         buttonContainer.setPadding(new Insets(screenWidth*0.015,screenWidth*0.015,screenWidth*0.015,screenWidth*0.015));
         buttonContainer.setSpacing(screenWidth*0.025);
         vBox.getChildren().add(buttonContainer);

@@ -27,7 +27,7 @@ public class Grogoroth extends Enemy {
         int range = (max - min) +1;
 
         skill = (int)((Math.random() *range)+min);
-
+        damageDealt = 0;
         switch (skill){
             case 1:
                 damageDealt = skillDestroy();
@@ -38,9 +38,6 @@ public class Grogoroth extends Enemy {
                 returnStr = "Grogoroth summons peace for all. You took " + damageDealt + " damage!";
                 break;
         }
-        System.out.println(player.getHealth());
-        System.out.println(damageDealt);
-        System.out.println(player.getHealth()-damageDealt);
         player.setHealth(player.getHealth()-damageDealt);
         GUIController.updateHealthAndMana();
         return returnStr;

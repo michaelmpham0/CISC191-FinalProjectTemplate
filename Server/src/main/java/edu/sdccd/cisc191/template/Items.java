@@ -16,13 +16,26 @@ public class Items implements Serializable {
         itemName = inName;
         itemDesc = inDesc;
         holdSize = inStack;
+        this.useDesc = "...";
     }
+
+    public String useDesc;
+    public Items(String inName, String inDesc, int inStack,String useDesc){
+        itemName = inName;
+        itemDesc = inDesc;
+        holdSize = inStack;
+        this.useDesc = useDesc;
+    }
+
 
     public String getItemName() {
         return itemName;
     }
     public String getItemDesc(){
         return itemDesc;
+    }
+    public String getUseDesc(){
+        return useDesc;
     }
 
     public int getStackSize(){

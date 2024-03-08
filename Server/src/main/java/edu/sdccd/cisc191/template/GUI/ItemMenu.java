@@ -152,17 +152,22 @@ public class ItemMenu extends GUIController {
         useButton.setTranslateY(screenHeight*0.1);
         useButton.setOnAction(e ->{
             System.out.println(currentItem);
-            if (currentItem instanceof Weapons || currentItem instanceof Tools)
+            if (currentItem != null)
             {
-                player.equipWeaponOrTool(storage,currentItem);
+                if (currentItem instanceof Weapons || currentItem instanceof Tools)
+                {
+                    player.equipWeaponOrTool(storage,currentItem);
+                }
+                else
+                {
+                    currentItem.useItem();
+                    GUIController.updateHealthAndMana();
+                    storage.useOneItem(currentItem);
+                }
+                usedItem = currentItem;
+                previousSceneCheck();
             }
-            else
-            {
-                currentItem.useItem();
-                GUIController.updateHealthAndMana();
-                storage.useOneItem(currentItem);
-            }
-            itemMenu();
+
         });
 
         Button backButton = createButton("Go Back","Button2","Times New Roman",100,0.1,0.05,0,0);

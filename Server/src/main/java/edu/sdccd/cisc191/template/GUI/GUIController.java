@@ -1,22 +1,26 @@
 package edu.sdccd.cisc191.template.GUI;
 
-import edu.sdccd.cisc191.template.GUI.CharacterCreationMenu;
-import edu.sdccd.cisc191.template.GUI.GUIMain;
+
 import edu.sdccd.cisc191.template.GameData;
-import edu.sdccd.cisc191.template.Inventory;
+import edu.sdccd.cisc191.template.Items;
 import edu.sdccd.cisc191.template.Player;
+import javafx.animation.Timeline;
+import javafx.animation.KeyFrame;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.ProgressBar;
+import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
-import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import java.io.*;
+
 
 import java.awt.*;
 
@@ -27,6 +31,11 @@ public class GUIController extends GUIMain {
     public static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     public static double screenWidth = screenSize.getWidth()*0.8;
     public static double screenHeight = screenSize.getHeight()*0.8;
+    private static Timeline turnDelay;
+    protected static boolean pauseGame = false;
+    protected static Items usedItem = null;
+    protected static boolean inMenu = false;
+    //variable to track when item is used, so to use your turn during combat
 
     static protected Text createText(String textString, String font, String color , double size, double xPos, double yPos) {
         Text text = new Text(textString);
@@ -62,6 +71,30 @@ public class GUIController extends GUIMain {
         return newLabel;
     }
 
+    static  protected ProgressBar createHealthBar()
+    {
+        ProgressBar healthBar = new ProgressBar();
+        healthBar.getStylesheets().add("styleSheet.css");
+        healthBar.getStyleClass().add("healthBar");
+        healthBar.setPrefSize(screenWidth*0.2,screenHeight*0.025);
+        healthBar.setMinSize(screenWidth*0.2,screenHeight*0.025);
+        healthBar.setMaxSize(screenWidth*0.2,screenHeight*0.025);
+        healthBar.setProgress((double) player.getHealth() /player.getMaxHealth());
+        return  healthBar;
+    }
+    static  protected ProgressBar createManaBar()
+    {
+        ProgressBar manaBar = new ProgressBar();
+        manaBar.getStylesheets().add("styleSheet.css");
+        manaBar.getStyleClass().add("manaBar");
+        manaBar.setPrefSize(screenWidth*0.2,screenHeight*0.025);
+        manaBar.setMinSize(screenWidth*0.2,screenHeight*0.025);
+        manaBar.setMaxSize(screenWidth*0.2,screenHeight*0.025);
+        manaBar.setTranslateY(screenHeight*0.035);
+        manaBar.setProgress((double) player.getMana() /player.getMaxMana());
+        return  manaBar;
+    }
+
     public static void updateHealthAndMana()
     {
         if (currentHealthBar != null)
@@ -81,7 +114,6 @@ public class GUIController extends GUIMain {
             currentManaBarText.setText(player.getMana()+"/"+player.getMaxMana());
         }
     }
-
 
     private void updateStatus(Player player, Label leftTextLabel, Label rightTextLabel)
     {
@@ -122,6 +154,7 @@ public class GUIController extends GUIMain {
    }
 
    public static void previousSceneCheck(){
+        inMenu = false;
         if (previousStage.equals("Combat"))
         {
             stage.setScene(lastScene);

@@ -3,6 +3,7 @@ package edu.sdccd.cisc191.template.GUI;
 import edu.sdccd.cisc191.template.Enemies.Grogoroth;
 import edu.sdccd.cisc191.template.Enemy;
 import edu.sdccd.cisc191.template.EnemyHandler;
+import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -15,6 +16,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import javafx.animation.PauseTransition;
+import javafx.util.Duration;
 
 public class CombatMenu extends GUIController{
     private static int turn = 1;
@@ -69,31 +72,15 @@ public class CombatMenu extends GUIController{
         healthBarText.setTranslateY(screenHeight*-0.01);
         currentHealthBarText = healthBarText;
         vBox.getChildren().add(healthBarText);
-
-        ProgressBar healthBar = new ProgressBar();
-        healthBar.getStylesheets().add("styleSheet.css");
-        healthBar.getStyleClass().add("healthBar");
-        healthBar.setPrefSize(screenWidth*0.2,screenHeight*0.025);
-        healthBar.setMinSize(screenWidth*0.2,screenHeight*0.025);
-        healthBar.setMaxSize(screenWidth*0.2,screenHeight*0.025);
-        healthBar.setProgress((double) player.getHealth() /player.getMaxHealth());
+        ProgressBar healthBar = createHealthBar();
         currentHealthBar = healthBar;
         vBox.getChildren().add(healthBar);
-
         Label manaBarText = createLabel(player.getMana()+"/"+player.getMaxMana(),"Times New Roman",200,0.075,0.025);
         manaBarText.getStyleClass().add("noBorder");
         manaBarText.setTranslateY(screenHeight*0.025);
         currentManaBarText = manaBarText;
         vBox.getChildren().add(manaBarText);
-
-        ProgressBar manaBar = new ProgressBar();
-        manaBar.getStylesheets().add("styleSheet.css");
-        manaBar.getStyleClass().add("manaBar");
-        manaBar.setPrefSize(screenWidth*0.2,screenHeight*0.025);
-        manaBar.setMinSize(screenWidth*0.2,screenHeight*0.025);
-        manaBar.setMaxSize(screenWidth*0.2,screenHeight*0.025);
-        manaBar.setTranslateY(screenHeight*0.035);
-        manaBar.setProgress((double) player.getMana() /player.getMaxMana());
+        ProgressBar manaBar = createManaBar();
         currentManaBar = manaBar;
         vBox.getChildren().add(manaBar);
 
@@ -170,6 +157,8 @@ public class CombatMenu extends GUIController{
         imageContainer.setGraphic(imageView);
         imageView.setVisible(true);
 
+
+
         String[] buttonList = {"Attack","Check Status","Spells","Items"};
 
 
@@ -180,31 +169,84 @@ public class CombatMenu extends GUIController{
 
             int index = i;
             newButton.setOnAction(e -> {
-                switch (index)
+                if (pauseGame == false)
                 {
-                    case 1:
-                        // Attack
-                        if (turn==1){
-                            refreshGUI(introText,enemyStats,allActions,currentEnemy,"Attack",null);
+                    switch (index)
+                    {
+                        case 1:
+                            // Attack
                             turn++;
-                        }
-                        else {
-                            refreshGUI(introText,enemyStats,allActions,currentEnemy,"Enemy", currentEnemy.enemyTurn(player));
-                            turn--;
-                        }
-                        break;
-                    case 2:
-                        // Check Status
-                        StatusMenu.statusMenu();
-                        //stage.setScene(new Scene(root));
-                        break;
-                    case 3:
-                        // Spells
-                        break;
-                    case 4:
-                        ItemMenu.itemMenu();
-                        // Items
-                        break;
+                            pauseGame = true;
+                            buttonContainer.setVisible(false);
+                            refreshGUI(introText,enemyStats,allActions,currentEnemy,"Attack",null);
+                            PauseTransition delay1 = new PauseTransition(Duration.seconds(1));
+                            delay1.setOnFinished(event -> {
+                                refreshGUI(introText, enemyStats, allActions, currentEnemy, "Enemy", currentEnemy.enemyTurn(player));
+                                PauseTransition delay2 = new PauseTransition(Duration.seconds(1));
+                                delay2.setOnFinished(event2 -> {
+                                    buttonContainer.setVisible(true);
+                                    pauseGame = false;
+                                });
+                                delay2.play();
+                            });
+                            delay1.play();
+                            break;
+                        case 2:
+                            // Check Status
+                            StatusMenu.statusMenu();
+
+                            //stage.setScene(new Scene(root));
+                            break;
+                        case 3:
+                            // Spells
+                            break;
+                        case 4:
+                            inMenu = true;
+                            ItemMenu.itemMenu();
+
+                            /*creates new thread so this javafx thread isn't paused. Because if htis thread is paused,
+                            javafx does not update when it is paused
+                             */
+                            Thread newThread = new Thread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    //while pit to wait until player exits item menu
+                                    while (inMenu == true) {
+                                        try {
+                                            Thread.sleep(100);
+                                        } catch (InterruptedException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                    //Check if item was used once item menu was exited,
+                                    if (usedItem != null)
+                                    {
+                                        pauseGame = true;
+                                        //i dont really know what Platform is, but i needed it, because i couldn't update JavaFX in a new thread
+                                        Platform.runLater(() -> {
+                                            refreshGUI(introText, enemyStats, allActions, currentEnemy, "UseItem", usedItem.getUseDesc());
+                                            usedItem = null;
+                                            turn++;
+                                            buttonContainer.setVisible(false);
+                                            PauseTransition delay3 = new PauseTransition(Duration.seconds(2));
+                                            delay3.setOnFinished(event -> {
+                                                refreshGUI(introText, enemyStats, allActions, currentEnemy, "Enemy", currentEnemy.enemyTurn(player));
+                                                PauseTransition delay4 = new PauseTransition(Duration.seconds(1));
+                                                delay4.setOnFinished(event2 -> {
+                                                    buttonContainer.setVisible(true);
+                                                    pauseGame = false;
+                                                });
+                                                delay4.play();
+                                            });
+                                            delay3.play();
+                                        });
+                                    }
+                                }
+                            });
+                            newThread.start();
+                            // Items
+                            break;
+                    }
                 }
             });
 
