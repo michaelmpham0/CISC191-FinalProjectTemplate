@@ -84,6 +84,10 @@ public class CombatMenu extends GUIController{
         currentManaBar = manaBar;
         vBox.getChildren().add(manaBar);
 
+        Label turnCounter = createLabel("Turn: 1","Times New Roman",150,0.075,0.025);
+        turnCounter.setTranslateY(screenHeight*0.1);
+        vBox.getChildren().add(turnCounter);
+
         HBox buttonContainer = new HBox();
         buttonContainer.getStylesheets().add("styleSheet.css");
         buttonContainer.getStyleClass().add("borders");
@@ -176,6 +180,7 @@ public class CombatMenu extends GUIController{
                         case 1:
                             // Attack
                             turn++;
+                            turnCounter.setText("Turn: "+turn);
                             pauseGame = true;
                             buttonContainer.setVisible(false);
                             refreshGUI(introText,enemyStats,allActions,currentEnemy,"Attack",null);
@@ -227,6 +232,7 @@ public class CombatMenu extends GUIController{
                                             refreshGUI(introText, enemyStats, allActions, currentEnemy, "UseItem", usedItem.getUseDesc());
                                             usedItem = null;
                                             turn++;
+                                            turnCounter.setText("Turn: "+turn);
                                             buttonContainer.setVisible(false);
                                             PauseTransition delay3 = new PauseTransition(Duration.seconds(2));
                                             delay3.setOnFinished(event -> {
