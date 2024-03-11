@@ -70,7 +70,7 @@ public class CharacterCreationMenu extends GUIController {
         //name field for typing player name
         TextField nameField = new TextField();
         nameField.setAlignment(Pos.CENTER);
-        nameField.setText("Enter Name");
+        nameField.setPromptText("Enter Name");
         nameField.setVisible(false);
         nameField.setTranslateY(screenWidth*0.025);
         nameField.setPrefSize(screenWidth*0.125,screenHeight*0.005);
