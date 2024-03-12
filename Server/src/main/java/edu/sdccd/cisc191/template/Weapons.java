@@ -21,6 +21,6 @@ public class Weapons extends Items implements Serializable {
 
     // Getters
     public int getWeaponDamage() {
-        return this.weaponDamage;
+        return weaponDamage;
     }
 }
