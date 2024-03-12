@@ -7,7 +7,7 @@
 
 .root{
     -fx-font-size: 16pt;
-    -fx-font-family: "Century";
+    -fx-font-family: "Times New Roman";
     -fx-base: rgb(255, 255, 255);
     -fx-background-color: rgb(0, 0, 0);
 }
@@ -25,9 +25,8 @@
 }
 
 .Button1{
-    -fx-font-size: 16pt;
     -fx-border-width: 2;
-    -fx-font-family: "Century";
+    -fx-font-family: "Times New Roman";
     -fx-background-color: rgb(0, 0, 0);
     -fx-text-fill: rgb(255, 255, 255);
     -fx-border-color: rgb(255, 255, 255);
@@ -35,13 +34,21 @@
     -fx-padding: 3 6 6 6;
 }
 .Button2{
-    -fx-font-size: 16pt;
     -fx-border-width: 0;
-    -fx-font-family: "Century";
     -fx-background-color: rgb(255, 255, 255);
     -fx-text-fill: rgb(0, 0, 0);
     -fx-border-color: rgb(255, 255, 255);
     -fx-border-radius: 20;
+    -fx-padding: 3 6 6 6;
+}
+/* Button3 so .Button1:hover doesn't activate. For unselectable buttons such as Load Game without save */
+.Button3{
+    -fx-border-width: 2;
+    -fx-font-family: "Times New Roman";
+    -fx-background-color: rgb(0, 0, 0);
+    -fx-text-fill: rgb(255, 255, 255);
+    -fx-border-color: rgb(255, 255, 255);
+    -fx-border-radius: 9;
     -fx-padding: 3 6 6 6;
 }
 
@@ -95,6 +102,29 @@
     -fx-border-width: 1.5;
     -fx-border-insets: -5;
 }
+.healthBar{
+    -fx-base: transparent;
+    -fx-background-color: transparent;
+    -fx-accent: rgb(203, 30, 30);
+    -fx-border-color: rgb(255, 255, 255);
+    -fx-border-style: solid;
+    -fx-border-width: 1.5;
+    -fx-border-insets: -5;
+    -fx-border-radius: 6;
+    -fx-padding: 2 2 2 2;
+}
+.manaBar{
+    -fx-base: transparent;
+    -fx-background-color: transparent;
+    -fx-accent: rgb(49, 90, 238);
+    -fx-border-color: rgb(255, 255, 255);
+    -fx-border-style: solid;
+    -fx-border-width: 1.5;
+    -fx-border-insets: -5;
+    -fx-border-radius: 6;
+    -fx-padding: 2 2 2 2;
+}
+
 .noBorder{
     -fx-border-width: 0;
 }

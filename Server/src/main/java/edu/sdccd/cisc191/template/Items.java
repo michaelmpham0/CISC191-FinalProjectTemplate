@@ -1,6 +1,10 @@
 package edu.sdccd.cisc191.template;
 
-public class Items {
+import java.io.Serializable;
+
+import edu.sdccd.cisc191.template.GUI.GUIMain;
+
+public class Items implements Serializable {
     public String itemName;
     public String itemDesc;
     public int holdSize;
@@ -13,7 +17,17 @@ public class Items {
         itemName = inName;
         itemDesc = inDesc;
         holdSize = inStack;
+        this.useDesc = "...";
     }
+
+    public String useDesc;
+    public Items(String inName, String inDesc, int inStack,String useDesc){
+        itemName = inName;
+        itemDesc = inDesc;
+        holdSize = inStack;
+        this.useDesc = useDesc;
+    }
+
 
     public String getItemName() {
         return itemName;
@@ -21,8 +35,11 @@ public class Items {
     public String getItemDesc(){
         return itemDesc;
     }
+    public String getUseDesc(){
+        return useDesc;
+    }
 
-    public int getHoldSize(){
+    public int getStackSize(){
         return holdSize;
     }
 
@@ -34,6 +51,20 @@ public class Items {
     }
     public void setStackSize(int size){
         holdSize = size;
+    }
+    public void useItem()
+    {
+        System.out.println("Tried To Use: "+itemName);
+        switch (itemName)
+        {
+            case "Flask of Crimson Tears":
+                System.out.println("Use Health Potion");
+                Player playerRefrence = GUIMain.getPlayer();
+                playerRefrence.restoreHealth(200);
+                break;
+            default:
+                System.out.println("Item Not Usable");
+        }
     }
     @Override
     public String toString() {

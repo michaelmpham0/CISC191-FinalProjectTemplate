@@ -1,10 +1,13 @@
-package edu.sdccd.cisc191.template;
+package edu.sdccd.cisc191.template.GUI;
 
+import edu.sdccd.cisc191.template.Inventory;
+import edu.sdccd.cisc191.template.Player;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -12,8 +15,9 @@ import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 
 public class ExploreMenu extends GUIController {
-    protected static void exploreMenu(Player player, Inventory storage)
+    protected static void exploreMenu()
     {
+        previousStage = "Explore";
         BorderPane root = new BorderPane();
         root.getStylesheets().add("styleSheet.css");
         root.setPrefSize(screenWidth,screenHeight);
@@ -41,6 +45,25 @@ public class ExploreMenu extends GUIController {
 
         vBox.getChildren().add(middleTextBox);
 
+        Label healthBarText = createLabel(player.getHealth()+"/"+player.getMaxHealth(),"Times New Roman",200,0.075,0.025);
+        healthBarText.getStyleClass().add("noBorder");
+        healthBarText.setTranslateY(screenHeight*-0.11);
+        currentHealthBarText = healthBarText;
+        vBox.getChildren().add(healthBarText);
+        ProgressBar healthBar = createHealthBar();
+        healthBar.setTranslateY(screenHeight*-0.1);
+        currentHealthBar = healthBar;
+        vBox.getChildren().add(healthBar);
+        Label manaBarText = createLabel(player.getMana()+"/"+player.getMaxMana(),"Times New Roman",200,0.075,0.025);
+        manaBarText.getStyleClass().add("noBorder");
+        manaBarText.setTranslateY(screenHeight*-0.051);
+        currentManaBarText = manaBarText;
+        vBox.getChildren().add(manaBarText);
+        ProgressBar manaBar = createManaBar();
+        manaBar.setTranslateY(screenHeight*-0.05);
+        currentManaBar = manaBar;
+        vBox.getChildren().add(manaBar);
+
         HBox buttonContainer = new HBox();
         buttonContainer.getStylesheets().add("styleSheet.css");
         buttonContainer.getStyleClass().add("borders");
@@ -48,7 +71,7 @@ public class ExploreMenu extends GUIController {
         buttonContainer.setPrefSize(screenWidth*0.8,screenHeight*0.1);
         buttonContainer.setMinSize(screenWidth*0.8,screenHeight*0.1);
         buttonContainer.setMaxSize(screenWidth*0.8,screenHeight*0.1);
-        buttonContainer.setTranslateY(screenHeight*0.125);
+        buttonContainer.setTranslateY(screenHeight*0.05);
         buttonContainer.setPadding(new Insets(screenWidth*0.015,screenWidth*0.015,screenWidth*0.015,screenWidth*0.015));
         buttonContainer.setSpacing(screenWidth*0.025);
         vBox.getChildren().add(buttonContainer);
@@ -58,7 +81,7 @@ public class ExploreMenu extends GUIController {
         for (int i=1;i<=4;i++)
         {
             //the width and height of the button is huge, because it seems to automatically scale it to fit the HBox
-            Button newButton = createButton(buttonList[i-1],"Button2",8000,8000,0,0);
+            Button newButton = createButton(buttonList[i-1],"Button2","Times New Roman",100,8000,8000,0,0);
 
             int index = i;
             newButton.setOnAction(e -> {
@@ -66,17 +89,19 @@ public class ExploreMenu extends GUIController {
                 {
                     case 1:
                         // Continue Forward
+
+                        CombatMenu.combatMenu();
                         break;
                     case 2:
                         // Check Status
-                        StatusMenu.statusMenu(player,storage);
+                        StatusMenu.statusMenu();
                         //stage.setScene(new Scene(root));
                         break;
                     case 3:
                         // Spells
                         break;
                     case 4:
-                        ItemMenu.itemMenu(player,storage);
+                        ItemMenu.itemMenu();
                         // Items
                         break;
                 }
@@ -84,8 +109,8 @@ public class ExploreMenu extends GUIController {
 
             buttonContainer.getChildren().add(newButton);
         }
-
-        stage.setScene(new Scene(root));
+        lastScene = new Scene(root);
+        stage.setScene(lastScene);
     }
 
 }
