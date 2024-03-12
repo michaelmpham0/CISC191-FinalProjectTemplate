@@ -25,7 +25,7 @@ public class EnemyHandler {
     public static Enemy createEnemy(boolean isRandom,String enemyName,int playerLevel){
         if (isRandom)
         {
-            if ((playerLevel-1)>enemyLeveledList.length)
+            if ((playerLevel)>enemyLeveledList.length)
             {
                 playerLevel = enemyLeveledList.length;
                 // if player level higher than leveled list, caps player level so it doesn't get index out of bounds error
@@ -37,7 +37,10 @@ public class EnemyHandler {
             {
                 for (int j = 0;j<enemyLeveledList[i].length;j++)
                 {
-                    enemyPool.add(enemyLeveledList[i][j]);
+                    if (enemyLeveledList[i][j].equals("") == false)
+                    {
+                        enemyPool.add(enemyLeveledList[i][j]);
+                    }
                 }
             }
             /*
