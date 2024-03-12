@@ -1,5 +1,7 @@
 package edu.sdccd.cisc191.template;
 
+import com.sun.org.apache.bcel.internal.classfile.Unknown;
+
 import java.net.*;
 import java.io.*;
 
@@ -17,20 +19,21 @@ import java.io.*;
  */
 
 public class Client {
+
+    private static final String HOST_NAME = "localhost";
+    private static final int PORT = 4444;
     private Socket clientSocket;
     private PrintWriter out;
     private BufferedReader in;
+    private static BufferedReader userIn;
 
     public void startConnection(String ip, int port) throws IOException {
         clientSocket = new Socket(ip, port);
         out = new PrintWriter(clientSocket.getOutputStream(), true);
         in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+        userIn = new BufferedReader(new InputStreamReader(System.in));
     }
 
-    public CustomerResponse sendRequest() throws Exception {
-        out.println(CustomerRequest.toJSON(new CustomerRequest(1)));
-        return CustomerResponse.fromJSON(in.readLine());
-    }
 
     public void stopConnection() throws IOException {
         in.close();
@@ -40,11 +43,16 @@ public class Client {
     public static void main(String[] args) {
         Client client = new Client();
         try {
-            client.startConnection("127.0.0.1", 4444);
-            System.out.println(client.sendRequest().toString());
-            client.stopConnection();
-        } catch(Exception e) {
-            e.printStackTrace();
+            client.startConnection(HOST_NAME, PORT);
+            System.out.println("Connected");
+            String userInput;
+            while (((userInput = userIn.readLine()) != null)) {
+                System.out.println("Sent " + userInput + " to server.");
+            }
+        } catch(UnknownHostException e){
+            System.err.println("Unknown host: " + HOST_NAME);
+        } catch (IOException e){
+            System.err.println("Cannot connect to server, " + e.getMessage());
         }
     }
 } //end class Client
