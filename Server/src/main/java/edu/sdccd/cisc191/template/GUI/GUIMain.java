@@ -53,7 +53,7 @@ public class GUIMain extends Application {
                 {
                     System.out.println("GAME IS CLOSING, SAVE HERE");
                     FileOutputStream saveFile;
-                    String outputPath = "Server/src/main/resources/SaveFile.ser";
+                    String outputPath = "C:/Users/"+System.getProperty("user.name")+"/Documents/ArchitectSaveFile.ser";
                     try {
                         saveFile = new FileOutputStream(outputPath);
                         ObjectOutputStream objWriter = new ObjectOutputStream(saveFile);

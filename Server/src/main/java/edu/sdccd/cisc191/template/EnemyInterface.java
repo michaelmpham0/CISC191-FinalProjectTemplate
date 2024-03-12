@@ -23,6 +23,9 @@ public interface EnemyInterface{
     public static String getEncounterText() {
         return null;
     }
+    public static String getFirstText() {
+        return null;
+    }
     public static void setHealth(int health) {
 
     }

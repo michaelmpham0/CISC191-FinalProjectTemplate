@@ -4,10 +4,10 @@ import edu.sdccd.cisc191.template.Enemy;
 import edu.sdccd.cisc191.template.GUI.GUIController;
 import edu.sdccd.cisc191.template.Player;
 
-
 public class Grogoroth extends Enemy {
 
     private int health,maxHealth,damage,damageDealt,skill=0;
+
     private String encounterText;
 
     public String name;
@@ -31,10 +31,12 @@ public class Grogoroth extends Enemy {
         switch (skill){
             case 1:
                 damageDealt = skillDestroy();
+                damageDealt = (int) (damageDealt*player.getDefenseMultiplier());
                 returnStr = "Grogoroth destroys you. You took " + damageDealt + " damage!";
                 break;
             case 2:
                 damageDealt = skillPeaceForAll();
+                damageDealt = (int) (damageDealt*player.getDefenseMultiplier());
                 returnStr = "Grogoroth summons peace for all. You took " + damageDealt + " damage!";
                 break;
         }
@@ -44,7 +46,7 @@ public class Grogoroth extends Enemy {
     }
 
     public Grogoroth(){
-        super(1000,50,"Grogoroth, Destroyer of Worlds","An overwhelming entity rises from the dark.");
+        super(1000,50,"Grogoroth, Destroyer of Worlds","An overwhelming entity rises from the dark.","Grogoroth examines you.",400,1000);
         this.health = maxHealth = getMaxHealth();
         damage = getDamage();
         name = getName();

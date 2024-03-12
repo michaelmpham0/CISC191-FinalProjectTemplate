@@ -1,5 +1,7 @@
 package edu.sdccd.cisc191.template;
 
+
+
 public class Enemy implements EnemyInterface{
     private static int health;
     private static int maxHealth;
@@ -7,16 +9,22 @@ public class Enemy implements EnemyInterface{
 
     private static String name;
     private static String encounterText;
+    private static String firstText;
+    private int xpDrop = 0;
+    private int goldDrop = 0;
 
     public Enemy(){
         this.health = maxHealth = damage= 0;
         name = "Unknown";
     }
-    public Enemy(int health,int damage, String name,String encounterText) {
+    public Enemy(int health,int damage, String name,String encounterText,String firstText,int xpDrop,int goldDrop) {
         this.health = maxHealth = health;
         this.damage = damage;
         this.name = name;
         this.encounterText = encounterText;
+        this.firstText = firstText;
+        this.xpDrop = xpDrop;
+        this.goldDrop = goldDrop;
     }
 
     public static int getDamage() {
@@ -38,6 +46,10 @@ public class Enemy implements EnemyInterface{
     public String getEncounterText()
     {
         return encounterText;
+    }
+    public String getFirstText()
+    {
+        return firstText;
     }
 
     public void setDamage(int damage) {
@@ -62,6 +74,14 @@ public class Enemy implements EnemyInterface{
             health = health-damage;
             return health;
         }
+    }
+    public int getXpReward()
+    {
+        return this.xpDrop;
+    }
+    public int getGoldReward()
+    {
+        return this.goldDrop;
     }
 
     public String enemyTurn(Player player) {

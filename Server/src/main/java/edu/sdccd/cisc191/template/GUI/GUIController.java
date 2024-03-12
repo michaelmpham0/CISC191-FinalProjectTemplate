@@ -132,7 +132,7 @@ public class GUIController extends GUIMain {
    public GameData loadGame()
    {
        FileInputStream saveFile;
-       String savePath = "Server/src/main/resources/SaveFile.ser";
+       String savePath = "C:/Users/"+System.getProperty("user.name")+"/Documents/ArchitectSaveFile.ser";
        try {
            saveFile = new FileInputStream(savePath);
            try
@@ -140,6 +140,11 @@ public class GUIController extends GUIMain {
                ObjectInputStream objectInputStream = new ObjectInputStream(saveFile);
                GameData saveData = (GameData) objectInputStream.readObject();
                return saveData;
+           } catch (InvalidClassException ex) {
+               System.out.println("SAVE INCOMPATIBLE VERSION");
+               GameData saveData = new GameData();
+               return saveData;
+               //throw new RuntimeException(ex);
            } catch (IOException ex) {
                ex.printStackTrace();
                throw new RuntimeException(ex);
@@ -201,7 +206,7 @@ public class GUIController extends GUIMain {
 
         Boolean hasSave = false;
 
-        String filePath = "Server/src/main/resources/SaveFile.ser";
+        String filePath = "C:/Users/"+System.getProperty("user.name")+"/Documents/ArchitectSaveFile.ser";
         File file = new File(filePath);
         if (file.exists())
         {
@@ -211,23 +216,32 @@ public class GUIController extends GUIMain {
         if (hasSave == true)
         {
             GameData saveData = loadGame();
-            loadButton.getStyleClass().add("Button1");
-            loadButton.setOpacity(1);
+            if (saveData.isWrongVersion() == false)
+            {
+                loadButton.getStyleClass().add("Button1");
+                loadButton.setOpacity(1);
 
-            loadButton.setOnAction(e ->
+                loadButton.setOnAction(e ->
+                {
+                    player = saveData.getPlayerData();
+                    storage = saveData.getInventoryData();
+                    ExploreMenu.exploreMenu();
+                });
+                loadButton.setOnMouseEntered(e ->
+                {
+                    loadButton.setText(saveData.getPlayerData().getPlayerClass()+" - Level "+saveData.getPlayerData().getLevel());
+                });
+                loadButton.setOnMouseExited(e ->
+                {
+                    loadButton.setText("Load Game");
+                });
+            }
+            else
             {
-                player = saveData.getPlayerData();
-                storage = saveData.getInventoryData();
-                ExploreMenu.exploreMenu();
-            });
-            loadButton.setOnMouseEntered(e ->
-            {
-                loadButton.setText(saveData.getPlayerData().getPlayerClass()+" - Level "+saveData.getPlayerData().getLevel());
-            });
-            loadButton.setOnMouseExited(e ->
-            {
-                loadButton.setText("Load Game");
-            });
+                System.out.println("Save data wrong version.");
+            }
+
+
         }
 
        startButton.setOnAction(e ->

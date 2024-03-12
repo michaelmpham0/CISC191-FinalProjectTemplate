@@ -188,7 +188,7 @@ public class CharacterCreationMenu extends GUIController {
         {
             if (!player.getPlayerClass().equals("Unknown"))
             {
-                if (!nameField.getText().equals("Enter Name"))
+                if (!nameField.getText().trim().isEmpty())
                 {
                     player.setName(nameField.getText());
                     // else, name is "Unknown"

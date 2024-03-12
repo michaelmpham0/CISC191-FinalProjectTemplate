@@ -40,16 +40,17 @@ public class StatusMenu extends GUIController {
         textContainer.getStyleClass().add("borders");
         vBox.getChildren().add(textContainer);
 
-        Label leftText = createLabel("","Times New Roman",80,0.25,0.5);
+        Label leftText = createLabel("","Times New Roman",100,0.25,0.5);
         leftText.setAlignment(Pos.CENTER);
         leftText.getStyleClass().add("noBorder");
         textContainer.getChildren().add(leftText);
 
         String leftString = "";
         leftString += "Level - "+player.getLevel()+"\n\n";
+        leftString += "EXP - "+player.getExperience()+"/"+player.getMaxExperience()+"\n\n";
         leftString += "Health - "+player.getHealth()+"/"+player.getMaxHealth()+"\n\n";
-        leftString += "Attack - "+player.getAttack()+"\n\n";
         leftString += "Mana - "+player.getMana()+"/"+player.getMaxMana()+"\n\n";
+        leftString += "Attack - "+player.getAttack()+"\n\n";
         leftString += "Gold - "+player.getGold()+"\n\n";
         leftText.setText(leftString);
 

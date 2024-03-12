@@ -23,7 +23,9 @@ public class Player implements Serializable {
         put("Ranger", new int[]{20,10,20,5});
     }};
     private int HP,maxHP,ATK,GOLD,MANA,maxMana,level;
-
+    private int exp = 0;
+    private int maxExp = 100;
+    private double defenseMultiplier = 1.0;
     private Weapons currentWeapon = new Weapons();
     private Tools currentTool = new Tools();
 
@@ -111,6 +113,10 @@ public class Player implements Serializable {
     public int getGold(){
         return  GOLD;
     }
+    public void setGold(int newGold)
+    {
+        GOLD = newGold;
+    }
     public int getMana(){
         return  MANA;
     }
@@ -126,6 +132,13 @@ public class Player implements Serializable {
 
     public int getMaxMana(){
         return  maxMana;
+    }
+
+    public double getDefenseMultiplier() {
+        return defenseMultiplier;
+    }
+    public void setDefenseMultiplier(double playerDefenseMultiplier) {
+        this.defenseMultiplier = playerDefenseMultiplier;
     }
 
     public void setHealth(int newHealth){
@@ -154,9 +167,29 @@ public class Player implements Serializable {
         Name = newName;
     }
 
-    public void newSetup()
-    {
+    public int getExperience() {
+        return exp;
+    }
 
+    public void setExperience(int exp) {
+        this.exp = exp;
+    }
+    public void gainExperience(int gainXP)
+    {
+        exp += gainXP;
+        if (exp > maxExp)
+        {
+            // Level Up
+            level += 1;
+            int extraXP = exp-maxExp;
+            exp = extraXP;
+            maxExp = 100*level;
+        }
+    }
+
+
+    public int getMaxExperience() {
+        return maxExp;
     }
 
     public void setUp(){

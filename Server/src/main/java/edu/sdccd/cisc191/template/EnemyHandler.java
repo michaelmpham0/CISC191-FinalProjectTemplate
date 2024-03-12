@@ -1,35 +1,65 @@
 package edu.sdccd.cisc191.template;
+import edu.sdccd.cisc191.template.Enemies.Goblin;
 import edu.sdccd.cisc191.template.Enemies.Grogoroth;
 
 import java.lang.Math;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
-/**
- * 1 - Grogoroth
- * 2 - Demon
- */
 
 public class EnemyHandler {
-
-    private static int enemyID = 0;
     private static Enemy enemy;
-    public static Enemy createEnemy(boolean isRandom,int ID){
-        if (isRandom) {
-            int max = 2;
-            int min = 1;
-            int range = (max - min) + 1;
 
-            enemyID = (int)((Math.random() *range)+min);
+
+    /* list of enemies sorted by level
+       ex: first array is for level 1, second for level 2, etc
+     */
+    static String[][] enemyLeveledList =
+            {
+                    {"Goblin"}, // level 1, add 1 goblin to enemy pool
+                    {"Goblin","Grogoroth"}, // level 2, add 1 goblin and 1 grogoroth
+            };
+
+
+    public static Enemy createEnemy(boolean isRandom,String enemyName,int playerLevel){
+        if (isRandom)
+        {
+            if ((playerLevel-1)>enemyLeveledList.length)
+            {
+                playerLevel = enemyLeveledList.length;
+                // if player level higher than leveled list, caps player level so it doesn't get index out of bounds error
+            }
+
+
+            ArrayList<String> enemyPool = new ArrayList<>();
+            for (int i = 0;i < playerLevel;i++)
+            {
+                for (int j = 0;j<enemyLeveledList[i].length;j++)
+                {
+                    enemyPool.add(enemyLeveledList[i][j]);
+                }
+            }
+            /*
+            for (String enemy: enemyPool)
+            {
+                System.out.println(enemy);
+            }
+
+             */
+            int max = enemyPool.size()-1;
+            int min = 0;
+            int range = (max - min) + 1;
+            int randomNumber = (int)((Math.random() *range)+min);
+            enemyName = enemyPool.get(randomNumber);
+
         }
-        else {
-           enemyID = ID;
-        }
-        System.out.println(enemyID);
-        switch(enemyID){
-            case 1:
-                enemy = new Grogoroth();
+        System.out.println(enemyName);
+        switch(enemyName){
+            case "Goblin":
+                enemy = new Goblin();
                 break;
-            case 2:
+            case "Grogoroth":
                 enemy = new Grogoroth();
                 break;
         }

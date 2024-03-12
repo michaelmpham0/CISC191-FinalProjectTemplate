@@ -20,7 +20,9 @@ import javafx.animation.PauseTransition;
 import javafx.util.Duration;
 
 public class CombatMenu extends GUIController{
-    private static int turn = 1;
+    public static int turn = 1;
+
+
    protected  static  void refreshGUI(Label name, Label health,Label acts,Enemy enemy,String action,String act){
        name.setText(enemy.getName());
       if (action.equals("Attack")) {
@@ -28,7 +30,23 @@ public class CombatMenu extends GUIController{
           acts.setText(player.getName() + " attacks " + enemy.getName()  + " for " + (player.getAttack()+player.getCurrentWeapon().getWeaponDamage()) + " damage.");
           if (enemy.getHealth() <= 0) {
               name.setText(enemy.getName() + " has perished!");
+              if (enemy.getXpReward()+player.getExperience()>player.getMaxExperience())
+              {
+                  // Leveled Up
+                  acts.setText("You gained "+enemy.getXpReward()+" XP and "+enemy.getGoldReward()+" gold. You leveled up.");
+              }
+              else
+              {
+                  acts.setText("You gained "+enemy.getXpReward()+" XP and "+enemy.getGoldReward()+" gold.");
+              }
+
+              player.gainExperience(enemy.getXpReward());
+              player.setGold(player.getGold()+enemy.getGoldReward());
           }
+      }
+      else if (action.equals("Defend"))
+      {
+          acts.setText(player.getName()+" prepares to defend against an attack.");
       }
       else {
           health.setText("Health: " + enemy.getHealth() + "/" + enemy.getMaxHealth());
@@ -37,6 +55,8 @@ public class CombatMenu extends GUIController{
    }
     protected static void combatMenu()
     {
+        turn = 1;
+
         previousStage = "Combat";
         BorderPane root = new BorderPane();
         root.getStylesheets().add("styleSheet.css");
@@ -114,11 +134,11 @@ public class CombatMenu extends GUIController{
         enemyGUIContainer.setTranslateX(screenWidth*0.1);
         root.setTop(enemyGUIContainer);
 
-        currentEnemy = EnemyHandler.createEnemy(true,0);
+        currentEnemy = EnemyHandler.createEnemy(true,"Random",player.getLevel());
 
         Label allActions = new Label();
         allActions.getStylesheets().add("styleSheet.css");
-        allActions.setText(currentEnemy.getName() + " examines you.");
+        allActions.setText(currentEnemy.getFirstText());
         allActions.setFont(new Font("Times New Roman",(screenHeight+screenWidth)/100 ));
         allActions.setTranslateY(-screenHeight*0.45);
         BorderPane.setAlignment(allActions,Pos.CENTER);
@@ -163,10 +183,10 @@ public class CombatMenu extends GUIController{
 
 
 
-        String[] buttonList = {"Attack","Check Status","Spells","Items"};
+        String[] buttonList = {"Attack","Defend","Check Status","Spells","Items","Run Away"};
 
 
-        for (int i=1;i<=4;i++)
+        for (int i=1;i<=6;i++)
         {
             //the width and height of the button is huge, because it seems to automatically scale it to fit the HBox
             Button newButton = createButton(buttonList[i-1],"Button2","Times New Roman",100,8000,8000,0,0);
@@ -186,26 +206,55 @@ public class CombatMenu extends GUIController{
                             refreshGUI(introText,enemyStats,allActions,currentEnemy,"Attack",null);
                             PauseTransition delay1 = new PauseTransition(Duration.seconds(1));
                             delay1.setOnFinished(event -> {
-                                refreshGUI(introText, enemyStats, allActions, currentEnemy, "Enemy", currentEnemy.enemyTurn(player));
+                                if (currentEnemy.getHealth()>0)
+                                {
+                                    refreshGUI(introText, enemyStats, allActions, currentEnemy, "Enemy", currentEnemy.enemyTurn(player));
+                                }
                                 PauseTransition delay2 = new PauseTransition(Duration.seconds(1));
                                 delay2.setOnFinished(event2 -> {
                                     buttonContainer.setVisible(true);
                                     pauseGame = false;
+                                    if (currentEnemy.getHealth() <= 0)
+                                    {
+                                        ExploreMenu.exploreMenu();
+                                    }
                                 });
                                 delay2.play();
                             });
                             delay1.play();
                             break;
                         case 2:
+                            // Defend
+                            turn++;
+                            turnCounter.setText("Turn: "+turn);
+                            pauseGame = true;
+                            buttonContainer.setVisible(false);
+                            refreshGUI(introText,enemyStats,allActions,currentEnemy,"Defend",null);
+                            PauseTransition delay5 = new PauseTransition(Duration.seconds(1));
+                            delay5.setOnFinished(event -> {
+                                double oldDefenseMultiplier = player.getDefenseMultiplier();
+                                player.setDefenseMultiplier(oldDefenseMultiplier/2);
+                                refreshGUI(introText, enemyStats, allActions, currentEnemy, "Enemy", currentEnemy.enemyTurn(player));
+                                PauseTransition delay6 = new PauseTransition(Duration.seconds(1));
+                                delay6.setOnFinished(event2 -> {
+                                    player.setDefenseMultiplier(oldDefenseMultiplier);
+                                    buttonContainer.setVisible(true);
+                                    pauseGame = false;
+                                });
+                                delay6.play();
+                            });
+                            delay5.play();
+                            break;
+                        case 3:
                             // Check Status
                             StatusMenu.statusMenu();
 
                             //stage.setScene(new Scene(root));
                             break;
-                        case 3:
+                        case 4:
                             // Spells
                             break;
-                        case 4:
+                        case 5:
                             inMenu = true;
                             ItemMenu.itemMenu();
 
@@ -251,6 +300,10 @@ public class CombatMenu extends GUIController{
                             });
                             newThread.start();
                             // Items
+                            break;
+                        case 6:
+                            // Run Away
+                            ExploreMenu.exploreMenu();
                             break;
                     }
                 }

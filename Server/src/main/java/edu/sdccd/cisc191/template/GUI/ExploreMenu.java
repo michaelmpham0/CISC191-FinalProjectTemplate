@@ -89,6 +89,7 @@ public class ExploreMenu extends GUIController {
                 {
                     case 1:
                         // Continue Forward
+
                         CombatMenu.combatMenu();
                         break;
                     case 2:
