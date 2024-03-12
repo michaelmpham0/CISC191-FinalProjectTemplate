@@ -132,7 +132,7 @@ public class GUIController extends GUIMain {
    public GameData loadGame()
    {
        FileInputStream saveFile;
-       String savePath = "C:/Users/"+System.getProperty("user.name")+"/Documents/ArchitectSaveFile.ser";
+       String savePath = System.getProperty("user.home") + "/Documents/ArchitectSaveFile.ser";
        try {
            saveFile = new FileInputStream(savePath);
            try
@@ -147,10 +147,12 @@ public class GUIController extends GUIMain {
                //throw new RuntimeException(ex);
            } catch (IOException ex) {
                ex.printStackTrace();
-               throw new RuntimeException(ex);
+               GameData saveData = new GameData();
+               return saveData;
            } catch (ClassNotFoundException ex) {
                ex.printStackTrace();
-               throw new RuntimeException(ex);
+               GameData saveData = new GameData();
+               return saveData;
            }
        } catch (FileNotFoundException ex) {
            ex.printStackTrace();
@@ -206,7 +208,8 @@ public class GUIController extends GUIMain {
 
         Boolean hasSave = false;
 
-        String filePath = "C:/Users/"+System.getProperty("user.name")+"/Documents/ArchitectSaveFile.ser";
+        //String filePath = "C:/Users/"+System.getProperty("user.name")+"/Documents/ArchitectSaveFile.ser";
+        String filePath = System.getProperty("user.home") + "/Documents/ArchitectSaveFile.ser";
         File file = new File(filePath);
         if (file.exists())
         {

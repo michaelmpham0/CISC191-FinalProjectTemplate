@@ -53,14 +53,21 @@ public class GUIMain extends Application {
                 {
                     System.out.println("GAME IS CLOSING, SAVE HERE");
                     FileOutputStream saveFile;
-                    String outputPath = "C:/Users/"+System.getProperty("user.name")+"/Documents/ArchitectSaveFile.ser";
+                    String outputPath = System.getProperty("user.home") + "/Documents/ArchitectSaveFile.ser";
                     try {
                         saveFile = new FileOutputStream(outputPath);
                         ObjectOutputStream objWriter = new ObjectOutputStream(saveFile);
                         objWriter.writeObject(new GameData(player,storage));
-                    } catch (IOException ex) {
+                        }
+                    catch (FileNotFoundException ex)
+                    {
+                        System.out.println("ACCESS DENIED?");
                         ex.printStackTrace();
-                        throw new RuntimeException(ex);
+                    }
+                    catch (IOException ex)
+                    {
+                        ex.printStackTrace();
+                        //throw new RuntimeException(ex);
                     }
                 }
             });
