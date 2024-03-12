@@ -13,19 +13,19 @@ public class Minotaur extends Enemy {
     public String name;
     private String Charge(Player player)
     {
-        damageDealt = 15;
+        damageDealt = 12;
         return "The Minotaur charges at you aggressively and swing its axe at you.";
     }
     private String MinotaurRoar(Player player)
     {
-        action = "MinotaurRoar";
+        action = "MinotaurBeatdown";
         damageDealt = 1;
         return "The Minotaur roar loudly, causing your ears to bleed.";
     }
     private String MinotaurBeatdown(Player player)
     {
         action = "None";
-        damageDealt = 20;
+        damageDealt = 30;
         return "The Minotaur grabs you, smashing you repeatedly into the ground then throws you into a wall.";
     }
 
@@ -45,9 +45,9 @@ public class Minotaur extends Enemy {
         else
         {
             action = "None";
-            int max = 10;
+            int max = 7;
             int min = 0;
-            int range = (max - min) + 3;
+            int range = (max - min) + 1;
             skill = (int)((Math.random() *range)+min);
             damageDealt = 0;
             switch (skill)
