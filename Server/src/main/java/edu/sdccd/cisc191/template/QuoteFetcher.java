@@ -17,8 +17,10 @@ public class QuoteFetcher {
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
 
-            // reading the response
+            // this just checks if there is a valid connection with the URL
             if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
+
+                // reading the response
                     try (BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
                     String line;
                     while ((line = reader.readLine()) != null) {
@@ -31,9 +33,9 @@ public class QuoteFetcher {
             }
             //parsing the text from the url to an JSON object
             JSONObject json = new JSONObject(responseContent.toString());
+            // gets the string based on the key string "quote," as it is seen in the API
             String quote = json.getString("quote");
 
-            System.out.println(quote);
             return quote;
 
         } catch (Exception e) {
