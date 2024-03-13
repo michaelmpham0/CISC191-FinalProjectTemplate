@@ -3,6 +3,7 @@ package edu.sdccd.cisc191.template.GUI;
 import edu.sdccd.cisc191.template.Enemies.Grogoroth;
 import edu.sdccd.cisc191.template.Enemy;
 import edu.sdccd.cisc191.template.EnemyHandler;
+import edu.sdccd.cisc191.template.QuoteFetcher;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -181,6 +182,11 @@ public class CombatMenu extends GUIController{
         imageContainer.setGraphic(imageView);
         imageView.setVisible(true);
 
+        Label quoteLabel = createLabel("", "Times New Roman", 90, 0.25, 0.1 );
+       // quoteLabel.getStyleClass().add("");
+
+        //quoteLabel.setTranslateY(screenHeight * 0.2);
+        vBox.getChildren().add(quoteLabel);
 
 
         String[] buttonList = {"Attack","Defend","Check Status","Spells","Items","Run Away"};
@@ -201,6 +207,10 @@ public class CombatMenu extends GUIController{
                             // Attack
                             turn++;
                             turnCounter.setText("Turn: "+turn);
+
+                            String newQuote = QuoteFetcher.fetchGameQuote();
+                            quoteLabel.setText(newQuote);
+
                             pauseGame = true;
                             buttonContainer.setVisible(false);
                             refreshGUI(introText,enemyStats,allActions,currentEnemy,"Attack",null);

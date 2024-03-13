@@ -9,7 +9,7 @@ import org.json.JSONObject;
 public class QuoteFetcher {
 
     public static String fetchGameQuote() {
-        String urlString = "https://ultima.rest/api/quote/game?title=elden+ring";
+        String urlString = "https://ultima.rest/api/random";
         StringBuffer responseContent = new StringBuffer();
         try {
             // opening connection to the url api
@@ -28,10 +28,9 @@ public class QuoteFetcher {
             //parsing the text from the url to an JSON object
             JSONObject json = new JSONObject(responseContent.toString());
             String quote = json.getString("quote");
-            String character = json.getString("character");
-            String title = json.getString("title");
 
-            return String.format("\"%s\"\n- %s, %s", quote, character, title);
+            System.out.println(quote);
+            return quote;
 
         } catch (Exception e) {
             e.printStackTrace();
