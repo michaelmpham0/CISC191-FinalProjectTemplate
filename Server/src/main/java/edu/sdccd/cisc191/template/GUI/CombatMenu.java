@@ -88,6 +88,7 @@ public class CombatMenu extends GUIController{
 
          */
 
+        // code chunk for health and mana bars
         Label healthBarText = createLabel(player.getHealth()+"/"+player.getMaxHealth(),"Times New Roman",200,0.075,0.025);
         healthBarText.getStyleClass().add("noBorder");
         healthBarText.setTranslateY(screenHeight*-0.01);
@@ -105,10 +106,14 @@ public class CombatMenu extends GUIController{
         currentManaBar = manaBar;
         vBox.getChildren().add(manaBar);
 
+
+        // code chunk for turn counter
         Label turnCounter = createLabel("Turn: 1","Times New Roman",150,0.075,0.025);
         turnCounter.setTranslateY(screenHeight*0.1);
         vBox.getChildren().add(turnCounter);
 
+
+        // button container to hold the 6 buttons of the player in combat
         HBox buttonContainer = new HBox();
         buttonContainer.getStylesheets().add("styleSheet.css");
         buttonContainer.getStyleClass().add("borders");
@@ -123,7 +128,7 @@ public class CombatMenu extends GUIController{
 
 
 
-        //enemy GUI container
+        //enemy GUI container, basically the border holding the enemies
         BorderPane enemyGUIContainer = new BorderPane();
         enemyGUIContainer.setPadding(new Insets(screenWidth*0.015,0,screenWidth*0.015,0));
         enemyGUIContainer.getStylesheets().add("styleSheet.css");
@@ -166,7 +171,9 @@ public class CombatMenu extends GUIController{
 
         double imageWidth = (screenHeight+screenWidth)/11;
         double imageHeight = (screenHeight+screenWidth)/11;
-        //image
+
+
+        //image container for enemies
         Label imageContainer = createLabel("","Times New Roman",0,imageWidth,imageHeight);
         imageContainer.setMinSize(imageWidth,imageHeight);
         imageContainer.setMaxSize(imageWidth,imageHeight);
@@ -182,8 +189,10 @@ public class CombatMenu extends GUIController{
         imageContainer.setGraphic(imageView);
         imageView.setVisible(true);
 
-        Label quoteLabel = createLabel("", "Times New Roman", 90, 0.25, 0.1 );
-       // quoteLabel.getStyleClass().add("");
+
+        // quote label that updates every attack phase
+        Label quoteLabel = createLabel(QuoteFetcher.fetchGameQuote(), "Times New Roman", 120, 0.5, 0.1 );
+
 
         //quoteLabel.setTranslateY(screenHeight * 0.2);
         vBox.getChildren().add(quoteLabel);
@@ -210,6 +219,7 @@ public class CombatMenu extends GUIController{
 
                             String newQuote = QuoteFetcher.fetchGameQuote();
                             quoteLabel.setText(newQuote);
+
 
                             pauseGame = true;
                             buttonContainer.setVisible(false);
@@ -320,7 +330,9 @@ public class CombatMenu extends GUIController{
             });
 
             buttonContainer.getChildren().add(newButton);
+
         }
+
         lastScene = new Scene(root);
         stage.setScene(lastScene);
     }
