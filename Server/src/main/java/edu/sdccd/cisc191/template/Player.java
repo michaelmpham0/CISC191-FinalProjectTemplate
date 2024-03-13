@@ -143,6 +143,10 @@ public class Player implements Serializable {
 
     public void setHealth(int newHealth){
        HP = newHealth;
+       if(HP < 0){
+           HP = 0;
+       }
+
     }
 
     public void restoreHealth(int healAmount)

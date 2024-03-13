@@ -1,6 +1,7 @@
 package edu.sdccd.cisc191.template;
 import edu.sdccd.cisc191.template.Enemies.Goblin;
 import edu.sdccd.cisc191.template.Enemies.Grogoroth;
+import edu.sdccd.cisc191.template.Enemies.Minotaur;
 
 import java.lang.Math;
 import java.util.ArrayList;
@@ -18,14 +19,14 @@ public class EnemyHandler {
     static String[][] enemyLeveledList =
             {
                     {"Goblin"}, // level 1, add 1 goblin to enemy pool
-                    {"Goblin","Grogoroth"}, // level 2, add 1 goblin and 1 grogoroth
+                    {"Goblin","Grogoroth", "Minotaur"}, // level 2, add 1 goblin and 1 grogoroth
             };
 
 
     public static Enemy createEnemy(boolean isRandom,String enemyName,int playerLevel){
         if (isRandom)
         {
-            if ((playerLevel-1)>enemyLeveledList.length)
+            if ((playerLevel)>enemyLeveledList.length)
             {
                 playerLevel = enemyLeveledList.length;
                 // if player level higher than leveled list, caps player level so it doesn't get index out of bounds error
@@ -37,7 +38,10 @@ public class EnemyHandler {
             {
                 for (int j = 0;j<enemyLeveledList[i].length;j++)
                 {
-                    enemyPool.add(enemyLeveledList[i][j]);
+                    if (enemyLeveledList[i][j].equals("") == false)
+                    {
+                        enemyPool.add(enemyLeveledList[i][j]);
+                    }
                 }
             }
             /*
@@ -61,6 +65,9 @@ public class EnemyHandler {
                 break;
             case "Grogoroth":
                 enemy = new Grogoroth();
+                break;
+            case "Minotaur":
+                enemy = new Minotaur();
                 break;
         }
         return enemy;
