@@ -13,8 +13,19 @@ public class Goblin extends Enemy {
     public String name;
     private String Slash(Player player)
     {
-        damageDealt = 5;
-        return "The goblin slashes at you.";
+        if (slashCount == 3)
+        {
+            //stronger slash every 3 slashes
+            slashCount = 0;
+            damageDealt = 10;
+            return "The goblin hacks away you, drawing a considerable amount of blood and flesh.";
+        }
+        else
+        {
+            slashCount++;
+            damageDealt = 5;
+            return "The goblin slashes at you with its crude blade.";
+        }
     }
     private String PrepareMegaSlash(Player player)
     {
@@ -25,12 +36,18 @@ public class Goblin extends Enemy {
     private String MegaSlash(Player player)
     {
         action = "None";
-        damageDealt = 16;
-        return "The goblin leaps onto you and clings onto your face, relentlessly stabbing you.";
+        if (player.getGuarding() == true ) {
+            damageDealt = 0;
+            return "The goblin leaps at you, but you manage to step out of its way.";
+        } else {
+            damageDealt = 18;
+            return "The goblin leaps onto you and clings onto your face, relentlessly stabbing you.";
+        }
+
     }
 
     private int currentTurn = 0;
-
+    private int slashCount = 0;
 
 
     public String enemyTurn(Player player){
@@ -72,10 +89,7 @@ public class Goblin extends Enemy {
         }
         if (damageDealt > 0)
         {
-            damageDealt = (int) (damageDealt*player.getDefenseMultiplier());
-            player.setHealth(player.getHealth()-damageDealt);
-            GUIController.updateHealthAndMana();
-            returnStr = returnStr+" You took " + damageDealt + " damage!";
+            returnStr = dealDamage(damageDealt,player,returnStr);
         }
         return returnStr;
     }

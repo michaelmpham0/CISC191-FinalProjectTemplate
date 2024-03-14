@@ -252,11 +252,13 @@ public class CombatMenu extends GUIController{
                             refreshGUI(introText,enemyStats,allActions,currentEnemy,"Defend",null);
                             PauseTransition delay5 = new PauseTransition(Duration.seconds(1));
                             delay5.setOnFinished(event -> {
+                                player.setGuarding(true);
                                 double oldDefenseMultiplier = player.getDefenseMultiplier();
                                 player.setDefenseMultiplier(oldDefenseMultiplier/2);
                                 refreshGUI(introText, enemyStats, allActions, currentEnemy, "Enemy", currentEnemy.enemyTurn(player));
                                 PauseTransition delay6 = new PauseTransition(Duration.seconds(1));
                                 delay6.setOnFinished(event2 -> {
+                                    player.setGuarding(false);
                                     player.setDefenseMultiplier(oldDefenseMultiplier);
                                     buttonContainer.setVisible(true);
                                     pauseGame = false;

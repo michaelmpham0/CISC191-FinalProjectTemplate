@@ -1,6 +1,7 @@
 package edu.sdccd.cisc191.template;
 
 
+import edu.sdccd.cisc191.template.GUI.GUIController;
 
 public class Enemy implements EnemyInterface{
     private static int health;
@@ -29,6 +30,13 @@ public class Enemy implements EnemyInterface{
 
     public static int getDamage() {
         return damage;
+    }
+    public String dealDamage(int damageDealt,Player player,String returnStr)
+    {
+        damageDealt = (int) (damageDealt*player.getDefenseMultiplier());
+        player.setHealth(player.getHealth()-damageDealt);
+        GUIController.updateHealthAndMana();
+        return returnStr+" You took " + damageDealt + " damage!";
     }
 
     public static int getHealth() {

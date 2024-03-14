@@ -15,7 +15,7 @@ public class Grogoroth extends Enemy {
     public String name;
     private String skillPeaceForAll(Player player){
         action = "None";
-        if (player.getDefenseMultiplier() == 0.5 ) {
+        if (player.getGuarding() == true ) {
             damageDealt = player.getMaxHealth()/5;
         } else {
             damageDealt = player.getMaxHealth();
@@ -75,14 +75,9 @@ public class Grogoroth extends Enemy {
                     break;
             }
         }
-        GUIController.updateHealthAndMana();
-
         if (damageDealt > 0)
         {
-            damageDealt = (int) (damageDealt*player.getDefenseMultiplier());
-            player.setHealth(player.getHealth()-damageDealt);
-            GUIController.updateHealthAndMana();
-            returnStr = returnStr+" You took " + damageDealt + " damage!";
+            returnStr = dealDamage(damageDealt,player,returnStr);
         }
         return returnStr;
     }

@@ -11,32 +11,54 @@ public class Minotaur extends Enemy {
     private String action = "None";
 
     public String name;
-    private String Charge(Player player)
+    private String Swing(Player player)
     {
-        damageDealt = 12;
-        return "The Minotaur charges at you aggressively and swing its axe at you.";
+        if (swingCount == 1)
+        {
+            //charge every other swing
+            swingCount = 0;
+            if (player.getGuarding() == true ) {
+                damageDealt = 0;
+                return "You manage to deftly sidestep just in time, avoiding the deadly thrust of the minotaur.";
+            } else {
+                damageDealt = 16;
+                return "The minotaur charges forward, striking your chest and goring you with brutal horns. ";
+            }
+        }
+        else
+        {
+            swingCount++;
+            damageDealt = 6;
+            return "The minotaur cleaves you with its oversized axe.";
+        }
     }
     private String MinotaurRoar(Player player)
     {
         action = "MinotaurBeatdown";
         damageDealt = 1;
-        return "The Minotaur roar loudly, causing your ears to bleed.";
+        return "The minotaur lets out a deafening roar.";
     }
     private String MinotaurBeatdown(Player player)
     {
         action = "None";
-        damageDealt = 30;
-        return "The Minotaur grabs you, smashing you repeatedly into the ground then throws you into a wall.";
-    }
+        if (player.getGuarding() == true ) {
+            damageDealt = 0;
+            return "The minotaur attempts to grab you, but you manage to duck its embrace.";
+        } else {
+            damageDealt = 25;
+            return "The minotaur catches you in its grasp, smashing you repeatedly into the ground before tossing you into a wall.";
+        }
 
+    }
     private int currentTurn = 0;
+    private int swingCount = 0;
 
     public String enemyTurn(Player player){
-        String returnStr = "The Minotaur makes its stance, staring into your soul.";
+        String returnStr = "The minotaur stands up straight, staring at you.";
         currentTurn++;
         if (currentTurn == 1)
         {
-            return returnStr;
+            returnStr = MinotaurRoar(player);
         }
         else if (action.equals("MinotaurBeatdown"))
         {
@@ -45,7 +67,7 @@ public class Minotaur extends Enemy {
         else
         {
             action = "None";
-            int max = 7;
+            int max = 6;
             int min = 0;
             int range = (max - min) + 1;
             skill = (int)((Math.random() *range)+min);
@@ -53,13 +75,13 @@ public class Minotaur extends Enemy {
             switch (skill)
             {
                 case 1:
-                    returnStr = Charge(player);
+                    returnStr = Swing(player);
                     break;
                 case 2:
-                    returnStr = Charge(player);
+                    returnStr = Swing(player);
                     break;
                 case 3:
-                    returnStr = Charge(player);
+                    returnStr = Swing(player);
                     break;
                 case 4:
                     returnStr = MinotaurRoar(player);
@@ -69,16 +91,13 @@ public class Minotaur extends Enemy {
         }
         if (damageDealt > 0)
         {
-            damageDealt = (int) (damageDealt*player.getDefenseMultiplier());
-            player.setHealth(player.getHealth()-damageDealt);
-            GUIController.updateHealthAndMana();
-            returnStr = returnStr+" You took " + damageDealt + " damage!";
+            returnStr = dealDamage(damageDealt,player,returnStr);
         }
         return returnStr;
     }
 
     public Minotaur(){
-        super(400,55,"Minotaur","A giant bull-like creature stands before you.","The Minotaur appears.",55,35);
+        super(400,55,"Minotaur","A hulking bull-like creature stands before you.","The Minotaur appears.",55,35);
         this.health = maxHealth = getMaxHealth();
         damage = getDamage();
         name = getName();

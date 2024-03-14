@@ -137,6 +137,15 @@ public class Player implements Serializable {
     public double getDefenseMultiplier() {
         return defenseMultiplier;
     }
+    private boolean isGuarding = false;
+    public boolean getGuarding()
+    {
+        return isGuarding;
+    }
+    public void setGuarding(boolean newGuard)
+    {
+        isGuarding = newGuard;
+    }
     public void setDefenseMultiplier(double playerDefenseMultiplier) {
         this.defenseMultiplier = playerDefenseMultiplier;
     }
