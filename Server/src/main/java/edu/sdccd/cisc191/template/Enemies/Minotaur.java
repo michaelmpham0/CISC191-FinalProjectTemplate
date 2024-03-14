@@ -22,7 +22,7 @@ public class Minotaur extends Enemy {
                 return "You manage to deftly sidestep just in time, avoiding the deadly thrust of the minotaur.";
             } else {
                 damageDealt = 16;
-                return "The minotaur charges forward, striking your chest and goring you with brutal horns. ";
+                return "The minotaur charges forward, striking your chest and goring you with its brutal horns. ";
             }
         }
         else
