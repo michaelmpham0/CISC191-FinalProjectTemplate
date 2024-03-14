@@ -18,13 +18,13 @@ public class Goblin extends Enemy {
             //stronger slash every 3 slashes
             slashCount = 0;
             damageDealt = 10;
-            return "The goblin hacks away you, drawing a considerable amount of blood and flesh.";
+            return "The goblin hacks away at you, drawing a considerable amount of blood and flesh.";
         }
         else
         {
             slashCount++;
             damageDealt = 5;
-            return "The goblin slashes at you with its crude blade.";
+            return "The goblin punctures your flash with its crude blade.";
         }
     }
     private String PrepareMegaSlash(Player player)
