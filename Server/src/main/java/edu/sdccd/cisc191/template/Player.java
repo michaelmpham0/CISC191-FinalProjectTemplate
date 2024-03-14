@@ -1,5 +1,7 @@
 package edu.sdccd.cisc191.template;
 
+import edu.sdccd.cisc191.template.GUI.GUIController;
+
 import java.io.Serializable;
 import  java.util.Scanner;
 import java.util.HashMap;
@@ -17,10 +19,20 @@ public class Player implements Serializable {
    //HashMap to store class info. Stats correspond top from bottom of the above list, left to right.
     static HashMap<String, int[]> classStats = new HashMap<String, int[]>()
     {{
-        put("Knight", new int[]{35,15,30,30});
+        put("Knight", new int[]{40,10,30,30});
         put("Wizard", new int[]{18,5,100,50});
-        put("Barbarian", new int[]{25,25,10,0});
-        put("Ranger", new int[]{20,10,20,5});
+        put("Barbarian", new int[]{35,18,10,0});
+        put("Ranger", new int[]{25,12,20,5});
+    }};
+
+    //increase stats by this amount every level up
+    static HashMap<String, int[]> classStatsGrowth = new HashMap<String, int[]>()
+    {{
+        // health, attack, mana
+        put("Knight", new int[]{6,3,10});
+        put("Wizard", new int[]{2,1,20});
+        put("Barbarian", new int[]{4,8,0});
+        put("Ranger", new int[]{3,5,5});
     }};
     private int HP,maxHP,ATK,GOLD,MANA,maxMana,level;
     private int exp = 0;
@@ -184,16 +196,27 @@ public class Player implements Serializable {
         return exp;
     }
 
+
+    //method to update and increase stats each level up
+    private void updateStats()
+    {
+        maxHP = HP = classStats.get(Class)[0]+(classStatsGrowth.get(Class)[0]*(level-1));
+        ATK = classStats.get(Class)[1]+(classStatsGrowth.get(Class)[1]*(level-1));
+        MANA = maxMana = classStats.get(Class)[2]+(classStatsGrowth.get(Class)[2]*(level-1));
+    }
+
     public void setExperience(int exp) {
         this.exp = exp;
     }
     public void gainExperience(int gainXP)
     {
         exp += gainXP;
-        if (exp > maxExp)
+        if (exp >= maxExp)
         {
             // Level Up
             level += 1;
+            updateStats();
+            GUIController.updateHealthAndMana();
             int extraXP = exp-maxExp;
             exp = extraXP;
             maxExp = 100*level;
