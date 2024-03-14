@@ -7,12 +7,12 @@ public class Enemy implements EnemyInterface{
     private static int health;
     private static int maxHealth;
     private static int damage;
-
     private static String name;
     private static String encounterText;
     private static String firstText;
     private int xpDrop = 0;
     private int goldDrop = 0;
+    private double defenseMultiplier = 1.0;
 
     public Enemy(){
         this.health = maxHealth = damage= 0;
@@ -39,6 +39,14 @@ public class Enemy implements EnemyInterface{
         return returnStr+" You took " + damageDealt + " damage!";
     }
 
+    public void setDefenseMultiplier(double newDefenseMultiplier)
+    {
+        defenseMultiplier = newDefenseMultiplier;
+    }
+    public double getDefenseMultiplier()
+    {
+        return getDefenseMultiplier();
+    }
     public static int getHealth() {
         return health;
     }
@@ -73,6 +81,8 @@ public class Enemy implements EnemyInterface{
     }
 
     public static int takeDamage(int damage){
+
+
         if ((health-damage) <= 0) {
             health = 0;
             return 0;

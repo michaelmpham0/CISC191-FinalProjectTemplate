@@ -13,18 +13,18 @@ public class Goblin extends Enemy {
     public String name;
     private String Slash(Player player)
     {
-        if (slashCount == 3)
+        if (slashCount == 2)
         {
-            //stronger slash every 3 slashes
+            //stronger slash every 2 slashes
             slashCount = 0;
-            damageDealt = 10;
-            return "The goblin hacks away at you, drawing a considerable amount of blood and flesh.";
+            damageDealt = 12;
+            return "The goblin hacks away at you, drawing a considerable amount of blood.";
         }
         else
         {
             slashCount++;
             damageDealt = 5;
-            return "The goblin punctures your flash with its crude blade.";
+            return "The goblin punctures your flesh with its crude blade.";
         }
     }
     private String PrepareMegaSlash(Player player)
@@ -40,8 +40,8 @@ public class Goblin extends Enemy {
             damageDealt = 0;
             return "The goblin leaps at you, but you manage to step out of its way.";
         } else {
-            damageDealt = 18;
-            return "The goblin leaps onto you and clings onto your face, relentlessly stabbing you.";
+            damageDealt = 25;
+            return "The goblin leaps onto you and clings onto your face, relentlessly gouging out holes on your face.";
         }
 
     }
@@ -69,6 +69,7 @@ public class Goblin extends Enemy {
             int min = 0;
             int range = (max - min) +1;
             skill = (int)((Math.random() *range)+min);
+            System.out.println(skill);
             damageDealt = 0;
             switch (skill)
             {
@@ -95,7 +96,7 @@ public class Goblin extends Enemy {
     }
 
     public Goblin(){
-        super(60,50,"Goblin","A puny creature scurries towards you.","The goblin cautiously eyes you up.",35,10);
+        super(80,50,"Goblin","A puny creature scurries towards you.","The goblin cautiously eyes you up.",35,10);
         this.health = maxHealth = getMaxHealth();
         damage = getDamage();
         name = getName();

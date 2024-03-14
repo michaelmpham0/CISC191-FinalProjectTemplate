@@ -21,14 +21,14 @@ public class Minotaur extends Enemy {
                 damageDealt = 0;
                 return "You manage to deftly sidestep just in time, avoiding the deadly thrust of the minotaur.";
             } else {
-                damageDealt = 16;
+                damageDealt = 20;
                 return "The minotaur charges forward, striking your chest and goring you with its brutal horns. ";
             }
         }
         else
         {
             swingCount++;
-            damageDealt = 6;
+            damageDealt = 10;
             return "The minotaur cleaves you with its oversized axe.";
         }
     }
@@ -45,7 +45,7 @@ public class Minotaur extends Enemy {
             damageDealt = 0;
             return "The minotaur attempts to grab you, but you manage to duck its embrace.";
         } else {
-            damageDealt = 25;
+            damageDealt = 40;
             return "The minotaur catches you in its grasp, smashing you repeatedly into the ground before tossing you into a wall.";
         }
 
@@ -67,7 +67,7 @@ public class Minotaur extends Enemy {
         else
         {
             action = "None";
-            int max = 6;
+            int max = 7;
             int min = 0;
             int range = (max - min) + 1;
             skill = (int)((Math.random() *range)+min);
@@ -84,8 +84,11 @@ public class Minotaur extends Enemy {
                     returnStr = Swing(player);
                     break;
                 case 4:
-                    returnStr = MinotaurRoar(player);
+                    returnStr = Swing(player);
+                    break;
                 case 5:
+                    returnStr = MinotaurRoar(player);
+                case 6:
                     returnStr = MinotaurRoar(player);
             }
         }
@@ -97,7 +100,7 @@ public class Minotaur extends Enemy {
     }
 
     public Minotaur(){
-        super(400,55,"Minotaur","A hulking bull-like creature stands before you.","The Minotaur appears.",55,35);
+        super(160,55,"Minotaur","A hulking bull-like creature stands before you.","The Minotaur appears.",55,35);
         this.health = maxHealth = getMaxHealth();
         damage = getDamage();
         name = getName();
