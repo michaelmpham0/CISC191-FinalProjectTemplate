@@ -189,15 +189,6 @@ public class CombatMenu extends GUIController{
         imageContainer.setGraphic(imageView);
         imageView.setVisible(true);
 
-
-        // quote label that updates every attack phase
-        Label quoteLabel = createLabel(QuoteFetcher.fetchGameQuote(), "Times New Roman", 120, 0.5, 0.1 );
-
-
-        //quoteLabel.setTranslateY(screenHeight * 0.2);
-        vBox.getChildren().add(quoteLabel);
-
-
         String[] buttonList = {"Attack","Defend","Check Status","Spells","Items","Run Away"};
 
 
@@ -216,9 +207,6 @@ public class CombatMenu extends GUIController{
                             // Attack
                             turn++;
                             turnCounter.setText("Turn: "+turn);
-
-                            String newQuote = QuoteFetcher.fetchGameQuote();
-                            quoteLabel.setText(newQuote);
 
 
                             pauseGame = true;

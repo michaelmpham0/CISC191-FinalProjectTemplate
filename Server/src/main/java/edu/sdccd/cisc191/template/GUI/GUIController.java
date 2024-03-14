@@ -4,6 +4,7 @@ package edu.sdccd.cisc191.template.GUI;
 import edu.sdccd.cisc191.template.GameData;
 import edu.sdccd.cisc191.template.Items;
 import edu.sdccd.cisc191.template.Player;
+import edu.sdccd.cisc191.template.QuoteFetcher;
 import javafx.animation.Timeline;
 import javafx.animation.KeyFrame;
 import javafx.scene.Scene;
@@ -194,7 +195,7 @@ public class GUIController extends GUIMain {
         Rectangle divider = new Rectangle();
         divider.setHeight(screenHeight*0.005);
         divider.setWidth(screenWidth*0.7);
-        divider.setTranslateY(screenHeight*0.05);
+        divider.setTranslateY(screenHeight*0.15);
         divider.setFill(Color.color(1,1,1));
 
         scene.setFill(Paint.valueOf("Black"));
@@ -205,6 +206,11 @@ public class GUIController extends GUIMain {
         Button quitButton = createButton("Quit","Button1","Times New Roman",120,0.2,0.02,0,screenHeight*0.35);
 
         loadButton.setOpacity(0.2);
+
+       // quote label that updates every attack phase
+       Label quoteLabel = createLabel(QuoteFetcher.fetchGameQuote(), "Times New Roman", 120, 0.5, 0.025 );
+       quoteLabel.getStyleClass().add("noBorder");
+       quoteLabel.setTranslateY(screenHeight * 0.1);
 
         Boolean hasSave = false;
 
@@ -258,7 +264,7 @@ public class GUIController extends GUIMain {
            System.exit(0);
        });
 
-        vbox.getChildren().addAll(text,startButton,loadButton,quitButton,divider);
+        vbox.getChildren().addAll(text,quoteLabel,divider,startButton,loadButton,quitButton);
 
         return scene;
     }

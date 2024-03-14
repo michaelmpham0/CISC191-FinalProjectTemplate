@@ -36,7 +36,7 @@ public class QuoteFetcher {
             // gets the string based on the key string "quote," as it is seen in the API
             String quote = json.getString("quote");
 
-            return quote;
+            return "\"" +quote+ "\"";
 
         } catch (Exception e) {
             e.printStackTrace();
