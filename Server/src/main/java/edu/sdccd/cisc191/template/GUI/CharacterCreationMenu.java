@@ -31,7 +31,7 @@ public class CharacterCreationMenu extends GUIController {
     }
     public static void updateImage(ImageView imageView,String className)
     {
-        InputStream inputStream = CharacterCreationMenu.class.getResourceAsStream("/Images/"+className+"class.png");
+        InputStream inputStream = CharacterCreationMenu.class.getResourceAsStream("/Images/"+className.toLowerCase()+"class.png");
         Image newImage = new Image(inputStream);
         imageView.setImage(newImage);
     }
