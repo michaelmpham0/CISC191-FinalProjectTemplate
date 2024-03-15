@@ -1,5 +1,6 @@
 package edu.sdccd.cisc191.template;
 
+import edu.sdccd.cisc191.template.GUI.GUIController;
 import edu.sdccd.cisc191.template.GUI.GUIMain;
 
 import java.io.Serializable;
@@ -55,7 +56,9 @@ public class Abilities implements Serializable {
     {
         System.out.println("Tried To Use: "+abilityName);
         if (!(GUIMain.getCurrentEnemy()== null) && abilityDamage > 0) {
-            if (player.getMana() >= manaCost) {
+            if (player.getMana() >= manaCost)
+            {
+                GUIController.setFumbleSpell(false);
                 player.setMana(player.getMana()-manaCost);
                 switch (abilityName)
                 {
@@ -65,11 +68,10 @@ public class Abilities implements Serializable {
                     default:
                         System.out.println("Ability Not Usable");
                 }
-                if (abilityDamage>0) {
-                    GUIMain.getCurrentEnemy().takeDamage(abilityDamage);
-                }
             }
-            else {
+            else
+            {
+                GUIController.setFumbleSpell(true);
                 System.out.println("Could not use "+abilityName+", low mana.");
             }
         }
@@ -77,7 +79,9 @@ public class Abilities implements Serializable {
             System.out.println("Could not use "+abilityName+", no target.");
         }
         else {
-            if (player.getMana() >= manaCost) {
+            if (player.getMana() >= manaCost)
+            {
+                GUIController.setFumbleSpell(false);
                 player.setMana(player.getMana()-manaCost);
                 switch (abilityName)
                 {
@@ -89,6 +93,7 @@ public class Abilities implements Serializable {
                 }
             }
             else {
+                GUIController.setFumbleSpell(true);
                 System.out.println("Could not use "+abilityName+", low mana.");
             }
         }

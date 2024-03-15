@@ -49,24 +49,33 @@ public class Enemy implements EnemyInterface{
         System.out.println(attacking);
         switch (status) {
             case "Bleed":
-                if (attacking) {
-                    double bleedDamage = (((double) (maxHealth - health) / maxHealth) * (maxHealth * 0.5));
-                    if (bleedDamage <= 0) {
-                        bleedDamage = 1;
+
+                if (statusTime>0)
+                {
+                    if (attacking) {
+                        double bleedDamage = (((double) (maxHealth - health) / maxHealth) * (maxHealth * 0.25));
+                        System.out.println(((maxHealth - health) / maxHealth));
+
+                        System.out.println(bleedDamage);
+                        if (bleedDamage <= 0) {
+                            bleedDamage = 1;
+                        }
+                        if (statusTime>0) {
+                            returnString = name + " bleeds for " + bleedDamage + " damage!";
+                            takeDamage((int) bleedDamage);
+                        }
                     }
-                    if (statusTime>0) {
-                        returnString = name + " bleeds for " + bleedDamage + " damage!";
-                        takeDamage((int) bleedDamage);
-                    }
-                    else{
-                        returnString = name + " stops bleeding.";
-                        status = "None";
+                    else {
+                        returnString = name + " bleeds for " + ((int)(maxHealth * 0.01)) + " damage!";
+                        takeDamage((int) (maxHealth * 0.01));
                     }
                 }
-                else {
-                    returnString = name + " bleeds for " + ((int)(maxHealth * 0.01)) + " damage!";
-                    takeDamage((int) (maxHealth * 0.01));
+                else
+                {
+                    returnString = name + " stops bleeding.";
+                    status = "None";
                 }
+
                 break;
             case "Burn":
                 if (statusTime>0) {
@@ -106,10 +115,10 @@ public class Enemy implements EnemyInterface{
 
     public void setDefenseMultiplier(double newDefenseMultiplier) {defenseMultiplier = newDefenseMultiplier;}
     public double getDefenseMultiplier() {return defenseMultiplier;}
-    public static int getHealth() {return health;}
+    public int getHealth() {return health;}
     public String getName() {return name;}
 
-    public static int getMaxHealth() {return maxHealth;}
+    public int getMaxHealth() {return maxHealth;}
 
     public String getStatus() {return status;}
     public String getEncounterText() {return encounterText;}
@@ -117,7 +126,10 @@ public class Enemy implements EnemyInterface{
     public int getStatusTime() {return statusTime;}
     public void setDamage(int damage) {this.damage = damage;}
 
-    public void setStatus(String status,int statusTime) {this.status = status;this.statusTime = statusTime;}
+    public void setStatus(String status,int statusTime)
+    {
+        this.status = status;this.statusTime = statusTime;
+    }
 
     public void setStatusTime(int statusTime){this.statusTime = statusTime;}
 

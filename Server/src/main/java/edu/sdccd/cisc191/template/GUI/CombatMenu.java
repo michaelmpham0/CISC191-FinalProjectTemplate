@@ -35,40 +35,34 @@ public class CombatMenu extends GUIController{
           else
           {
               name.setText(enemy.getName());
-              health.setText("Health: " + enemy.takeDamage(player.getAttack()+player.getCurrentWeapon().getWeaponDamage()) + "/" + enemy.getMaxHealth());
-              acts.setText(player.getName() + " attacks " + enemy.getName()  + " for " + (player.getAttack()+player.getCurrentWeapon().getWeaponDamage()) + " damage.");
-          }
-
-          if (enemy.getHealth() <= 0) {
-              name.setText(enemy.getName() + " has perished!");
-              if (enemy.getXpReward()+player.getExperience()>=player.getMaxExperience())
-              {
-                  // Leveled Up
-                  acts.setText("You gained "+enemy.getXpReward()+" XP and "+enemy.getGoldReward()+" gold. You leveled up.");
-              }
-              else
-              {
-                  acts.setText("You gained "+enemy.getXpReward()+" XP and "+enemy.getGoldReward()+" gold.");
-              }
-
-              player.gainExperience(enemy.getXpReward());
-              player.setGold(player.getGold()+enemy.getGoldReward());
+              enemy.takeDamage(player.getAttack()+player.getCurrentWeapon().getWeaponDamage());
+              health.setText("Health: " + enemy.getHealth() + "/" + enemy.getMaxHealth());
+              acts.setText(player.getName() + " attacks " + enemy.getName()  + " for " + (player.getAttack()+player.getCurrentWeapon().getWeaponDamage())*enemy.getDefenseMultiplier() + " damage.");
           }
       }
       else if (action.equals("Defend"))
       {
           acts.setText(player.getName()+" prepares to defend against an attack.");
       }
-      else if (action.equals("UseSpell") && usedSpell.getAbilityDamage()>0){
+      else if (action.equals("UseSpell") && usedSpell.getAbilityDamage()>0)
+      {
           if (enemy.getDefenseMultiplier() == 0.0 && enemy.getName().equals("The Prowling Beast"))
           {
               acts.setText("You pointlessly attack the mist. Nothing happens.");
           }
           else
           {
-              name.setText(enemy.getName());
-              health.setText("Health: " + enemy.takeDamage(player.getAttack()+player.getCurrentWeapon().getWeaponDamage()) + "/" + enemy.getMaxHealth());
-              acts.setText(act);
+              if (fumbleSpell == false)
+              {
+                  name.setText(enemy.getName());
+                  enemy.takeDamage(usedSpell.getAbilityDamage());
+                  health.setText("Health: " + enemy.getHealth() + "/" + enemy.getMaxHealth());
+                  acts.setText(act);
+              }
+              else
+              {
+                  acts.setText("You did not have enough mana to use that spell.");
+              }
           }
       }
       else {
@@ -80,6 +74,23 @@ public class CombatMenu extends GUIController{
           health.setText("Health: " + enemy.getHealth() + "/" + enemy.getMaxHealth());
           acts.setText(act);
        }
+
+       if (enemy.getHealth() <= 0) {
+           name.setText(enemy.getName() + " has perished!");
+           if (enemy.getXpReward()+player.getExperience()>=player.getMaxExperience())
+           {
+               // Leveled Up
+               acts.setText("You gained "+enemy.getXpReward()+" XP and "+enemy.getGoldReward()+" gold. You leveled up.");
+           }
+           else
+           {
+               acts.setText("You gained "+enemy.getXpReward()+" XP and "+enemy.getGoldReward()+" gold.");
+           }
+
+           player.gainExperience(enemy.getXpReward());
+           player.setGold(player.getGold()+enemy.getGoldReward());
+       }
+
    }
     protected static void combatMenu()
     {
@@ -360,20 +371,20 @@ public class CombatMenu extends GUIController{
                                             turn++;
                                             turnCounter.setText("Turn: "+turn);
                                             buttonContainer.setVisible(false);
-                                            PauseTransition delay3 = new PauseTransition(Duration.seconds(2));
-                                            delay3.setOnFinished(event -> {
+                                            PauseTransition delay7 = new PauseTransition(Duration.seconds(2));
+                                            delay7.setOnFinished(event -> {
                                                 refreshGUI(introText, enemyStats, allActions, currentEnemy, "Enemy", currentEnemy.enemyTurn(player));
 
                                                 if (!currentEnemy.getStatus().equals("None")){
-                                                    PauseTransition delay6 = new PauseTransition(Duration.seconds(1));
-                                                    delay6.setOnFinished(event2 -> {
+                                                    PauseTransition delay8 = new PauseTransition(Duration.seconds(1));
+                                                    delay8.setOnFinished(event2 -> {
                                                         refreshGUI(introText, enemyStats, allActions, currentEnemy, "Enemy", currentEnemy.checkStatus());
                                                     });
-                                                    delay6.play();
+                                                    delay8.play();
                                                 }
 
-                                                PauseTransition delay4 = new PauseTransition(Duration.seconds(1));
-                                                delay4.setOnFinished(event2 -> {
+                                                PauseTransition delay9 = new PauseTransition(Duration.seconds(1));
+                                                delay9.setOnFinished(event2 -> {
                                                     buttonContainer.setVisible(true);
                                                     pauseGame = false;
                                                     if (currentEnemy.getHealth() <= 0)
@@ -382,9 +393,9 @@ public class CombatMenu extends GUIController{
                                                         ExploreMenu.exploreMenu();
                                                     }
                                                 });
-                                                delay4.play();
+                                                delay9.play();
                                             });
-                                            delay3.play();
+                                            delay7.play();
                                         });
                                     }
                                 }

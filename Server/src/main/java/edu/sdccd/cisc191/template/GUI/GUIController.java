@@ -34,6 +34,10 @@ public class GUIController extends GUIMain {
     protected static Items usedItem = null;
 
     protected static Abilities usedSpell = null;
+    public static boolean fumbleSpell = false;
+    public static void setFumbleSpell(boolean b) {
+        fumbleSpell = b;
+    }
     protected static boolean inMenu = false;
     //variable to track when item is used, so to use your turn during combat
 
@@ -114,6 +118,8 @@ public class GUIController extends GUIMain {
             currentManaBarText.setText(player.getMana()+"/"+player.getMaxMana());
         }
     }
+
+
 
     private void updateStatus(Player player, Label leftTextLabel, Label rightTextLabel)
     {
