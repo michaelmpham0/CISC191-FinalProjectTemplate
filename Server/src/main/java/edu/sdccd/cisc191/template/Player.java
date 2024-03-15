@@ -269,4 +269,14 @@ public class Player implements Serializable {
         GOLD = classStats.get(Class)[3];
     }
 
+    private boolean foughtProwler = false;
+    public boolean getFoughtProwler()
+    {
+        return foughtProwler;
+    }
+
+    public void setFoughtProwler(boolean b)
+    {
+        foughtProwler = b;
+    }
 }
