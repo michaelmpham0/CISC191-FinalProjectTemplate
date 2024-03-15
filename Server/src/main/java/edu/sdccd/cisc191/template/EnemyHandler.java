@@ -19,7 +19,7 @@ public class EnemyHandler {
      */
     static String[][] enemyLeveledList =
             {
-                    {"Prowler"}, // level 1, add 1 goblin to enemy pool
+                    {"Goblin"}, // level 1, add 1 goblin to enemy pool
                     {"Goblin","Minotaur"}, // level 2, add 1 goblin and 1 minotaur
                     {"Grogoroth"}, // level 3
             };
@@ -60,6 +60,7 @@ public class EnemyHandler {
             enemyName = enemyPool.get(randomNumber);
 
         }
+
         System.out.println(enemyName);
         switch(enemyName){
             case "Goblin":

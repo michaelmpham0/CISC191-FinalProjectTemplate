@@ -13,6 +13,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 
 public class CharacterCreationMenu extends GUIController {
@@ -28,7 +29,12 @@ public class CharacterCreationMenu extends GUIController {
         leftText.setText(leftString);
         rightText.setText(TextDisplay.getText(player.getPlayerClass()+"Intro"));
     }
-
+    public static void updateImage(ImageView imageView,String className)
+    {
+        InputStream inputStream = CharacterCreationMenu.class.getResourceAsStream("/Images/"+className+"class.png");
+        Image newImage = new Image(inputStream);
+        imageView.setImage(newImage);
+    }
 
     public static void showIntro()
     {
@@ -116,7 +122,8 @@ public class CharacterCreationMenu extends GUIController {
         middleContainer.getChildren().add(imageContainer);
 
 
-        Image newImage = new Image("file:Server/src/main/resources/Images/knightclass.png");
+        InputStream inputStream = CharacterCreationMenu.class.getResourceAsStream("/Images/knightclass.png");
+        Image newImage = new Image(inputStream);
         ImageView imageView = new ImageView(newImage);
         imageView.setPreserveRatio(true);
         imageView.setFitHeight(imageHeight);
@@ -166,10 +173,7 @@ public class CharacterCreationMenu extends GUIController {
             System.out.println(className);
             int index = i;
             newButton.setOnAction(e -> {
-                imageView.setImage(new Image("file:Server/src/main/resources/Images/"+className+"class.png"));
-
-
-
+                updateImage(imageView,className);
                 if (imageView.isVisible() == false)
                 {
                     nameField.setVisible(true);

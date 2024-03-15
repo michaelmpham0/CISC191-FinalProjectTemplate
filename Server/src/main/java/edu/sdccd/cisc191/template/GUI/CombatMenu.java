@@ -20,6 +20,8 @@ import javafx.scene.text.Font;
 import javafx.animation.PauseTransition;
 import javafx.util.Duration;
 
+import java.io.InputStream;
+
 public class CombatMenu extends GUIController{
     public static int turn = 1;
 
@@ -153,7 +155,16 @@ public class CombatMenu extends GUIController{
         enemyGUIContainer.setTranslateX(screenWidth*0.1);
         root.setTop(enemyGUIContainer);
 
-        currentEnemy = EnemyHandler.createEnemy(true,"Random",player.getLevel());
+        if (player.getFoughtProwler() == false)
+        {
+            player.setFoughtProwler(true);
+            currentEnemy = EnemyHandler.createEnemy(false,"Prowler",player.getLevel());
+        }
+        else
+        {
+            currentEnemy = EnemyHandler.createEnemy(true,"Random",player.getLevel());
+        }
+
 
         Label allActions = new Label();
         allActions.getStylesheets().add("styleSheet.css");
@@ -193,8 +204,23 @@ public class CombatMenu extends GUIController{
         imageContainer.getStyleClass().add("noBorder");
         imageContainer.setAlignment(Pos.CENTER);
         enemyGUIContainer.setCenter(imageContainer);
-
-        Image newImage = new Image("file:Server/src/main/resources/Images/" + currentEnemy.getName() + ".png");
+        InputStream inputStream = null;
+        try
+        {
+            inputStream = CombatMenu.class.getResourceAsStream("/Images/"+currentEnemy.getName()+".png");
+        }
+        catch (NullPointerException ex)
+        {
+            System.out.println("NO PICTURE FOR: "+currentEnemy.getName());
+        }
+        finally
+        {
+            if (inputStream == null)
+            {
+                inputStream = CombatMenu.class.getResourceAsStream("/Images/Placeholder.png");
+            }
+        }
+        Image newImage = new Image(inputStream);
         ImageView imageView = new ImageView(newImage);
         imageView.setPreserveRatio(true);
         imageView.setFitHeight(imageHeight);

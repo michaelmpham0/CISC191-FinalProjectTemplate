@@ -21,7 +21,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import java.io.*;
-
+import java.io.InputStream;
 
 import java.awt.*;
 
