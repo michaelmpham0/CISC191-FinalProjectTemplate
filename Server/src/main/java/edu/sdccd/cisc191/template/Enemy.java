@@ -45,13 +45,13 @@ public class Enemy implements EnemyInterface{
     }
     public double getDefenseMultiplier()
     {
-        return getDefenseMultiplier();
+        return defenseMultiplier;
     }
     public static int getHealth() {
         return health;
     }
 
-    public static String getName() {
+    public String getName() {
         return name;
     }
 
@@ -80,8 +80,8 @@ public class Enemy implements EnemyInterface{
         this.name = name;
     }
 
-    public static int takeDamage(int damage){
-
+    public int takeDamage(int damage){
+        damage = (int) (damage*defenseMultiplier);
 
         if ((health-damage) <= 0) {
             health = 0;

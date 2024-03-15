@@ -25,13 +25,21 @@ public class CombatMenu extends GUIController{
 
 
    protected  static  void refreshGUI(Label name, Label health,Label acts,Enemy enemy,String action,String act){
-       name.setText(enemy.getName());
       if (action.equals("Attack")) {
-          health.setText("Health: " + enemy.takeDamage(player.getAttack()+player.getCurrentWeapon().getWeaponDamage()) + "/" + enemy.getMaxHealth());
-          acts.setText(player.getName() + " attacks " + enemy.getName()  + " for " + (player.getAttack()+player.getCurrentWeapon().getWeaponDamage()) + " damage.");
+          if (enemy.getDefenseMultiplier() == 0.0 && enemy.getName().equals("The Prowling Beast"))
+          {
+              acts.setText("You pointlessly attack the mist. Nothing happens.");
+          }
+          else
+          {
+              name.setText(enemy.getName());
+              health.setText("Health: " + enemy.takeDamage(player.getAttack()+player.getCurrentWeapon().getWeaponDamage()) + "/" + enemy.getMaxHealth());
+              acts.setText(player.getName() + " attacks " + enemy.getName()  + " for " + (player.getAttack()+player.getCurrentWeapon().getWeaponDamage()) + " damage.");
+          }
+
           if (enemy.getHealth() <= 0) {
               name.setText(enemy.getName() + " has perished!");
-              if (enemy.getXpReward()+player.getExperience()>player.getMaxExperience())
+              if (enemy.getXpReward()+player.getExperience()>=player.getMaxExperience())
               {
                   // Leveled Up
                   acts.setText("You gained "+enemy.getXpReward()+" XP and "+enemy.getGoldReward()+" gold. You leveled up.");
@@ -50,6 +58,11 @@ public class CombatMenu extends GUIController{
           acts.setText(player.getName()+" prepares to defend against an attack.");
       }
       else {
+          if (enemy.getDefenseMultiplier() != 0.0 && enemy.getName().equals("The Prowling Beast"))
+          {
+              //reveals the prowling beast's name when you defend against it and it's not in the mist
+              name.setText(enemy.getName());
+          }
           health.setText("Health: " + enemy.getHealth() + "/" + enemy.getMaxHealth());
           acts.setText(act);
        }
@@ -212,7 +225,7 @@ public class CombatMenu extends GUIController{
                             pauseGame = true;
                             buttonContainer.setVisible(false);
                             refreshGUI(introText,enemyStats,allActions,currentEnemy,"Attack",null);
-                            PauseTransition delay1 = new PauseTransition(Duration.seconds(1));
+                            PauseTransition delay1 = new PauseTransition(Duration.seconds(1.5));
                             delay1.setOnFinished(event -> {
                                 if (currentEnemy.getHealth()>0)
                                 {

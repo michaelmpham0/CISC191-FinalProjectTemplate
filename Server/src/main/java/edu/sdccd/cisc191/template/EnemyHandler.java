@@ -2,6 +2,7 @@ package edu.sdccd.cisc191.template;
 import edu.sdccd.cisc191.template.Enemies.Goblin;
 import edu.sdccd.cisc191.template.Enemies.Grogoroth;
 import edu.sdccd.cisc191.template.Enemies.Minotaur;
+import edu.sdccd.cisc191.template.Enemies.Prowler;
 
 import java.lang.Math;
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ public class EnemyHandler {
      */
     static String[][] enemyLeveledList =
             {
-                    {"Goblin"}, // level 1, add 1 goblin to enemy pool
+                    {"Prowler"}, // level 1, add 1 goblin to enemy pool
                     {"Goblin","Minotaur"}, // level 2, add 1 goblin and 1 minotaur
                     {"Grogoroth"}, // level 3
             };
@@ -69,6 +70,9 @@ public class EnemyHandler {
                 break;
             case "Minotaur":
                 enemy = new Minotaur();
+                break;
+            case "Prowler":
+                enemy = new Prowler();
                 break;
         }
         return enemy;
