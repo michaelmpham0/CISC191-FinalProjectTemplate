@@ -57,6 +57,18 @@ public class CombatMenu extends GUIController{
       {
           acts.setText(player.getName()+" prepares to defend against an attack.");
       }
+      else if (action.equals("UseSpell") && usedSpell.getAbilityDamage()>0){
+          if (enemy.getDefenseMultiplier() == 0.0 && enemy.getName().equals("The Prowling Beast"))
+          {
+              acts.setText("You pointlessly attack the mist. Nothing happens.");
+          }
+          else
+          {
+              name.setText(enemy.getName());
+              health.setText("Health: " + enemy.takeDamage(player.getAttack()+player.getCurrentWeapon().getWeaponDamage()) + "/" + enemy.getMaxHealth());
+              acts.setText(act);
+          }
+      }
       else {
           if (enemy.getDefenseMultiplier() != 0.0 && enemy.getName().equals("The Prowling Beast"))
           {
@@ -230,6 +242,14 @@ public class CombatMenu extends GUIController{
                                 if (currentEnemy.getHealth()>0)
                                 {
                                     refreshGUI(introText, enemyStats, allActions, currentEnemy, "Enemy", currentEnemy.enemyTurn(player));
+
+                                    if (!currentEnemy.getStatus().equals("None")){
+                                        PauseTransition delay6 = new PauseTransition(Duration.seconds(1));
+                                        delay6.setOnFinished(event2 -> {
+                                            refreshGUI(introText, enemyStats, allActions, currentEnemy, "Enemy", currentEnemy.checkStatus());
+                                        });
+                                        delay6.play();
+                                    }
                                 }
                                 PauseTransition delay2 = new PauseTransition(Duration.seconds(1));
                                 delay2.setOnFinished(event2 -> {
@@ -237,6 +257,7 @@ public class CombatMenu extends GUIController{
                                     pauseGame = false;
                                     if (currentEnemy.getHealth() <= 0)
                                     {
+                                        currentEnemy = null;
                                         ExploreMenu.exploreMenu();
                                     }
                                 });
@@ -257,12 +278,26 @@ public class CombatMenu extends GUIController{
                                 double oldDefenseMultiplier = player.getDefenseMultiplier();
                                 player.setDefenseMultiplier(oldDefenseMultiplier/2);
                                 refreshGUI(introText, enemyStats, allActions, currentEnemy, "Enemy", currentEnemy.enemyTurn(player));
+
+                                if (!currentEnemy.getStatus().equals("None")){
+                                    PauseTransition delay6 = new PauseTransition(Duration.seconds(1));
+                                    delay6.setOnFinished(event2 -> {
+                                        refreshGUI(introText, enemyStats, allActions, currentEnemy, "Enemy", currentEnemy.checkStatus());
+                                    });
+                                    delay6.play();
+                                }
+
                                 PauseTransition delay6 = new PauseTransition(Duration.seconds(1));
                                 delay6.setOnFinished(event2 -> {
                                     player.setGuarding(false);
                                     player.setDefenseMultiplier(oldDefenseMultiplier);
                                     buttonContainer.setVisible(true);
                                     pauseGame = false;
+                                    if (currentEnemy.getHealth() <= 0)
+                                    {
+                                        currentEnemy = null;
+                                        ExploreMenu.exploreMenu();
+                                    }
                                 });
                                 delay6.play();
                             });
@@ -276,6 +311,60 @@ public class CombatMenu extends GUIController{
                             break;
                         case 4:
                             // Spells
+                            inMenu = true;
+                            SpellsMenu.spellsMenu();
+                            Thread spellThread = new Thread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    //while pit to wait until player exits item menu
+                                    while (inMenu == true) {
+                                        try {
+                                            Thread.sleep(100);
+                                        } catch (InterruptedException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+
+                                    if (usedSpell != null)
+                                    {
+                                        pauseGame = true;
+                                        Platform.runLater(() -> {
+                                            refreshGUI(introText, enemyStats, allActions, currentEnemy, "UseSpell", usedSpell.getAbilityUseDesc());
+                                            usedSpell = null;
+                                            turn++;
+                                            turnCounter.setText("Turn: "+turn);
+                                            buttonContainer.setVisible(false);
+                                            PauseTransition delay3 = new PauseTransition(Duration.seconds(2));
+                                            delay3.setOnFinished(event -> {
+                                                refreshGUI(introText, enemyStats, allActions, currentEnemy, "Enemy", currentEnemy.enemyTurn(player));
+
+                                                if (!currentEnemy.getStatus().equals("None")){
+                                                    PauseTransition delay6 = new PauseTransition(Duration.seconds(1));
+                                                    delay6.setOnFinished(event2 -> {
+                                                        refreshGUI(introText, enemyStats, allActions, currentEnemy, "Enemy", currentEnemy.checkStatus());
+                                                    });
+                                                    delay6.play();
+                                                }
+
+                                                PauseTransition delay4 = new PauseTransition(Duration.seconds(1));
+                                                delay4.setOnFinished(event2 -> {
+                                                    buttonContainer.setVisible(true);
+                                                    pauseGame = false;
+                                                    if (currentEnemy.getHealth() <= 0)
+                                                    {
+                                                        currentEnemy = null;
+                                                        ExploreMenu.exploreMenu();
+                                                    }
+                                                });
+                                                delay4.play();
+                                            });
+                                            delay3.play();
+                                        });
+                                    }
+                                }
+                            });
+                            spellThread.start();
+
                             break;
                         case 5:
                             inMenu = true;

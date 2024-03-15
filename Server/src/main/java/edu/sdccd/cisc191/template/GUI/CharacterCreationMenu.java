@@ -195,6 +195,7 @@ public class CharacterCreationMenu extends GUIController {
                 }
 
                 storage = new Inventory(player.getPlayerClass());
+                spells = new Spells(player.getPlayerClass());
                 ArrayList<Items> playerInventoryList = storage.getInventory();
                 Boolean foundWeapon = false;
                 Boolean foundTool = false;

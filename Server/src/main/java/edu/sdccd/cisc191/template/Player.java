@@ -162,6 +162,14 @@ public class Player implements Serializable {
         this.defenseMultiplier = playerDefenseMultiplier;
     }
 
+    public void setMana(int newMana){
+        MANA = newMana;
+        if(MANA < 0){
+            MANA = 0;
+        }
+
+    }
+
     public void setHealth(int newHealth){
        HP = newHealth;
        if(HP < 0){
@@ -176,6 +184,14 @@ public class Player implements Serializable {
         if (HP > maxHP)
         {
             HP = maxHP;
+        }
+    }
+
+    public void restoreMana(int healAmount) {
+        MANA += healAmount;
+        if (MANA > maxMana)
+        {
+            MANA = maxMana;
         }
     }
 

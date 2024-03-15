@@ -8,6 +8,7 @@ public class GameData implements Serializable
     boolean wrongVersion = false;
     Inventory inventoryData;
     Player playerData;
+    Spells spellsData;
 
     public GameData()
     {
@@ -15,10 +16,11 @@ public class GameData implements Serializable
         playerData = new Player();
         inventoryData = new Inventory(playerData.getPlayerClass());
     }
-    public GameData(Player savePlayer,Inventory saveInventory)
+    public GameData(Player savePlayer,Inventory saveInventory,Spells saveSpells)
     {
         playerData = savePlayer;
         inventoryData = saveInventory;
+        spellsData = saveSpells;
     }
     public Player getPlayerData()
     {
@@ -27,6 +29,11 @@ public class GameData implements Serializable
     public Inventory getInventoryData()
     {
         return  inventoryData;
+    }
+
+    public Spells getSpellsData()
+    {
+        return  spellsData;
     }
     public boolean isWrongVersion()
     {

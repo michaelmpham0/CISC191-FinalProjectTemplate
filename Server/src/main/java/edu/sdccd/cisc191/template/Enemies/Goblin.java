@@ -7,12 +7,14 @@ import edu.sdccd.cisc191.template.Player;
 public class Goblin extends Enemy {
     private int health,maxHealth,damage,damageDealt,skill=0;
 
+    private boolean attacking = false;
     private String encounterText;
     private String action = "None";
 
     public String name;
     private String Slash(Player player)
     {
+        setAttacking(true);
         if (slashCount == 2)
         {
             //stronger slash every 2 slashes
@@ -35,6 +37,7 @@ public class Goblin extends Enemy {
     }
     private String MegaSlash(Player player)
     {
+        setAttacking(true);
         action = "None";
         if (player.getGuarding() == true ) {
             damageDealt = 0;
@@ -64,6 +67,7 @@ public class Goblin extends Enemy {
         }
         else
         {
+            setAttacking(false);
             action = "None";
             int max = 6;
             int min = 0;
@@ -74,16 +78,11 @@ public class Goblin extends Enemy {
             switch (skill)
             {
                 case 1:
-                    returnStr = Slash(player);
-                    break;
                 case 2:
-                    returnStr = Slash(player);
-                    break;
                 case 3:
                     returnStr = Slash(player);
                     break;
                 case 4:
-                    returnStr = PrepareMegaSlash(player);
                 case 5:
                     returnStr = PrepareMegaSlash(player);
             }

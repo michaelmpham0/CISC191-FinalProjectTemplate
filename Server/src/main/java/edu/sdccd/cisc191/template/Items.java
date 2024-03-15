@@ -59,8 +59,11 @@ public class Items implements Serializable {
         {
             case "Flask of Crimson Tears":
                 System.out.println("Use Health Potion");
-                Player playerRefrence = GUIMain.getPlayer();
-                playerRefrence.restoreHealth(200);
+                GUIMain.getPlayer().restoreHealth(200);
+                break;
+            case "Flask of Cerulean Tears":
+                System.out.println("Use Mana Potion");
+                GUIMain.getPlayer().restoreMana(40);
                 break;
             default:
                 System.out.println("Item Not Usable");

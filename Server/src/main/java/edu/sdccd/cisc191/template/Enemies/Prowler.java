@@ -7,16 +7,19 @@ public class Prowler extends Enemy {
     private int health,maxHealth,damage,damageDealt,skill=0;
 
     private String encounterText;
+    private boolean attacking = false;
     private String action = "None";
 
     public String name;
     private String Claw(Player player)
     {
+        setAttacking(true);
         damageDealt = 18;
         return "The beast rabidly claws at you.";
     }
     private String Pounce(Player player)
     {
+        setAttacking(true);
         action = "None";
         if (player.getGuarding() == true ) {
             damageDealt = 0;
@@ -38,6 +41,7 @@ public class Prowler extends Enemy {
         damageDealt = 0;
         if (currentTurn == 1)
         {
+            setAttacking(false);
             //is invincible in the mist on the first turn, and will always pounce on the next turn
             returnStr = "Something is stalking you from within the mist.";
             action = "Pounce";
@@ -56,11 +60,13 @@ public class Prowler extends Enemy {
         }
         else if (currentTurn == 5)
         {
+            setAttacking(false);
             // turn 5, opporunity given to player
             returnStr = "The beast is exhausted. It pants in frustation at your unexpected survival.";
         }
         else
         {
+            setAttacking(false);
             //turn 6, return to the mist and repeat the pattern
             returnStr = "The beast fades away into the mist.";
             currentTurn = 0;

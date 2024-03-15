@@ -10,6 +10,7 @@ public class Grogoroth extends Enemy {
 
     private String encounterText;
 
+    private boolean attacking = false;
     private String action = "None";
 
     public String name;

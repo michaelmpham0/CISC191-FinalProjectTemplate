@@ -1,10 +1,7 @@
 package edu.sdccd.cisc191.template.GUI;
 
 
-import edu.sdccd.cisc191.template.GameData;
-import edu.sdccd.cisc191.template.Items;
-import edu.sdccd.cisc191.template.Player;
-import edu.sdccd.cisc191.template.QuoteFetcher;
+import edu.sdccd.cisc191.template.*;
 import javafx.animation.Timeline;
 import javafx.animation.KeyFrame;
 import javafx.scene.Scene;
@@ -35,6 +32,8 @@ public class GUIController extends GUIMain {
     private static Timeline turnDelay;
     protected static boolean pauseGame = false;
     protected static Items usedItem = null;
+
+    protected static Abilities usedSpell = null;
     protected static boolean inMenu = false;
     //variable to track when item is used, so to use your turn during combat
 
@@ -234,6 +233,7 @@ public class GUIController extends GUIMain {
                 {
                     player = saveData.getPlayerData();
                     storage = saveData.getInventoryData();
+                    spells = saveData.getSpellsData();
                     ExploreMenu.exploreMenu();
                 });
                 loadButton.setOnMouseEntered(e ->

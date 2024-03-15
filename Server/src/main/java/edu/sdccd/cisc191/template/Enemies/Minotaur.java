@@ -8,11 +8,14 @@ public class Minotaur extends Enemy {
     private int health,maxHealth,damage,damageDealt,skill=0;
 
     private String encounterText;
+
+    private boolean attacking = false;
     private String action = "None";
 
     public String name;
     private String Swing(Player player)
     {
+        setAttacking(true);
         if (swingCount == 1)
         {
             //charge every other swing
@@ -34,12 +37,14 @@ public class Minotaur extends Enemy {
     }
     private String MinotaurRoar(Player player)
     {
+        setAttacking(true);
         action = "MinotaurBeatdown";
         damageDealt = 1;
         return "The minotaur lets out a deafening roar.";
     }
     private String MinotaurBeatdown(Player player)
     {
+        setAttacking(true);
         action = "None";
         if (player.getGuarding() == true ) {
             damageDealt = 0;
@@ -66,6 +71,7 @@ public class Minotaur extends Enemy {
         }
         else
         {
+            setAttacking(false);
             action = "None";
             int max = 7;
             int min = 0;
@@ -75,19 +81,12 @@ public class Minotaur extends Enemy {
             switch (skill)
             {
                 case 1:
-                    returnStr = Swing(player);
-                    break;
                 case 2:
-                    returnStr = Swing(player);
-                    break;
                 case 3:
-                    returnStr = Swing(player);
-                    break;
                 case 4:
                     returnStr = Swing(player);
                     break;
                 case 5:
-                    returnStr = MinotaurRoar(player);
                 case 6:
                     returnStr = MinotaurRoar(player);
             }

@@ -1,11 +1,7 @@
 package edu.sdccd.cisc191.template.GUI;
 
-import edu.sdccd.cisc191.template.Enemy;
-import edu.sdccd.cisc191.template.GameData;
-import edu.sdccd.cisc191.template.Inventory;
-import edu.sdccd.cisc191.template.Player;
+import edu.sdccd.cisc191.template.*;
 import javafx.application.Application;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
@@ -23,6 +19,7 @@ public class GUIMain extends Application {
        launch(args);
     }
 
+    protected static Spells spells;
     protected static Inventory storage;
     public static Player player = new Player();
     public static Player getPlayer() {
@@ -31,6 +28,9 @@ public class GUIMain extends Application {
     protected static Stage stage;
     protected static Enemy currentEnemy;
 
+    public static Enemy getCurrentEnemy() {
+        return currentEnemy;
+    }
     protected static Scene lastScene;
     protected static String previousStage;
 
@@ -57,7 +57,7 @@ public class GUIMain extends Application {
                     try {
                         saveFile = new FileOutputStream(outputPath);
                         ObjectOutputStream objWriter = new ObjectOutputStream(saveFile);
-                        objWriter.writeObject(new GameData(player,storage));
+                        objWriter.writeObject(new GameData(player,storage,spells));
                         }
                     catch (FileNotFoundException ex)
                     {

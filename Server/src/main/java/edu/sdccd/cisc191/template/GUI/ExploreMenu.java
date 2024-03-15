@@ -99,6 +99,7 @@ public class ExploreMenu extends GUIController {
                         break;
                     case 3:
                         // Spells
+                        SpellsMenu.spellsMenu();
                         break;
                     case 4:
                         ItemMenu.itemMenu();

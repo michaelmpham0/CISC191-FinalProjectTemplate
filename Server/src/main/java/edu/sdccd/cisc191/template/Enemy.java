@@ -2,11 +2,18 @@ package edu.sdccd.cisc191.template;
 
 
 import edu.sdccd.cisc191.template.GUI.GUIController;
+import javafx.scene.media.MediaPlayer;
+import org.omg.CORBA.PRIVATE_MEMBER;
 
 public class Enemy implements EnemyInterface{
+
+    private static boolean attacking = false;
     private static int health;
     private static int maxHealth;
     private static int damage;
+    private static String status = "None";
+
+    private static int statusTime = 0;
     private static String name;
     private static String encounterText;
     private static String firstText;
@@ -31,46 +38,88 @@ public class Enemy implements EnemyInterface{
     public static int getDamage() {
         return damage;
     }
+
+    public void setAttacking(boolean attacking) {
+        this.attacking = attacking;
+    }
+    public String checkStatus(){
+        String returnString = "Unknown.";
+        statusTime-=1;
+        System.out.println(status + " for another " + statusTime + " turn(s).");
+        System.out.println(attacking);
+        switch (status) {
+            case "Bleed":
+                if (attacking) {
+                    double bleedDamage = (((double) (maxHealth - health) / maxHealth) * (maxHealth * 0.5));
+                    if (bleedDamage <= 0) {
+                        bleedDamage = 1;
+                    }
+                    if (statusTime>0) {
+                        returnString = name + " bleeds for " + bleedDamage + " damage!";
+                        takeDamage((int) bleedDamage);
+                    }
+                    else{
+                        returnString = name + " stops bleeding.";
+                        status = "None";
+                    }
+                }
+                else {
+                    returnString = name + " bleeds for " + ((int)(maxHealth * 0.01)) + " damage!";
+                    takeDamage((int) (maxHealth * 0.01));
+                }
+                break;
+            case "Burn":
+                if (statusTime>0) {
+                    returnString = name + " burns for " + ((int) (maxHealth * 0.05)) + " damage!";
+                    takeDamage((int) (maxHealth * 0.05));
+                }
+                else {
+                    returnString = name + " stops burning.";
+                    status = "None";
+                }
+                break;
+            default:
+        }
+        return returnString;
+    }
     public String dealDamage(int damageDealt,Player player,String returnStr)
     {
         damageDealt = (int) (damageDealt*player.getDefenseMultiplier());
+
+        String trueReturnString = returnStr+" You took " + damageDealt + " damage!";
+        switch (status){
+            case "Paralyze":
+                damageDealt = 0;
+                trueReturnString = name + " is paralyzed!";
+                break;
+            case "DMGReduction":
+                //lol
+            case "DMGBoost":
+                //lol
+            default:
+        }
+
         player.setHealth(player.getHealth()-damageDealt);
         GUIController.updateHealthAndMana();
-        return returnStr+" You took " + damageDealt + " damage!";
+        return trueReturnString;
     }
 
-    public void setDefenseMultiplier(double newDefenseMultiplier)
-    {
-        defenseMultiplier = newDefenseMultiplier;
-    }
-    public double getDefenseMultiplier()
-    {
-        return defenseMultiplier;
-    }
-    public static int getHealth() {
-        return health;
-    }
+    public void setDefenseMultiplier(double newDefenseMultiplier) {defenseMultiplier = newDefenseMultiplier;}
+    public double getDefenseMultiplier() {return defenseMultiplier;}
+    public static int getHealth() {return health;}
+    public String getName() {return name;}
 
-    public String getName() {
-        return name;
-    }
+    public static int getMaxHealth() {return maxHealth;}
 
-    public static int getMaxHealth() {
-        return maxHealth;
-    }
+    public String getStatus() {return status;}
+    public String getEncounterText() {return encounterText;}
+    public String getFirstText() {return firstText;}
+    public int getStatusTime() {return statusTime;}
+    public void setDamage(int damage) {this.damage = damage;}
 
-    public String getEncounterText()
-    {
-        return encounterText;
-    }
-    public String getFirstText()
-    {
-        return firstText;
-    }
+    public void setStatus(String status,int statusTime) {this.status = status;this.statusTime = statusTime;}
 
-    public void setDamage(int damage) {
-        this.damage = damage;
-    }
+    public void setStatusTime(int statusTime){this.statusTime = statusTime;}
 
     public void setHealth(int health) {
         this.health = health;
@@ -103,6 +152,7 @@ public class Enemy implements EnemyInterface{
     }
 
     public String enemyTurn(Player player) {
+
         return null;
     }
 }
