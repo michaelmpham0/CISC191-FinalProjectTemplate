@@ -67,6 +67,7 @@ public class Prowler extends Enemy {
         else
         {
             setAttacking(false);
+            setDefenseMultiplier(1);
             //turn 6, return to the mist and repeat the pattern
             returnStr = "The beast fades away into the mist.";
             currentTurn = 0;
