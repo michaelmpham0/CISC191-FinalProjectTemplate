@@ -1,7 +1,5 @@
 package edu.sdccd.cisc191.template;
 
-import edu.sdccd.cisc191.template.GUI.GUIController;
-
 import java.io.Serializable;
 import  java.util.Scanner;
 import java.util.HashMap;
@@ -16,28 +14,16 @@ import java.util.logging.Level;
  */
 public class Player implements Serializable {
 
-   //HashMap to store class info. Stats correspond top from bottom of the above list, left to right.
+    //HashMap to store class info. Stats correspond top from bottom of the above list, left to right.
     static HashMap<String, int[]> classStats = new HashMap<String, int[]>()
     {{
-        put("Knight", new int[]{40,10,30,30});
+        put("Knight", new int[]{35,15,30,30});
         put("Wizard", new int[]{18,5,100,50});
-        put("Barbarian", new int[]{35,18,10,0});
-        put("Ranger", new int[]{25,12,20,5});
-    }};
-
-    //increase stats by this amount every level up
-    static HashMap<String, int[]> classStatsGrowth = new HashMap<String, int[]>()
-    {{
-        // health, attack, mana
-        put("Knight", new int[]{6,3,10});
-        put("Wizard", new int[]{2,1,20});
-        put("Barbarian", new int[]{4,8,0});
-        put("Ranger", new int[]{3,5,5});
+        put("Barbarian", new int[]{25,25,10,0});
+        put("Ranger", new int[]{20,10,20,5});
     }};
     private int HP,maxHP,ATK,GOLD,MANA,maxMana,level;
-    private int exp = 0;
-    private int maxExp = 100;
-    private double defenseMultiplier = 1.0;
+
     private Weapons currentWeapon = new Weapons();
     private Tools currentTool = new Tools();
 
@@ -125,10 +111,6 @@ public class Player implements Serializable {
     public int getGold(){
         return  GOLD;
     }
-    public void setGold(int newGold)
-    {
-        GOLD = newGold;
-    }
     public int getMana(){
         return  MANA;
     }
@@ -146,36 +128,8 @@ public class Player implements Serializable {
         return  maxMana;
     }
 
-    public double getDefenseMultiplier() {
-        return defenseMultiplier;
-    }
-    private boolean isGuarding = false;
-    public boolean getGuarding()
-    {
-        return isGuarding;
-    }
-    public void setGuarding(boolean newGuard)
-    {
-        isGuarding = newGuard;
-    }
-    public void setDefenseMultiplier(double playerDefenseMultiplier) {
-        this.defenseMultiplier = playerDefenseMultiplier;
-    }
-
-    public void setMana(int newMana){
-        MANA = newMana;
-        if(MANA < 0){
-            MANA = 0;
-        }
-
-    }
-
     public void setHealth(int newHealth){
-       HP = newHealth;
-       if(HP < 0){
-           HP = 0;
-       }
-
+        HP = newHealth;
     }
 
     public void restoreHealth(int healAmount)
@@ -184,14 +138,6 @@ public class Player implements Serializable {
         if (HP > maxHP)
         {
             HP = maxHP;
-        }
-    }
-
-    public void restoreMana(int healAmount) {
-        MANA += healAmount;
-        if (MANA > maxMana)
-        {
-            MANA = maxMana;
         }
     }
 
@@ -208,40 +154,9 @@ public class Player implements Serializable {
         Name = newName;
     }
 
-    public int getExperience() {
-        return exp;
-    }
-
-
-    //method to update and increase stats each level up
-    private void updateStats()
+    public void newSetup()
     {
-        maxHP = HP = classStats.get(Class)[0]+(classStatsGrowth.get(Class)[0]*(level-1));
-        ATK = classStats.get(Class)[1]+(classStatsGrowth.get(Class)[1]*(level-1));
-        MANA = maxMana = classStats.get(Class)[2]+(classStatsGrowth.get(Class)[2]*(level-1));
-    }
 
-    public void setExperience(int exp) {
-        this.exp = exp;
-    }
-    public void gainExperience(int gainXP)
-    {
-        exp += gainXP;
-        if (exp >= maxExp)
-        {
-            // Level Up
-            level += 1;
-            updateStats();
-            GUIController.updateHealthAndMana();
-            int extraXP = exp-maxExp;
-            exp = extraXP;
-            maxExp = 100*level;
-        }
-    }
-
-
-    public int getMaxExperience() {
-        return maxExp;
     }
 
     public void setUp(){
@@ -269,14 +184,4 @@ public class Player implements Serializable {
         GOLD = classStats.get(Class)[3];
     }
 
-    private boolean foughtProwler = false;
-    public boolean getFoughtProwler()
-    {
-        return foughtProwler;
-    }
-
-    public void setFoughtProwler(boolean b)
-    {
-        foughtProwler = b;
-    }
 }

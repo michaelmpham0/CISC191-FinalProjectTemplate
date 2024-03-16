@@ -6,7 +6,7 @@ public class PromptDisplay
 {
 
     /* Store info of prompts
-    */
+     */
 
 
     static HashMap<String, String[]> promptInfo = new HashMap<String, String[]>()

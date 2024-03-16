@@ -10,29 +10,29 @@ public class Inventory implements Serializable {
     public Inventory(String userClass) {
         switch (userClass.toLowerCase()) {
             case "knight":
-                inventory.add(new Weapons("Rusty Longsword", "A rusted heirloom sword that has been passed down countless generations.", 10));
+                inventory.add(new Weapons("Rusty Longsword", "A rusted heirloom sword that has been passed down countless generations.", 12));
                 inventory.add(new Tools("Wooden Shield", "A protective gear, used to lower incoming damage."));
-                inventory.add(new Items("Flask of Crimson Tears", "Used to replenish missing health", 3,"You gulp down the bottle of thick liquid and feel immediately rejuvenated."));
-                inventory.add(new Items("Flask of Cerulean Tears", "Used to replenish missing mana", 2,"Power flows through your fingertips as your magical reserves are topped off. You regain 30 MP."));
+                inventory.add(new Items("Flask of Crimson Tears", "Used to replenish missing health", 3));
+                inventory.add(new Items("Flask of Cerulean Tears", "Used to replenish missing mana", 1));
                 break;
             case "wizard":
-                inventory.add(new Weapons("Weathered Staff", "A tall wooden staff, worn down by time and use.", 3));
+                inventory.add(new Weapons("Weathered Staff", "A tall wooden staff, worn down by time and use.", 15));
                 inventory.add(new Tools("Spell Book", "A magical tome, used to increase number of spells you can hold to 10."));
-                inventory.add(new Items("Flask of Crimson Tears", "Used to replenish missing health", 3,"You gulp down the bottle of thick liquid and feel immediately rejuvenated."));
-                inventory.add(new Items("Flask of Cerulean Tears", "Used to replenish missing mana", 2,"Power flows through your fingertips as your magical reserves are topped off. You regain 30 MP."));
+                inventory.add(new Items("Flask of Crimson Tears", "Used to replenish missing health", 3));
+                inventory.add(new Items("Flask of Cerulean Tears", "Used to replenish missing mana", 3));
                 break;
             case "barbarian":
-                inventory.add(new Weapons("Crude Axe", "An unadorned axe, crudely fashioned from rough materials", 12));
+                inventory.add(new Weapons("Crude Axe", "An unadorned axe, crudely fashioned from rough materials", 18));
                 inventory.add(new Items("Frenzy Potion", "A vial of potent elixir, used to raise overall stats.", 1));
-                inventory.add(new Items("Flask of Crimson Tears", "Used to replenish missing health", 3,"You gulp down the bottle of thick liquid and feel immediately rejuvenated."));
-                inventory.add(new Items("Flask of Cerulean Tears", "Used to replenish missing mana", 2,"Power flows through your fingertips as your magical reserves are topped off. You regain 30 MP."));
+                inventory.add(new Items("Flask of Crimson Tears", "Used to replenish missing health", 2));
+                inventory.add(new Items("Flask of Cerulean Tears", "Used to replenish missing mana", 1));
                 break;
             case "ranger":
-                inventory.add(new Tools("Rugged Longbow", "A used longbow, a weapon of choice for rangers who roam the untamed wilderness"));
-                inventory.add(new Items("Wooden Arrows", "The staple ammunition of a ranger", 15,""));
+                inventory.add(new Weapons("Rugged Longbow", "A used longbow, a weapon of choice for rangers who roam the untamed wilderness", 10));
+                inventory.add(new Items("Wooden Arrows", "The staple ammunition of a ranger", 15));
                 inventory.add(new Weapons("Short Dagger", "A dagger designed for swift strikes and close-quarters combat", 8));
-                inventory.add(new Items("Flask of Crimson Tears", "Used to replenish missing health", 3,"You gulp down the bottle of thick liquid and feel immediately rejuvenated."));
-                inventory.add(new Items("Flask of Cerulean Tears", "Used to replenish missing mana", 2,"Power flows through your fingertips as your magical reserves are topped off. You regain 30 MP."));
+                inventory.add(new Items("Flask of Crimson Tears", "Used to replenish missing health", 2));
+                inventory.add(new Items("Flask of Cerulean Tears", "Used to replenish missing mana", 2));
                 break;
             default:
                 System.out.println("Unknown class.");
