@@ -287,13 +287,20 @@ public class CombatMenu extends GUIController{
                                         delay6.setOnFinished(event2 -> {
                                             refreshGUI(introText, enemyStats, allActions, currentEnemy, "Enemy", currentEnemy.checkStatus());
                                         });
-                                        delay6.play();
+                                        if (!currentEnemy.checkStatus().equals("Unknown."))
+                                        {
+                                            delay6.play();
+                                        }
                                     }
                                 }
                                 PauseTransition delay2 = new PauseTransition(Duration.seconds(1));
                                 delay2.setOnFinished(event2 -> {
-                                    buttonContainer.setVisible(true);
-                                    pauseGame = false;
+                                    if (player.getHealth() != 0)
+                                    {
+                                        buttonContainer.setVisible(true);
+                                        pauseGame = false;
+                                    }
+
                                     if (currentEnemy.getHealth() <= 0)
                                     {
                                         currentEnemy = null;
@@ -323,15 +330,21 @@ public class CombatMenu extends GUIController{
                                     delay6.setOnFinished(event2 -> {
                                         refreshGUI(introText, enemyStats, allActions, currentEnemy, "Enemy", currentEnemy.checkStatus());
                                     });
-                                    delay6.play();
+                                    if (!currentEnemy.checkStatus().equals("Unknown."))
+                                    {
+                                        delay6.play();
+                                    }
                                 }
 
                                 PauseTransition delay6 = new PauseTransition(Duration.seconds(1));
                                 delay6.setOnFinished(event2 -> {
                                     player.setGuarding(false);
                                     player.setDefenseMultiplier(oldDefenseMultiplier);
-                                    buttonContainer.setVisible(true);
-                                    pauseGame = false;
+                                    if (player.getHealth() != 0)
+                                    {
+                                        buttonContainer.setVisible(true);
+                                        pauseGame = false;
+                                    }
                                     if (currentEnemy.getHealth() <= 0)
                                     {
                                         currentEnemy = null;
@@ -392,8 +405,11 @@ public class CombatMenu extends GUIController{
 
                                                 PauseTransition delay9 = new PauseTransition(Duration.seconds(1));
                                                 delay9.setOnFinished(event2 -> {
-                                                    buttonContainer.setVisible(true);
-                                                    pauseGame = false;
+                                                    if (player.getHealth() != 0)
+                                                    {
+                                                        buttonContainer.setVisible(true);
+                                                        pauseGame = false;
+                                                    }
                                                     if (currentEnemy.getHealth() <= 0)
                                                     {
                                                         currentEnemy = null;
@@ -444,8 +460,11 @@ public class CombatMenu extends GUIController{
                                                 refreshGUI(introText, enemyStats, allActions, currentEnemy, "Enemy", currentEnemy.enemyTurn(player));
                                                 PauseTransition delay4 = new PauseTransition(Duration.seconds(1));
                                                 delay4.setOnFinished(event2 -> {
-                                                    buttonContainer.setVisible(true);
-                                                    pauseGame = false;
+                                                    if (player.getHealth() != 0)
+                                                    {
+                                                        buttonContainer.setVisible(true);
+                                                        pauseGame = false;
+                                                    }
                                                 });
                                                 delay4.play();
                                             });

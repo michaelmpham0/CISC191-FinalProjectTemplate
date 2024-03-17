@@ -26,7 +26,7 @@ public class Prowler extends Enemy {
             return "Guided by instinct, you leap to the side, barely catching a glimpse of a blackened blur zip past your vision.";
         } else {
             damageDealt = 100;
-            return "The lurking entity launches itself at you before you can even react. Catching your throat between its maw, it bites down.";
+            return "The lurking entity launches itself at you before you can even react.";
         }
     }
 
@@ -67,7 +67,7 @@ public class Prowler extends Enemy {
         else
         {
             setAttacking(false);
-            setDefenseMultiplier(1);
+            setDefenseMultiplier(0.0);
             //turn 6, return to the mist and repeat the pattern
             returnStr = "The beast fades away into the mist.";
             currentTurn = 0;

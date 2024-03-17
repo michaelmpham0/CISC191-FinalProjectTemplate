@@ -7,6 +7,7 @@ import org.omg.CORBA.PRIVATE_MEMBER;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Map;
 
 public class Enemy implements EnemyInterface{
 
@@ -72,6 +73,7 @@ public class Enemy implements EnemyInterface{
         String returnString = "Unknown.";
         statusTime-=1;
         System.out.println(status + " for another " + statusTime + " turn(s).");
+
         if (Statuses.containsKey("Bleed")){
             if (Statuses.get("Bleed")>0){
                 Statuses.replace("Bleed",Statuses.get("Bleed")-1);

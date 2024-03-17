@@ -1,6 +1,10 @@
 package edu.sdccd.cisc191.template;
 
+import edu.sdccd.cisc191.template.GUI.DeathMenu;
+import edu.sdccd.cisc191.template.GUI.ExploreMenu;
 import edu.sdccd.cisc191.template.GUI.GUIController;
+import javafx.animation.PauseTransition;
+import javafx.util.Duration;
 
 import java.io.Serializable;
 import  java.util.Scanner;
@@ -174,8 +178,13 @@ public class Player implements Serializable {
        HP = newHealth;
        if(HP < 0){
            HP = 0;
-       }
+           PauseTransition delay = new PauseTransition(Duration.seconds(2));
+           delay.setOnFinished(event -> {
+               DeathMenu.deathMenu();
+           });
+           delay.play();
 
+       }
     }
 
     public void restoreHealth(int healAmount)
