@@ -72,7 +72,7 @@ public class GUIMain extends Application {
                 }
             });
 
-            this.stage.setScene(guiController.showMainMenu());
+            this.stage.setScene(guiController.startMainMenu());
             stage.setTitle("Group 1 Architect Game");
             this.stage.setResizable(false);
 

@@ -3,12 +3,10 @@ package edu.sdccd.cisc191.template.GUI;
 
 import edu.sdccd.cisc191.template.*;
 import javafx.animation.Timeline;
-import javafx.animation.KeyFrame;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.VBox;
-import javafx.util.Duration;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
@@ -18,7 +16,6 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import java.io.*;
-import java.io.InputStream;
 
 import java.awt.*;
 
@@ -135,7 +132,7 @@ public class GUIController extends GUIMain {
     }
 
 
-   public GameData loadGame()
+   public static GameData loadGame()
    {
        FileInputStream saveFile;
        String savePath = System.getProperty("user.home") + "/Documents/ArchitectSaveFile.ser";
@@ -188,90 +185,100 @@ public class GUIController extends GUIMain {
         */
    }
 
-   public Scene showMainMenu(){
+   public static VBox createMainmenu()
+   {
+       VBox vbox = new VBox();
+       vbox.setPrefSize(screenWidth,screenHeight);
+       vbox.setAlignment(Pos.TOP_CENTER);
+       vbox.getStylesheets().add("styleSheet.css");
 
-        VBox vbox = new VBox();
-        vbox.setPrefSize(screenWidth,screenHeight);
-        vbox.setAlignment(Pos.TOP_CENTER);
-        vbox.setStyle("-fx-background-color: #000000;");
-        scene = new Scene(vbox);
-        scene.getStylesheets().add("styleSheet.css");
+       Rectangle divider = new Rectangle();
+       divider.setHeight(screenHeight*0.005);
+       divider.setWidth(screenWidth*0.7);
+       divider.setTranslateY(screenHeight*0.15);
+       divider.setFill(Color.color(1,1,1));
 
-        Rectangle divider = new Rectangle();
-        divider.setHeight(screenHeight*0.005);
-        divider.setWidth(screenWidth*0.7);
-        divider.setTranslateY(screenHeight*0.15);
-        divider.setFill(Color.color(1,1,1));
+       Text text = createText("Game","Times New Roman","White",(screenHeight+screenWidth)/15,0,screenHeight*0.1);
+       Button startButton = createButton("New Game","Button1","Times New Roman",120,0.2,0.02,0,screenHeight*0.3);
+       Button loadButton = createButton("Load Game","Button3","Times New Roman",120,0.2,0.02,0,screenHeight*0.325);
+       Button quitButton = createButton("Quit","Button1","Times New Roman",120,0.2,0.02,0,screenHeight*0.35);
 
-        scene.setFill(Paint.valueOf("Black"));
-
-        Text text = createText("Game","Times New Roman","White",(screenHeight+screenWidth)/15,0,screenHeight*0.1);
-        Button startButton = createButton("New Game","Button1","Times New Roman",120,0.2,0.02,0,screenHeight*0.3);
-        Button loadButton = createButton("Load Game","Button3","Times New Roman",120,0.2,0.02,0,screenHeight*0.325);
-        Button quitButton = createButton("Quit","Button1","Times New Roman",120,0.2,0.02,0,screenHeight*0.35);
-
-        loadButton.setOpacity(0.2);
+       loadButton.setOpacity(0.2);
 
        // quote label that updates every attack phase
        Label quoteLabel = createLabel(QuoteFetcher.fetchGameQuote(), "Times New Roman", 120, 0.5, 0.025 );
        quoteLabel.getStyleClass().add("noBorder");
        quoteLabel.setTranslateY(screenHeight * 0.1);
 
-        Boolean hasSave = false;
+       Boolean hasSave = false;
 
-        //String filePath = "C:/Users/"+System.getProperty("user.name")+"/Documents/ArchitectSaveFile.ser";
-        String filePath = System.getProperty("user.home") + "/Documents/ArchitectSaveFile.ser";
-        File file = new File(filePath);
-        if (file.exists())
-        {
-            hasSave = true;
-        }
+       //String filePath = "C:/Users/"+System.getProperty("user.name")+"/Documents/ArchitectSaveFile.ser";
+       String filePath = System.getProperty("user.home") + "/Documents/ArchitectSaveFile.ser";
+       File file = new File(filePath);
+       if (file.exists())
+       {
+           hasSave = true;
+       }
 
-        if (hasSave == true)
-        {
-            GameData saveData = loadGame();
-            if (saveData.isWrongVersion() == false)
-            {
-                loadButton.getStyleClass().add("Button1");
-                loadButton.setOpacity(1);
+       if (hasSave == true)
+       {
+           GameData saveData = loadGame();
+           if (saveData.isWrongVersion() == false)
+           {
+               loadButton.getStyleClass().add("Button1");
+               loadButton.setOpacity(1);
 
-                loadButton.setOnAction(e ->
-                {
-                    player = saveData.getPlayerData();
-                    storage = saveData.getInventoryData();
-                    spells = saveData.getSpellsData();
-                    ExploreMenu.exploreMenu();
-                });
-                loadButton.setOnMouseEntered(e ->
-                {
-                    loadButton.setText(saveData.getPlayerData().getPlayerClass()+" - Level "+saveData.getPlayerData().getLevel());
-                });
-                loadButton.setOnMouseExited(e ->
-                {
-                    loadButton.setText("Load Game");
-                });
-            }
-            else
-            {
-                System.out.println("Save data wrong version.");
-            }
+               loadButton.setOnAction(e ->
+               {
+                   player = saveData.getPlayerData();
+                   storage = saveData.getInventoryData();
+                   spells = saveData.getSpellsData();
+                   ExploreMenu.exploreMenu();
+               });
+               loadButton.setOnMouseEntered(e ->
+               {
+                   loadButton.setText(saveData.getPlayerData().getPlayerClass()+" - Level "+saveData.getPlayerData().getLevel());
+               });
+               loadButton.setOnMouseExited(e ->
+               {
+                   loadButton.setText("Load Game");
+               });
+           }
+           else
+           {
+               System.out.println("Save data wrong version.");
+           }
 
 
-        }
+       }
 
        startButton.setOnAction(e ->
-        {
-        //Intro
-            CharacterCreationMenu.showIntro();
-        });
-        quitButton.setOnAction(e ->
+       {
+           //Intro
+           CharacterCreationMenu.showIntro();
+       });
+       quitButton.setOnAction(e ->
        {
            System.out.println("GAME IS CLOSING, SAVE HERE");
            System.exit(0);
        });
 
-        vbox.getChildren().addAll(text,quoteLabel,divider,startButton,loadButton,quitButton);
+       vbox.getChildren().addAll(text,quoteLabel,divider,startButton,loadButton,quitButton);
+       return vbox;
+   }
 
+   public static void showMainMenu()
+   {
+       lastScene = new Scene(createMainmenu());
+       stage.setScene(lastScene);
+   }
+
+   public Scene startMainMenu(){
+
+
+        scene = new Scene(createMainmenu());
+        scene.getStylesheets().add("styleSheet.css");
+        scene.setFill(Paint.valueOf("Black"));
         return scene;
     }
 
