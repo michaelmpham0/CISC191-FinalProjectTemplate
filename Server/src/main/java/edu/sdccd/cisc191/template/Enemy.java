@@ -5,7 +5,15 @@ import edu.sdccd.cisc191.template.GUI.GUIController;
 import javafx.scene.media.MediaPlayer;
 import org.omg.CORBA.PRIVATE_MEMBER;
 
+import java.util.Collection;
+import java.util.HashMap;
+
 public class Enemy implements EnemyInterface{
+
+    static HashMap<String, Integer> Statuses = new HashMap<String, Integer>()
+    {{
+        put("Blood", 1);
+    }};
 
     private static boolean attacking = false;
     private static int health;
@@ -42,52 +50,62 @@ public class Enemy implements EnemyInterface{
     public void setAttacking(boolean attacking) {
         this.attacking = attacking;
     }
+
+    public HashMap<String,Integer> getAllStatus() {return Statuses;}
+    public boolean hasStatuses() {return Statuses.isEmpty();}
+
+    public boolean getStatus(String status) {return Statuses.containsKey(status);}
+
+    public void setStatus(String status,int statusTime)
+    {
+        if (Statuses.containsKey(status)) {
+            if (statusTime>Statuses.get(status)){
+                Statuses.replace(status,statusTime);
+            }
+        }
+        else {
+            Statuses.put(status,statusTime);
+        }
+    }
+
     public String checkStatus(){
         String returnString = "Unknown.";
         statusTime-=1;
         System.out.println(status + " for another " + statusTime + " turn(s).");
-        System.out.println(attacking);
-        switch (status) {
-            case "Bleed":
+        if (Statuses.containsKey("Bleed")){
+            if (Statuses.get("Bleed")>0){
+                Statuses.replace("Bleed",Statuses.get("Bleed")-1);
+                if (attacking) {
+                    double bleedDamage = (((double) (maxHealth - health) / maxHealth) * (maxHealth * 0.25));
 
-                if (statusTime>0)
-                {
-                    if (attacking) {
-                        double bleedDamage = (((double) (maxHealth - health) / maxHealth) * (maxHealth * 0.25));
-                        System.out.println(((maxHealth - health) / maxHealth));
-
-                        System.out.println(bleedDamage);
-                        if (bleedDamage <= 0) {
-                            bleedDamage = 1;
-                        }
-                        if (statusTime>0) {
-                            returnString = name + " bleeds for " + bleedDamage + " damage!";
-                            takeDamage((int) bleedDamage);
-                        }
+                    if (bleedDamage <= 0) {
+                        bleedDamage = 1;
                     }
-                    else {
-                        returnString = name + " bleeds for " + ((int)(maxHealth * 0.01)) + " damage!";
-                        takeDamage((int) (maxHealth * 0.01));
+                    if (statusTime>0) {
+                        returnString = name + " bleeds for " + bleedDamage + " damage!";
+                        takeDamage((int) bleedDamage);
                     }
-                }
-                else
-                {
-                    returnString = name + " stops bleeding.";
-                    status = "None";
-                }
-
-                break;
-            case "Burn":
-                if (statusTime>0) {
-                    returnString = name + " burns for " + ((int) (maxHealth * 0.05)) + " damage!";
-                    takeDamage((int) (maxHealth * 0.05));
                 }
                 else {
-                    returnString = name + " stops burning.";
-                    status = "None";
+                    returnString = name + " bleeds for " + ((int)(maxHealth * 0.01)) + " damage!";
+                    takeDamage((int) (maxHealth * 0.01));
                 }
-                break;
-            default:
+            }
+            else {
+                returnString = name + " stops bleeding.";
+                status = "None";
+            }
+        }
+        else if (Statuses.containsKey("Burn")) {
+            if (Statuses.get("Burn")>0) {
+                Statuses.replace("Burn",Statuses.get("Burn")-1);
+                returnString = name + " burns for " + ((int) (maxHealth * 0.05)) + " damage!";
+                takeDamage((int) (maxHealth * 0.05));
+            }
+            else {
+                returnString = name + " stops burning.";
+                status = "None";
+            }
         }
         return returnString;
     }
@@ -119,19 +137,9 @@ public class Enemy implements EnemyInterface{
     public String getName() {return name;}
 
     public int getMaxHealth() {return maxHealth;}
-
-    public String getStatus() {return status;}
     public String getEncounterText() {return encounterText;}
     public String getFirstText() {return firstText;}
-    public int getStatusTime() {return statusTime;}
     public void setDamage(int damage) {this.damage = damage;}
-
-    public void setStatus(String status,int statusTime)
-    {
-        this.status = status;this.statusTime = statusTime;
-    }
-
-    public void setStatusTime(int statusTime){this.statusTime = statusTime;}
 
     public void setHealth(int health) {
         this.health = health;
