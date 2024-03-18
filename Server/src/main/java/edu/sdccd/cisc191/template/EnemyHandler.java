@@ -24,6 +24,15 @@ public class EnemyHandler {
                     {"Grogoroth"}, // level 3
             };
 
+    public static Boolean checkValidEnemy(String name,int level){
+        boolean yes = false;
+      for (int i=0; i<enemyLeveledList[level].length;i++){
+        if (enemyLeveledList[level][i].equals(name)){
+            yes = true;
+        }
+      }
+        return yes;
+    }
 
     public static Enemy createEnemy(boolean isRandom,String enemyName,int playerLevel){
         if (isRandom)
