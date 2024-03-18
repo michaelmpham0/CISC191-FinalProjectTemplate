@@ -12,17 +12,13 @@ import java.util.Map;
 public class Enemy implements EnemyInterface{
 
     static HashMap<String, Integer> Statuses = new HashMap<String, Integer>()
-    {{
-        put("Blood", 1);
-    }};
+    {
+    };
 
     private static boolean attacking = false;
     private static int health;
     private static int maxHealth;
     private static int damage;
-    private static String status = "None";
-
-    private static int statusTime = 0;
     private static String name;
     private static String encounterText;
     private static String firstText;
@@ -55,8 +51,6 @@ public class Enemy implements EnemyInterface{
     public HashMap<String,Integer> getAllStatus() {return Statuses;}
     public boolean hasStatuses() {return Statuses.isEmpty();}
 
-    public boolean getStatus(String status) {return Statuses.containsKey(status);}
-
     public void setStatus(String status,int statusTime)
     {
         if (Statuses.containsKey(status)) {
@@ -69,45 +63,53 @@ public class Enemy implements EnemyInterface{
         }
     }
 
-    public String checkStatus(){
+    public String checkStatus(String status){
         String returnString = "Unknown.";
-        statusTime-=1;
-        System.out.println(status + " for another " + statusTime + " turn(s).");
 
-        if (Statuses.containsKey("Bleed")){
-            if (Statuses.get("Bleed")>0){
-                Statuses.replace("Bleed",Statuses.get("Bleed")-1);
-                if (attacking) {
-                    double bleedDamage = (((double) (maxHealth - health) / maxHealth) * (maxHealth * 0.25));
+        switch (status){
+            case "Bleed":
+                if (Statuses.get("Bleed")>0){
+                    Statuses.replace("Bleed",Statuses.get("Bleed")-1);
+                    if (attacking) {
+                        double bleedDamage = (((double) (maxHealth - health) / maxHealth) * (maxHealth * 0.25));
 
-                    if (bleedDamage <= 0) {
-                        bleedDamage = 1;
-                    }
-                    if (statusTime>0) {
+                        if (bleedDamage <= 0) {
+                            bleedDamage = 1;
+                        }
                         returnString = name + " bleeds for " + bleedDamage + " damage!";
                         takeDamage((int) bleedDamage);
                     }
+                    else {
+                        returnString = name + " bleeds for " + ((int)(maxHealth * 0.01)) + " damage!";
+                        takeDamage((int) (maxHealth * 0.01));
+                    }
                 }
                 else {
-                    returnString = name + " bleeds for " + ((int)(maxHealth * 0.01)) + " damage!";
-                    takeDamage((int) (maxHealth * 0.01));
+                    Statuses.remove("Bleed");
+                    returnString = name + " stops bleeding.";
                 }
-            }
-            else {
-                returnString = name + " stops bleeding.";
-                status = "None";
-            }
-        }
-        else if (Statuses.containsKey("Burn")) {
-            if (Statuses.get("Burn")>0) {
-                Statuses.replace("Burn",Statuses.get("Burn")-1);
-                returnString = name + " burns for " + ((int) (maxHealth * 0.05)) + " damage!";
-                takeDamage((int) (maxHealth * 0.05));
-            }
-            else {
-                returnString = name + " stops burning.";
-                status = "None";
-            }
+                break;
+            case "Burn":
+                if (Statuses.get("Burn")>0) {
+                    Statuses.replace("Burn",Statuses.get("Burn")-1);
+                    returnString = name + " burns for " + ((int) (maxHealth * 0.05)) + " damage!";
+                    takeDamage((int) (maxHealth * 0.05));
+                }
+                else {
+                    Statuses.remove("Burn");
+                    returnString = name + " stops burning.";
+                }
+                break;
+            case "Paralyze":
+                if (Statuses.get("Paralyze")>0) {
+                    Statuses.replace("Paralyze",Statuses.get("Paralyze")-1);
+                    returnString = name + " is paralyzed!";
+                }
+                else {
+                    Statuses.remove("Paralyze");
+                    returnString = name + " stops being paralyzed.";
+                }
+                break;
         }
         return returnString;
     }
@@ -116,16 +118,10 @@ public class Enemy implements EnemyInterface{
         damageDealt = (int) (damageDealt*player.getDefenseMultiplier());
 
         String trueReturnString = returnStr+" You took " + damageDealt + " damage!";
-        switch (status){
-            case "Paralyze":
-                damageDealt = 0;
-                trueReturnString = name + " is paralyzed!";
-                break;
-            case "DMGReduction":
-                //lol
-            case "DMGBoost":
-                //lol
-            default:
+
+        if (Statuses.containsKey("Paralyze")){
+            trueReturnString = name+" can't move!";
+            damageDealt=0;
         }
 
         player.setHealth(player.getHealth()-damageDealt);

@@ -65,6 +65,12 @@ public class Abilities implements Serializable {
                     case "Horizontal":
                         GUIMain.getCurrentEnemy().setStatus("Bleed",3);
                         break;
+                    case "Firebolt":
+                        GUIMain.getCurrentEnemy().setStatus("Burn",3);
+                        break;
+                    case "Punching":
+                        GUIMain.getCurrentEnemy().setStatus("Paralyze",1);
+                        break;
                     default:
                         System.out.println("Ability Not Usable");
                 }

@@ -22,11 +22,34 @@ import javafx.util.Duration;
 
 import java.io.InputStream;
 import java.util.HashMap;
+import java.util.Map;
 
 public class CombatMenu extends GUIController{
     public static int turn = 1;
+    protected static int statusLoop(Label name, Label health,Label acts){
+        int count=0;
 
-    public static String[] allStatuses = new String[] {"Bleed","Burn","Paralyze"};
+        if (!currentEnemy.hasStatuses()){
+            HashMap<String,Integer> enemyStatus = currentEnemy.getAllStatus();
+            int i = -1;
+            for (Map.Entry<String, Integer> entry : enemyStatus.entrySet()) {
+                i++;
+                count++;
+
+                String key = entry.getKey();
+                Integer value = entry.getValue();
+                System.out.println("Status: " + key + ", Time: " + value);
+
+                PauseTransition dl = new PauseTransition(Duration.seconds(i+1));
+
+                dl.setOnFinished(evt -> {
+                    refreshGUI(name, health, acts, currentEnemy, "Enemy", currentEnemy.checkStatus(entry.getKey()));
+                });
+                dl.play();
+            }
+        }
+        return count;
+    }
 
    protected  static  void refreshGUI(Label name, Label health,Label acts,Enemy enemy,String action,String act){
       if (action.equals("Attack")) {
@@ -281,19 +304,8 @@ public class CombatMenu extends GUIController{
                                 if (currentEnemy.getHealth()>0)
                                 {
                                     refreshGUI(introText, enemyStats, allActions, currentEnemy, "Enemy", currentEnemy.enemyTurn(player));
-
-                                    if (!currentEnemy.hasStatuses()){
-                                        PauseTransition delay6 = new PauseTransition(Duration.seconds(1));
-                                        delay6.setOnFinished(event2 -> {
-                                            refreshGUI(introText, enemyStats, allActions, currentEnemy, "Enemy", currentEnemy.checkStatus());
-                                        });
-                                        if (!currentEnemy.checkStatus().equals("Unknown."))
-                                        {
-                                            delay6.play();
-                                        }
-                                    }
                                 }
-                                PauseTransition delay2 = new PauseTransition(Duration.seconds(1));
+                                PauseTransition delay2 = new PauseTransition(Duration.seconds(statusLoop(introText, enemyStats, allActions)));
                                 delay2.setOnFinished(event2 -> {
                                     if (player.getHealth() != 0)
                                     {
@@ -325,18 +337,7 @@ public class CombatMenu extends GUIController{
                                 player.setDefenseMultiplier(oldDefenseMultiplier/2);
                                 refreshGUI(introText, enemyStats, allActions, currentEnemy, "Enemy", currentEnemy.enemyTurn(player));
 
-                                if (!currentEnemy.hasStatuses()){
-                                    PauseTransition delay6 = new PauseTransition(Duration.seconds(1));
-                                    delay6.setOnFinished(event2 -> {
-                                        refreshGUI(introText, enemyStats, allActions, currentEnemy, "Enemy", currentEnemy.checkStatus());
-                                    });
-                                    if (!currentEnemy.checkStatus().equals("Unknown."))
-                                    {
-                                        delay6.play();
-                                    }
-                                }
-
-                                PauseTransition delay6 = new PauseTransition(Duration.seconds(1));
+                                PauseTransition delay6 = new PauseTransition(Duration.seconds(statusLoop(introText, enemyStats, allActions)));
                                 delay6.setOnFinished(event2 -> {
                                     player.setGuarding(false);
                                     player.setDefenseMultiplier(oldDefenseMultiplier);
@@ -390,20 +391,7 @@ public class CombatMenu extends GUIController{
                                             delay7.setOnFinished(event -> {
                                                 refreshGUI(introText, enemyStats, allActions, currentEnemy, "Enemy", currentEnemy.enemyTurn(player));
 
-                                                if (!currentEnemy.hasStatuses()){
-                                                    HashMap<String,Integer> enemyStatus = currentEnemy.getAllStatus();
-
-                                                    for (int i = 0; i<allStatuses.length ;i++){
-                                                        PauseTransition delay8 = new PauseTransition(Duration.seconds(1));
-                                                        int finalI = i;
-                                                        delay8.setOnFinished(event2 -> {
-                                                       //     refreshGUI(introText, enemyStats, allActions, currentEnemy, "Enemy", currentEnemy.checkStatus(enemyStatus.get(allStatuses[finalI])));
-                                                        });
-                                                        delay8.play();
-                                                    }
-                                                }
-
-                                                PauseTransition delay9 = new PauseTransition(Duration.seconds(1));
+                                                PauseTransition delay9 = new PauseTransition(Duration.seconds(statusLoop(introText, enemyStats, allActions)));
                                                 delay9.setOnFinished(event2 -> {
                                                     if (player.getHealth() != 0)
                                                     {
