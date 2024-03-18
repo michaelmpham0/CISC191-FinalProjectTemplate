@@ -20,11 +20,10 @@ public class DeathMenu extends GUIController {
         root.getStylesheets().add("styleSheet.css");
 
         Label titleText = createLabel("You Died","Times New Roman",90,0.3,0.05);
-        titleText.setTranslateY(screenHeight*0.1);
+        //titleText.setTranslateY(screenHeight*0.1);
         root.getChildren().add(titleText);
-        Button mainMenu = createButton("Return To Menu","Button1","Times New Roman",120,0.2,0.02,0,0);
-        titleText.setTranslateY(-screenHeight*0.1);
-        root.getChildren().add(mainMenu);
+        //Button mainMenu = createButton("Return To Menu","Button1","Times New Roman",120,0.2,0.02,0,0);
+        //root.getChildren().add(mainMenu);
 
         stage.setScene(new Scene(root));
 
@@ -41,10 +40,13 @@ public class DeathMenu extends GUIController {
             System.out.println("Save file doesn't exist, did not delete.");
         }
 
+        /*
         mainMenu.setOnAction(e ->
         {
             //Intro
             GUIController.showMainMenu();
         });
+
+         */
     }
 }
