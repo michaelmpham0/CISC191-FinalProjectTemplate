@@ -103,6 +103,23 @@ public class Inventory implements Serializable {
         }
     }
 
+    public void add (Items newItem)
+    {
+        inventory.add(newItem);
+    }
+    public void removeItem (Items newItem)
+    {
+        inventory.remove(newItem);
+    }
+    public boolean containsItem(String itemId) {
+        for (Items item : inventory) {
+            if (item.getItemName().equals(itemId)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public ArrayList<Items> getInventory() {
         return inventory;
     }
