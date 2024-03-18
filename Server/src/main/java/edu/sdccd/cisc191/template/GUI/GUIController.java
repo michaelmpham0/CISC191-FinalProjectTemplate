@@ -222,7 +222,7 @@ public class GUIController extends GUIMain {
 
        if (hasSave == true)
        {
-           GameData saveData = loadGame();
+           GameData saveData =  loadGame();
            if (saveData.isWrongVersion() == false)
            {
                loadButton.getStyleClass().add("Button1");

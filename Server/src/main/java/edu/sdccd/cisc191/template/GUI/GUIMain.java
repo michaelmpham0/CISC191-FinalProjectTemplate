@@ -49,7 +49,7 @@ public class GUIMain extends Application {
 
             this.stage.setOnCloseRequest(e -> {
 
-                if (!player.getPlayerClass().equals("Unknown"))
+                if (!player.getPlayerClass().equals("Unknown") && (player.getHealth() != 0))
                 {
                     System.out.println("GAME IS CLOSING, SAVE HERE");
                     FileOutputStream saveFile;
