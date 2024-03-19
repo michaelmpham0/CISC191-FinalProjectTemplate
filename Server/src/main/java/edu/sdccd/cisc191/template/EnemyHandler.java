@@ -19,7 +19,7 @@ public class EnemyHandler {
      */
     static String[][] enemyLeveledList =
             {
-                    {"Goblin"}, // level 1, add 1 goblin to enemy pool
+                    {"Goblin","Grogoroth"}, // level 1, add 1 goblin to enemy pool
                     {"Goblin","Minotaur"}, // level 2, add 1 goblin and 1 minotaur
                     {"Grogoroth"}, // level 3
             };

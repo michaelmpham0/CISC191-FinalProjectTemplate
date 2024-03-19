@@ -25,6 +25,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CombatMenu extends GUIController{
+    public static int delayTime = 0;
     public static int turn = 1;
     protected static int statusLoop(Label name, Label health,Label acts){
         int count=0;
@@ -301,7 +302,7 @@ public class CombatMenu extends GUIController{
                             refreshGUI(introText,enemyStats,allActions,currentEnemy,"Attack",null);
                             PauseTransition delay1 = new PauseTransition(Duration.seconds(1.5));
                             delay1.setOnFinished(event -> {
-                                if (currentEnemy.getHealth()>0)
+                                if (currentEnemy.getHealth()>0 && !currentEnemy.getStatus("Paralyze"))
                                 {
                                     refreshGUI(introText, enemyStats, allActions, currentEnemy, "Enemy", currentEnemy.enemyTurn(player));
                                 }
@@ -335,8 +336,9 @@ public class CombatMenu extends GUIController{
                                 player.setGuarding(true);
                                 double oldDefenseMultiplier = player.getDefenseMultiplier();
                                 player.setDefenseMultiplier(oldDefenseMultiplier/2);
-                                refreshGUI(introText, enemyStats, allActions, currentEnemy, "Enemy", currentEnemy.enemyTurn(player));
-
+                                if (!currentEnemy.getStatus("Paralyze")) {
+                                    refreshGUI(introText, enemyStats, allActions, currentEnemy, "Enemy", currentEnemy.enemyTurn(player));
+                                }
                                 PauseTransition delay6 = new PauseTransition(Duration.seconds(statusLoop(introText, enemyStats, allActions)));
                                 delay6.setOnFinished(event2 -> {
                                     player.setGuarding(false);
@@ -389,8 +391,9 @@ public class CombatMenu extends GUIController{
                                             buttonContainer.setVisible(false);
                                             PauseTransition delay7 = new PauseTransition(Duration.seconds(2));
                                             delay7.setOnFinished(event -> {
-                                                refreshGUI(introText, enemyStats, allActions, currentEnemy, "Enemy", currentEnemy.enemyTurn(player));
-
+                                                if (!currentEnemy.getStatus("Paralyze")) {
+                                                    refreshGUI(introText, enemyStats, allActions, currentEnemy, "Enemy", currentEnemy.enemyTurn(player));
+                                                }
                                                 PauseTransition delay9 = new PauseTransition(Duration.seconds(statusLoop(introText, enemyStats, allActions)));
                                                 delay9.setOnFinished(event2 -> {
                                                     if (player.getHealth() != 0)
@@ -445,8 +448,12 @@ public class CombatMenu extends GUIController{
                                             buttonContainer.setVisible(false);
                                             PauseTransition delay3 = new PauseTransition(Duration.seconds(2));
                                             delay3.setOnFinished(event -> {
-                                                refreshGUI(introText, enemyStats, allActions, currentEnemy, "Enemy", currentEnemy.enemyTurn(player));
-                                                PauseTransition delay4 = new PauseTransition(Duration.seconds(1));
+                                                delayTime = 1;
+                                                if (!currentEnemy.getStatus("Paralyze")) {
+                                                    delayTime = 0;
+                                                    refreshGUI(introText, enemyStats, allActions, currentEnemy, "Enemy", currentEnemy.enemyTurn(player));
+                                                }
+                                                PauseTransition delay4 = new PauseTransition(Duration.seconds(delayTime));
                                                 delay4.setOnFinished(event2 -> {
                                                     if (player.getHealth() != 0)
                                                     {

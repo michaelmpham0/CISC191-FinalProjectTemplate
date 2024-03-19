@@ -51,6 +51,8 @@ public class Enemy implements EnemyInterface{
     public HashMap<String,Integer> getAllStatus() {return Statuses;}
     public boolean hasStatuses() {return Statuses.isEmpty();}
 
+    public boolean getStatus(String status ){return Statuses.containsKey(status);}
+
     public void setStatus(String status,int statusTime)
     {
         if (Statuses.containsKey(status)) {

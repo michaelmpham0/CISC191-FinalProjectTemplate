@@ -43,14 +43,15 @@ public class Grogoroth extends Enemy {
                 oldTurn = currentTurn;
             }
             else {
-                if ((currentTurn-oldTurn)>2){
+                if ((currentTurn-oldTurn)>3){
                     returnStr = skillPeaceForAll(player);
+                    oldTurn = 0;
                 }
                 else if ((currentTurn-oldTurn)==1){
-                    returnStr = "A sinister aura envelopes you. Grogoroth prepares its arms towards you.";
+                    returnStr = "Grogoroth's eyes begin to stare into your soul.";
                 }
                 else {
-                    returnStr = "Grogoroth's many eyes begin to focus on you.";
+                    returnStr = "The eyes begin to glow";
                 }
             }
         }
@@ -67,6 +68,7 @@ public class Grogoroth extends Enemy {
                 case 7:
                 case 8:
                 case 9:
+                    oldTurn = 0;
                     action = "PrepareDestroy";
                     returnStr = "Grogoroth raises its arm.";
                     break;
