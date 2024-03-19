@@ -2,15 +2,16 @@ import edu.sdccd.cisc191.template.GUI.CharacterCreationMenu;
 import edu.sdccd.cisc191.template.GUI.GUIController;
 import edu.sdccd.cisc191.template.GUI.GUIMain;
 import edu.sdccd.cisc191.template.GameData;
+import edu.sdccd.cisc191.template.Player;
 import javafx.application.Application;
+import javafx.embed.swing.JFXPanel;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
 import jdk.jfr.internal.tool.Main;
 import org.junit.jupiter.api.Test;
-
 import java.io.*;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -19,14 +20,23 @@ public class JavaFXTest {
     /**
      * Tests to see if JavaFX button changes
      */
+        @Test
+        public void ButtonTest() {
+            new JFXPanel();
+            // Create a button and make it functional
+            Button button = new Button("Click Me!");
+            assertEquals("textChanged", button.getText());
+            button.setOnAction(e -> {
+                button.setText("textChanged");
+            });
+            button.fire();
 
-    @Test
-    public void testButtonTextChange() {
-        Label label = new Label("Click Me");
-        AnchorPane root = new AnchorPane();
-        root.getChildren().add(label);
+            // Create a layout to hold the button
+            StackPane root = new StackPane();
+            root.getChildren().add(button);
 
-
-        assertEquals("Click Me", label.getText());
-    }
+            // Create a scene with the layout
+            Scene scene = new Scene(root, 300, 200);
+        }
 }
+
