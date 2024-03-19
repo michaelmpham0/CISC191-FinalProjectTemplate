@@ -20,7 +20,7 @@ import java.io.*;
 import java.awt.*;
 
 
-public class GUIController extends GUIMain {
+public class GUIController extends Server {
 
     protected  Scene scene;
     public static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();

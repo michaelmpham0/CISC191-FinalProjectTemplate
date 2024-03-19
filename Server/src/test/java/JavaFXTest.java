@@ -1,6 +1,5 @@
 import edu.sdccd.cisc191.template.GUI.CharacterCreationMenu;
 import edu.sdccd.cisc191.template.GUI.GUIController;
-import edu.sdccd.cisc191.template.GUI.GUIMain;
 import edu.sdccd.cisc191.template.GameData;
 import edu.sdccd.cisc191.template.Player;
 import javafx.application.Application;

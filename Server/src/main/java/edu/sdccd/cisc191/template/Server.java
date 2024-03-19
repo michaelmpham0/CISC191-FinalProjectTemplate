@@ -1,5 +1,12 @@
 package edu.sdccd.cisc191.template;
 
+import edu.sdccd.cisc191.template.GUI.GUIController;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
+import javafx.stage.Stage;
+
 import java.net.*;
 import java.io.*;
 import java.util.ArrayList;
@@ -16,39 +23,72 @@ import java.util.Scanner;
  * to process the connection.
  */
 
-public class Server {
-    private static ServerSocket serverSocket;
-    private Socket clientSocket;
-    private PrintWriter out;
-    private BufferedReader in;
-
-    public void start(int port) throws Exception {
-        serverSocket = new ServerSocket(port);
-        clientSocket = serverSocket.accept();
-        out = new PrintWriter(clientSocket.getOutputStream(), true);
-        in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-
-        String inputLine;
-        while ((inputLine = in.readLine()) != null) {
-            out.println(inputLine);
-        }
+public class Server extends Application {
+    protected static Spells spells;
+    protected static Inventory storage;
+    public static Player player = new Player();
+    public static Player getPlayer() {
+        return player;
     }
+    protected static Stage stage;
+    protected static Enemy currentEnemy;
 
-    public void stop() throws IOException {
-        in.close();
-        out.close();
-        clientSocket.close();
-        serverSocket.close();
+    public static Enemy getCurrentEnemy() {
+        return currentEnemy;
     }
+    protected static Scene lastScene;
+    protected static String previousStage;
 
-    public static void main(String[] args) {
+    public static ProgressBar currentHealthBar = null;
+    public static ProgressBar currentManaBar = null;
 
-        Server server = new Server();
+    public static Label currentHealthBarText = null;
+    public static Label currentManaBarText = null;
+
+    @Override
+    public void start(Stage stage) throws Exception {
         try {
-            server.start(4444);
-        } catch(Exception e) {
+            this.stage = stage;
+            GUIController guiController = new GUIController();
+
+            this.stage.setOnCloseRequest(e -> {
+
+                if (!player.getPlayerClass().equals("Unknown") && (player.getHealth() != 0))
+                {
+                    System.out.println("GAME IS CLOSING, SAVE HERE");
+                    FileOutputStream saveFile;
+                    String outputPath = System.getProperty("user.home") + "/Documents/ArchitectSaveFile.ser";
+                    try {
+                        saveFile = new FileOutputStream(outputPath);
+                        ObjectOutputStream objWriter = new ObjectOutputStream(saveFile);
+                        objWriter.writeObject(new GameData(player,storage,spells));
+                    }
+                    catch (FileNotFoundException ex)
+                    {
+                        System.out.println("ACCESS DENIED?");
+                        ex.printStackTrace();
+                    }
+                    catch (IOException ex)
+                    {
+                        ex.printStackTrace();
+                        //throw new RuntimeException(ex);
+                    }
+                }
+            });
+
+            this.stage.setScene(guiController.startMainMenu());
+            stage.setTitle("Group 1 Architect Game");
+            this.stage.setResizable(false);
+
+
+            this.stage.show();
+        } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    public static void main(String[] args)
+    {
+        launch(args);
     }
 
 }

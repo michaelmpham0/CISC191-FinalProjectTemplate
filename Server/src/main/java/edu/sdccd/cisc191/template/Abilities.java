@@ -1,7 +1,6 @@
 package edu.sdccd.cisc191.template;
 
 import edu.sdccd.cisc191.template.GUI.GUIController;
-import edu.sdccd.cisc191.template.GUI.GUIMain;
 
 import java.io.Serializable;
 
@@ -55,7 +54,7 @@ public class Abilities implements Serializable {
     public void useAbility(Player player)
     {
         System.out.println("Tried To Use: "+abilityName);
-        if (!(GUIMain.getCurrentEnemy()== null) && abilityDamage > 0) {
+        if (!(Server.getCurrentEnemy()== null) && abilityDamage > 0) {
             if (player.getMana() >= manaCost)
             {
                 GUIController.setFumbleSpell(false);
@@ -63,13 +62,13 @@ public class Abilities implements Serializable {
                 switch (abilityName)
                 {
                     case "Horizontal":
-                        GUIMain.getCurrentEnemy().setStatus("Bleed",3);
+                        Server.getCurrentEnemy().setStatus("Bleed",3);
                         break;
                     case "Firebolt":
-                        GUIMain.getCurrentEnemy().setStatus("Burn",3);
+                        Server.getCurrentEnemy().setStatus("Burn",3);
                         break;
                     case "Punching":
-                        GUIMain.getCurrentEnemy().setStatus("Paralyze",1);
+                        Server.getCurrentEnemy().setStatus("Paralyze",1);
                         break;
                     default:
                         System.out.println("Ability Not Usable");
