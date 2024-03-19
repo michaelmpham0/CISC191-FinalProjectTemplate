@@ -24,7 +24,6 @@ public class JavaFXTest {
             new JFXPanel();
             // Create a button and make it functional
             Button button = new Button("Click Me!");
-            assertEquals("textChanged", button.getText());
             button.setOnAction(e -> {
                 button.setText("textChanged");
             });
@@ -36,6 +35,7 @@ public class JavaFXTest {
 
             // Create a scene with the layout
             Scene scene = new Scene(root, 300, 200);
+            assertEquals("textChanged", button.getText());
         }
 }
 
