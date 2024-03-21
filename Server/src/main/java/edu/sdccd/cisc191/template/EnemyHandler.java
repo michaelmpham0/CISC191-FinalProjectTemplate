@@ -1,8 +1,5 @@
 package edu.sdccd.cisc191.template;
-import edu.sdccd.cisc191.template.Enemies.Goblin;
-import edu.sdccd.cisc191.template.Enemies.Grogoroth;
-import edu.sdccd.cisc191.template.Enemies.Minotaur;
-import edu.sdccd.cisc191.template.Enemies.Prowler;
+import edu.sdccd.cisc191.template.Enemies.*;
 
 import java.lang.Math;
 import java.util.ArrayList;
@@ -20,8 +17,9 @@ public class EnemyHandler {
     static String[][] enemyLeveledList =
             {
                     {"Goblin","Grogoroth"}, // level 1, add 1 goblin to enemy pool
-                    {"Goblin","Minotaur"}, // level 2, add 1 goblin and 1 minotaur
-                    {"Grogoroth"}, // level 3
+                    {"Goblin","Minotaur"},// level 2, add 1 goblin and 1 minotaur
+                    {"Minotaur", "NightLurker"}, //level 3. add one minotaur and 1 night lurker
+                    {"Grogoroth"}, // level 4
             };
 
     public static Boolean checkValidEnemy(String name,int level){
@@ -83,6 +81,9 @@ public class EnemyHandler {
                 break;
             case "Prowler":
                 enemy = new Prowler();
+                break;
+            case "NightLurker":
+                enemy = new NightLurker();
                 break;
         }
         return enemy;
