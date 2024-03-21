@@ -228,6 +228,9 @@ public class Player implements Serializable {
         maxHP = HP = classStats.get(Class)[0]+(classStatsGrowth.get(Class)[0]*(level-1));
         ATK = classStats.get(Class)[1]+(classStatsGrowth.get(Class)[1]*(level-1));
         MANA = maxMana = classStats.get(Class)[2]+(classStatsGrowth.get(Class)[2]*(level-1));
+        for (Abilities abs : Spells.getSpells()){
+            abs.scaleAbility(level);
+        }
     }
 
     public void setExperience(int exp) {

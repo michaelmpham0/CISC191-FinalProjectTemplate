@@ -9,6 +9,9 @@ public class Abilities implements Serializable {
     public String abilityDesc;
     public String useDesc;
 
+    public String scalingType;
+    public double abilityScaling;
+
     //if ability's damage is 0, the ability will purely have a special function
     private int abilityDamage;
     private int manaCost;
@@ -19,13 +22,17 @@ public class Abilities implements Serializable {
         useDesc = "...";
         abilityDamage = 0;
         manaCost = 0;
+        scalingType = "Linear";
+        abilityScaling =1.0;
     }
-    public Abilities(String inName, String inDesc,String useDesc,int manaCost,int abilityDamage){
+    public Abilities(String inName, String inDesc,String useDesc,int manaCost,int abilityDamage,double abilityScaling,String scalingType){
         abilityName = inName;
         abilityDesc = inDesc;
         this.manaCost = manaCost;
         this.useDesc = useDesc;
         this.abilityDamage = abilityDamage;
+        this.abilityScaling = abilityScaling;
+        this.scalingType = scalingType;
     }
 
     public String getAbilityName() {
@@ -50,6 +57,26 @@ public class Abilities implements Serializable {
     public void setAbilityDesc(String inDesc){
         abilityDesc = inDesc;
     }
+
+    public void scaleAbility(int level){
+        int oldDamage = abilityDamage;
+        switch (scalingType){
+            case "Linear":
+                abilityDamage+= (int) abilityScaling;
+                break;
+            case "Exponential":
+                abilityDamage*= (int) abilityScaling;
+                break;
+        }
+        try {
+            useDesc = String.format(useDesc.replace(Integer.toString(oldDamage), "%d"), abilityDamage);
+            abilityDesc = String.format(abilityDesc.replace(Integer.toString(oldDamage), "%d"), abilityDamage);
+        }
+        catch (NullPointerException e) {
+            System.err.println("Ability does no damage, cannot scale.");
+        }
+        }
+
 
     public void useAbility(Player player)
     {
