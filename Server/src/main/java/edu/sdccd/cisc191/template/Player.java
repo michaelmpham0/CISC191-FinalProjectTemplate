@@ -18,7 +18,7 @@ import java.util.logging.Level;
  * MANA = Mana
  * GOLD = Gold
  */
-public class Player implements Serializable {
+public class Player extends StatusHandler implements Serializable {
 
    //HashMap to store class info. Stats correspond top from bottom of the above list, left to right.
     static HashMap<String, int[]> classStats = new HashMap<String, int[]>()
@@ -102,17 +102,6 @@ public class Player implements Serializable {
         this.Class = Class;
     }
 
-    public String getAllStats(){
-        try
-        {
-            return String.format("Health:%-5d \t Attack:%-5d \t\nMana:%-5d \t\t Gold:%d",HP,ATK,MANA,GOLD);
-        }
-        catch (NullPointerException Exception)
-        {
-            return "Unknown";
-        }
-    }
-
     public String getName(){
         return Name;
     }
@@ -164,6 +153,18 @@ public class Player implements Serializable {
     }
     public void setDefenseMultiplier(double playerDefenseMultiplier) {
         this.defenseMultiplier = playerDefenseMultiplier;
+    }
+
+    public void setStatus(String status,int statusTime)
+    {
+        if (Statuses.containsKey(status)) {
+            if (statusTime>Statuses.get(status)){
+                Statuses.replace(status,statusTime);
+            }
+        }
+        else {
+            Statuses.put(status,statusTime);
+        }
     }
 
     public void setMana(int newMana){

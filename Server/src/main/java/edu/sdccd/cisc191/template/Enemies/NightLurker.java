@@ -1,6 +1,5 @@
 package edu.sdccd.cisc191.template.Enemies;
 
-import edu.sdccd.cisc191.template.Enemy;
 import edu.sdccd.cisc191.template.Player;
 
 public class NightLurker extends Enemy {

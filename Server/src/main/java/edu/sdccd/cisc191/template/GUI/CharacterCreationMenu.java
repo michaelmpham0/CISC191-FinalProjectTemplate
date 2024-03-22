@@ -13,9 +13,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import org.junit.Test;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+
+import static org.junit.Assert.assertNotNull;
 
 public class CharacterCreationMenu extends GUIController {
 

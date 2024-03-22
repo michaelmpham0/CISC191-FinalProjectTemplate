@@ -1,4 +1,6 @@
-package edu.sdccd.cisc191.template;
+package edu.sdccd.cisc191.template.Enemies;
+
+import edu.sdccd.cisc191.template.Player;
 
 public interface EnemyInterface{
     public static int getDamage() {

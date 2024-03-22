@@ -1,5 +1,6 @@
 package edu.sdccd.cisc191.template;
 
+import edu.sdccd.cisc191.template.Enemies.Enemy;
 import edu.sdccd.cisc191.template.GUI.GUIController;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -7,10 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.stage.Stage;
 
-import java.net.*;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  * This program is a server that takes connection requests on

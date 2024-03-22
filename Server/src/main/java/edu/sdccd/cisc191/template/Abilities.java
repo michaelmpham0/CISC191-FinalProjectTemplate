@@ -5,16 +5,23 @@ import edu.sdccd.cisc191.template.GUI.GUIController;
 import java.io.Serializable;
 
 public class Abilities implements Serializable {
-    public String abilityName;
-    public String abilityDesc;
-    public String useDesc;
+    private String abilityName;
+    private String abilityDesc;
+    private String useDesc;
+    private String scalingType;
 
-    public String scalingType;
-    public double abilityScaling;
+     private int oldAttack;
+    private double abilityScaling;
 
     //if ability's damage is 0, the ability will purely have a special function
     private int abilityDamage;
-    private int manaCost;
+
+    //when abilities modify their own damage
+    private int changedDamage = 0;
+
+    //turn based abilities
+    private int previousTurn,turns=0;
+    private final int manaCost;
 
     public Abilities() {
         abilityName = "unknown";
@@ -50,7 +57,10 @@ public class Abilities implements Serializable {
     public int getAbilityDamage(){
         return abilityDamage;
     }
-
+    public int getChangedDamage(){return changedDamage;}
+    public void resetTurns(){
+        previousTurn=turns=0;
+    }
     public void setAbilityName(String inName){
         abilityName = inName;
     }
@@ -97,18 +107,31 @@ public class Abilities implements Serializable {
                     case "Punching":
                         Server.getCurrentEnemy().setStatus("Paralyze",1);
                         break;
+                    case "Charge Shot":
+                        if (turns==0){
+                            previousTurn = 1;
+                            turns=1;
+                            changedDamage=abilityDamage;
+                        }
+                        else {
+                            turns++;
+                            if ((turns-previousTurn)>1){
+                                changedDamage+=abilityDamage;
+                            }
+                        }
+                        break;
                     default:
-                        System.out.println("Ability Not Usable");
+                        System.err.println("Ability Not Found");
                 }
             }
             else
             {
                 GUIController.setFumbleSpell(true);
-                System.out.println("Could not use "+abilityName+", low mana.");
+                System.err.println("Could not use "+abilityName+", low mana.");
             }
         }
         else if ((abilityDamage > 0)){
-            System.out.println("Could not use "+abilityName+", no target.");
+            System.err.println("Could not use "+abilityName+", no target.");
         }
         else {
             if (player.getMana() >= manaCost)
@@ -117,16 +140,21 @@ public class Abilities implements Serializable {
                 player.setMana(player.getMana()-manaCost);
                 switch (abilityName)
                 {
-                    case "fortnite shield pot":
-                        System.out.println("Gulp gulp guilp");
+                    case "Rage":
+                        player.setStatus("ATKBoost",3);
                         break;
+                    case "Heal":
+                        player.restoreHealth(player.getMaxHealth()/2);
+                        break;
+                    case "Quickness":
+                        player.setStatus("Guard",3);
                     default:
-                        System.out.println("Ability Not Usable");
+                        System.err.println("Ability Not Usable");
                 }
             }
             else {
                 GUIController.setFumbleSpell(true);
-                System.out.println("Could not use "+abilityName+", low mana.");
+                System.err.println("Could not use "+abilityName+", low mana.");
             }
         }
     }

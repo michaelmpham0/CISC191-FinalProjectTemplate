@@ -1,10 +1,7 @@
-package edu.sdccd.cisc191.template;
-import edu.sdccd.cisc191.template.Enemies.*;
+package edu.sdccd.cisc191.template.Enemies;
 
 import java.lang.Math;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 
 
 public class EnemyHandler {

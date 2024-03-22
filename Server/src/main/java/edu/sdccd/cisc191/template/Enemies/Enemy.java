@@ -1,15 +1,13 @@
-package edu.sdccd.cisc191.template;
+package edu.sdccd.cisc191.template.Enemies;
 
 
 import edu.sdccd.cisc191.template.GUI.GUIController;
-import javafx.scene.media.MediaPlayer;
-import org.omg.CORBA.PRIVATE_MEMBER;
+import edu.sdccd.cisc191.template.Player;
+import edu.sdccd.cisc191.template.StatusHandler;
 
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.Map;
 
-public class Enemy implements EnemyInterface{
+public class Enemy extends StatusHandler implements EnemyInterface {
 
     static HashMap<String, Integer> Statuses = new HashMap<String, Integer>()
     {
@@ -115,7 +113,7 @@ public class Enemy implements EnemyInterface{
         }
         return returnString;
     }
-    public String dealDamage(int damageDealt,Player player,String returnStr)
+    public String dealDamage(int damageDealt, Player player, String returnStr)
     {
         damageDealt = (int) (damageDealt*player.getDefenseMultiplier());
 

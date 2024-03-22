@@ -149,7 +149,6 @@ public class SpellsMenu extends GUIController{
             });
         }
 
-        //this hides itemdetails for some reason
         Button useButton = createButton("Use Spell","Button2","Times New Roman",100,0.1,0.05,0,0);
         itemDetails.getChildren().add(useButton);
         useButton.setTranslateY(screenHeight*0.1);
@@ -160,6 +159,7 @@ public class SpellsMenu extends GUIController{
                 currentItem.useAbility(player);
                 GUIController.updateHealthAndMana();
                 usedSpell = currentItem;
+                previousSpell = usedSpell;
                 previousSceneCheck();
             }
 

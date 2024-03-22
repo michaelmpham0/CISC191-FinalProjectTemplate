@@ -1,18 +1,7 @@
 import edu.sdccd.cisc191.template.Enemies.Goblin;
-import edu.sdccd.cisc191.template.Enemies.Grogoroth;
-import edu.sdccd.cisc191.template.Enemies.Minotaur;
-import edu.sdccd.cisc191.template.Enemy;
+import edu.sdccd.cisc191.template.Enemies.Enemy;
 import edu.sdccd.cisc191.template.GameData;
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
-import jdk.jfr.internal.tool.Main;
 import org.junit.jupiter.api.Test;
-
-import java.io.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 

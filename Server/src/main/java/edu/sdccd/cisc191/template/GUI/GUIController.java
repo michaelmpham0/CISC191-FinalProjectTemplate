@@ -29,8 +29,8 @@ public class GUIController extends Server {
     private static Timeline turnDelay;
     protected static boolean pauseGame = false;
     protected static Items usedItem = null;
-
     protected static Abilities usedSpell = null;
+    protected  static Abilities previousSpell = null;
     public static boolean fumbleSpell = false;
     public static void setFumbleSpell(boolean b) {
         fumbleSpell = b;

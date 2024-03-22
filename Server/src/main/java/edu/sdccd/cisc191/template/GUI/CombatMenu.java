@@ -1,9 +1,7 @@
 package edu.sdccd.cisc191.template.GUI;
 
-import edu.sdccd.cisc191.template.Enemies.Grogoroth;
-import edu.sdccd.cisc191.template.Enemy;
-import edu.sdccd.cisc191.template.EnemyHandler;
-import edu.sdccd.cisc191.template.QuoteFetcher;
+import edu.sdccd.cisc191.template.Enemies.Enemy;
+import edu.sdccd.cisc191.template.Enemies.EnemyHandler;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -27,6 +25,8 @@ import java.util.Map;
 public class CombatMenu extends GUIController{
     public static int delayTime = 0;
     public static int turn = 1;
+
+    private static boolean charged=false;
     protected static int statusLoop(Label name, Label health,Label acts){
         int count=0;
 
@@ -60,10 +60,18 @@ public class CombatMenu extends GUIController{
           }
           else
           {
+              int damageDealt;
               name.setText(enemy.getName());
-              enemy.takeDamage(player.getAttack()+player.getCurrentWeapon().getWeaponDamage());
+              if (charged) {
+                  damageDealt = (int) (previousSpell.getChangedDamage()*enemy.getDefenseMultiplier());
+                  previousSpell.resetTurns();
+              }
+              else {
+                  damageDealt= (int) ((player.getAttack()+player.getCurrentWeapon().getWeaponDamage())*enemy.getDefenseMultiplier());
+              }
+              enemy.takeDamage(damageDealt);
               health.setText("Health: " + enemy.getHealth() + "/" + enemy.getMaxHealth());
-              acts.setText(player.getName() + " attacks " + enemy.getName()  + " for " + (player.getAttack()+player.getCurrentWeapon().getWeaponDamage())*enemy.getDefenseMultiplier() + " damage.");
+              acts.setText(player.getName() + " attacks " + enemy.getName()  + " for " + damageDealt + " damage.");
           }
       }
       else if (action.equals("Defend"))
@@ -78,10 +86,15 @@ public class CombatMenu extends GUIController{
           }
           else
           {
-              if (fumbleSpell == false)
+              if (!fumbleSpell)
               {
                   name.setText(enemy.getName());
-                  enemy.takeDamage(usedSpell.getAbilityDamage());
+                  if (!usedSpell.getAbilityName().equals("Charge Shot")){
+                      enemy.takeDamage(usedSpell.getAbilityDamage());
+                  }
+                  else {
+                      charged = true;
+                  }
                   health.setText("Health: " + enemy.getHealth() + "/" + enemy.getMaxHealth());
                   acts.setText(act);
               }
