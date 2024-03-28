@@ -142,6 +142,8 @@ public class Abilities implements Serializable {
                 {
                     case "Rage":
                         player.setStatus("ATKBoost",3);
+                        player.setStatus("Burn",3);
+                        player.setStatus("Bleed",3);
                         break;
                     case "Heal":
                         player.restoreHealth(player.getMaxHealth()/2);

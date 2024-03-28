@@ -3,11 +3,10 @@ package edu.sdccd.cisc191.template.Enemies;
 
 import edu.sdccd.cisc191.template.GUI.GUIController;
 import edu.sdccd.cisc191.template.Player;
-import edu.sdccd.cisc191.template.StatusHandler;
 
 import java.util.HashMap;
 
-public class Enemy extends StatusHandler implements EnemyInterface {
+public class Enemy implements EnemyInterface {
 
     static HashMap<String, Integer> Statuses = new HashMap<String, Integer>()
     {

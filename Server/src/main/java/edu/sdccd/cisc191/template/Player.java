@@ -18,7 +18,7 @@ import java.util.logging.Level;
  * MANA = Mana
  * GOLD = Gold
  */
-public class Player extends StatusHandler implements Serializable {
+public class Player implements Serializable {
 
    //HashMap to store class info. Stats correspond top from bottom of the above list, left to right.
     static HashMap<String, int[]> classStats = new HashMap<String, int[]>()
@@ -38,6 +38,9 @@ public class Player extends StatusHandler implements Serializable {
         put("Barbarian", new int[]{4,8,0});
         put("Ranger", new int[]{3,5,5});
     }};
+    static HashMap<String, Integer> Statuses = new HashMap<String, Integer>()
+    {
+    };
     private int HP,maxHP,ATK,GOLD,MANA,maxMana,level;
     private int exp = 0;
     private int maxExp = 100;
@@ -155,6 +158,10 @@ public class Player extends StatusHandler implements Serializable {
         this.defenseMultiplier = playerDefenseMultiplier;
     }
 
+    public HashMap<String,Integer> getAllStatus() {return Statuses;}
+    public boolean hasStatuses() {return Statuses.isEmpty();}
+
+    public boolean getStatus(String status ){return Statuses.containsKey(status);}
     public void setStatus(String status,int statusTime)
     {
         if (Statuses.containsKey(status)) {
@@ -165,6 +172,67 @@ public class Player extends StatusHandler implements Serializable {
         else {
             Statuses.put(status,statusTime);
         }
+    }
+
+    public String checkStatus(String status,boolean attacking){
+        String returnString = "Unknown.";
+
+        switch (status){
+            case "Bleed":
+                if (Statuses.get("Bleed")>0){
+                    Statuses.replace("Bleed",Statuses.get("Bleed")-1);
+                    if (attacking) {
+                        double bleedDamage = (((double) (maxHP - HP) / maxHP) * (maxHP * 0.25));
+
+                        if (bleedDamage <= 0) {
+                            bleedDamage = 1;
+                        }
+                        returnString = Name + " bleeds for " + bleedDamage + " damage!";
+                        restoreHealth((int) -bleedDamage);
+                    }
+                    else {
+                        returnString = Name + " bleeds for " + ((int)(maxHP * 0.01)) + " damage!";
+                        restoreHealth((int) (-maxHP * 0.01));
+                    }
+                }
+                else {
+                    Statuses.remove("Bleed");
+                    returnString = Name + " stops bleeding.";
+                }
+                break;
+            case "Burn":
+                if (Statuses.get("Burn")>0) {
+                    Statuses.replace("Burn",Statuses.get("Burn")-1);
+                    returnString = Name + " burns for " + ((int) (maxHP * 0.05)) + " damage!";
+                    restoreHealth((int) (-maxHP * 0.05));
+                }
+                else {
+                    Statuses.remove("Burn");
+                    returnString = Name + " stops burning.";
+                }
+                break;
+            case "Paralyze":
+                if (Statuses.get("Paralyze")>0) {
+                    Statuses.replace("Paralyze",Statuses.get("Paralyze")-1);
+                    returnString = Name + " is paralyzed!";
+                }
+                else {
+                    Statuses.remove("Paralyze");
+                    returnString = Name + " stops being paralyzed.";
+                }
+                break;
+            case "ATKBoost":
+                if (Statuses.get("ATKBoost")>0) {
+                    Statuses.replace("ATKBoost",Statuses.get("ATKBoost")-1);
+                    returnString = Name + " is powered up!";
+                }
+                else {
+                    Statuses.remove("ATKBoost");
+                    returnString = Name + " stops being empowered.";
+                }
+                break;
+        }
+        return returnString;
     }
 
     public void setMana(int newMana){
