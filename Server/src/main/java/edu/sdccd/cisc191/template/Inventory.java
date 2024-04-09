@@ -2,43 +2,45 @@ package edu.sdccd.cisc191.template;
 import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.LinkedList;
+
 public class Inventory implements Serializable {
-    private final ArrayList<Items> inventory = new ArrayList<>();
+    private final LinkedList<Items> inventory = new LinkedList<>();
 
     //private int size; -- was unused, so I just commented it out for now
 
     public Inventory(String userClass) {
         switch (userClass.toLowerCase()) {
             case "knight":
-                inventory.add(new Weapons("Rusty Longsword", "A rusted heirloom sword that has been passed down countless generations.", 10));
-                inventory.add(new Tools("Wooden Shield", "A protective gear, used to lower incoming damage."));
-                inventory.add(new Items("Flask of Crimson Tears", "Used to replenish missing health", 3,"You gulp down the bottle of thick liquid and feel immediately rejuvenated."));
-                inventory.add(new Items("Flask of Cerulean Tears", "Used to replenish missing mana", 2,"Power flows through your fingertips as your magical reserves are topped off. You regain 30 MP."));
+                inventory.addLast(new Weapons("Rusty Longsword", "A rusted heirloom sword that has been passed down countless generations.", 10));
+                inventory.addLast(new Tools("Wooden Shield", "A protective gear, used to lower incoming damage."));
+                inventory.addLast(new Items("Flask of Crimson Tears", "Used to replenish missing health", 3,"You gulp down the bottle of thick liquid and feel immediately rejuvenated."));
+                inventory.addLast(new Items("Flask of Cerulean Tears", "Used to replenish missing mana", 2,"Power flows through your fingertips as your magical reserves are topped off. You regain 30 MP."));
                 break;
             case "wizard":
-                inventory.add(new Weapons("Weathered Staff", "A tall wooden staff, worn down by time and use.", 3));
-                inventory.add(new Tools("Spell Book", "A magical tome, used to increase number of spells you can hold to 10."));
-                inventory.add(new Items("Flask of Crimson Tears", "Used to replenish missing health", 3,"You gulp down the bottle of thick liquid and feel immediately rejuvenated."));
-                inventory.add(new Items("Flask of Cerulean Tears", "Used to replenish missing mana", 2,"Power flows through your fingertips as your magical reserves are topped off. You regain 30 MP."));
+                inventory.addLast(new Weapons("Weathered Staff", "A tall wooden staff, worn down by time and use.", 3));
+                inventory.addLast(new Tools("Spell Book", "A magical tome, used to increase number of spells you can hold to 10."));
+                inventory.addLast(new Items("Flask of Crimson Tears", "Used to replenish missing health", 3,"You gulp down the bottle of thick liquid and feel immediately rejuvenated."));
+                inventory.addLast(new Items("Flask of Cerulean Tears", "Used to replenish missing mana", 2,"Power flows through your fingertips as your magical reserves are topped off. You regain 30 MP."));
                 break;
             case "barbarian":
-                inventory.add(new Weapons("Crude Axe", "An unadorned axe, crudely fashioned from rough materials", 12));
-                inventory.add(new Items("Frenzy Potion", "A vial of potent elixir, used to raise overall stats.", 1));
-                inventory.add(new Items("Flask of Crimson Tears", "Used to replenish missing health", 3,"You gulp down the bottle of thick liquid and feel immediately rejuvenated."));
-                inventory.add(new Items("Flask of Cerulean Tears", "Used to replenish missing mana", 2,"Power flows through your fingertips as your magical reserves are topped off. You regain 30 MP."));
+                inventory.addLast(new Weapons("Crude Axe", "An unadorned axe, crudely fashioned from rough materials", 12));
+                inventory.addLast(new Items("Frenzy Potion", "A vial of potent elixir, used to raise overall stats.", 1));
+                inventory.addLast(new Items("Flask of Crimson Tears", "Used to replenish missing health", 3,"You gulp down the bottle of thick liquid and feel immediately rejuvenated."));
+                inventory.addLast(new Items("Flask of Cerulean Tears", "Used to replenish missing mana", 2,"Power flows through your fingertips as your magical reserves are topped off. You regain 30 MP."));
                 break;
             case "ranger":
-                inventory.add(new Tools("Rugged Longbow", "A used longbow, a weapon of choice for rangers who roam the untamed wilderness"));
-                inventory.add(new Items("Wooden Arrows", "The staple ammunition of a ranger", 15,""));
-                inventory.add(new Weapons("Short Dagger", "A dagger designed for swift strikes and close-quarters combat", 8));
-                inventory.add(new Items("Flask of Crimson Tears", "Used to replenish missing health", 3,"You gulp down the bottle of thick liquid and feel immediately rejuvenated."));
-                inventory.add(new Items("Flask of Cerulean Tears", "Used to replenish missing mana", 2,"Power flows through your fingertips as your magical reserves are topped off. You regain 30 MP."));
+                inventory.addLast(new Tools("Rugged Longbow", "A used longbow, a weapon of choice for rangers who roam the untamed wilderness"));
+                inventory.addLast(new Items("Wooden Arrows", "The staple ammunition of a ranger", 15,""));
+                inventory.addLast(new Weapons("Short Dagger", "A dagger designed for swift strikes and close-quarters combat", 8));
+                inventory.addLast(new Items("Flask of Crimson Tears", "Used to replenish missing health", 3,"You gulp down the bottle of thick liquid and feel immediately rejuvenated."));
+                inventory.addLast(new Items("Flask of Cerulean Tears", "Used to replenish missing mana", 2,"Power flows through your fingertips as your magical reserves are topped off. You regain 30 MP."));
                 break;
             default:
                 System.out.println("Unknown class.");
                 break;
         }
-        inventory.add(new Weapons("test weapon", "meant to test switching weapons", 12));
+        inventory.addLast(new Weapons("test weapon", "meant to test switching weapons", 12));
     }
 
     /*
@@ -84,7 +86,7 @@ public class Inventory implements Serializable {
         {
             if (unequipItem.getItemName().equals("None") == false)
             {
-                inventory.add(unequipItem);
+                inventory.addLast(unequipItem);
             }
         }
 
@@ -103,7 +105,7 @@ public class Inventory implements Serializable {
         }
     }
 
-    public ArrayList<Items> getInventory() {
+    public LinkedList<Items> getInventory() {
         return inventory;
     }
 

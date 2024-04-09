@@ -17,6 +17,7 @@ import org.junit.Test;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 import static org.junit.Assert.assertNotNull;
 
@@ -204,7 +205,7 @@ public class CharacterCreationMenu extends GUIController {
 
                 storage = new Inventory(player.getPlayerClass());
                 spells = new Spells(player.getPlayerClass());
-                ArrayList<Items> playerInventoryList = storage.getInventory();
+                LinkedList<Items> playerInventoryList = storage.getInventory();
                 Boolean foundWeapon = false;
                 Boolean foundTool = false;
 
