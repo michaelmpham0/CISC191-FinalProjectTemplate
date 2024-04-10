@@ -61,6 +61,11 @@ public class Enemy implements EnemyInterface {
             Statuses.put(status,statusTime);
         }
     }
+    public void clearStatus()
+    {
+        Statuses.clear();
+    }
+
 
     public String checkStatus(String status){
         String returnString = "Unknown.";

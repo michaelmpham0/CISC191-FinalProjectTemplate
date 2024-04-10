@@ -150,6 +150,20 @@ public class CombatMenu extends GUIController{
        }
 
    }
+
+   protected static  void deadEnemy()
+   {
+       currentEnemy.clearStatus();
+       PauseTransition delay = new PauseTransition(Duration.seconds(2));
+       delay.setOnFinished(event -> {
+           currentEnemy = null;
+           ExploreMenu.exploreMenu();
+       });
+       delay.play();
+   }
+
+
+
     protected static void combatMenu()
     {
         turn = 1;
@@ -344,16 +358,14 @@ public class CombatMenu extends GUIController{
                                 }
                                 PauseTransition delay2 = new PauseTransition(Duration.seconds(statusLoop(introText, enemyStats, allActions,true,false)));
                                 delay2.setOnFinished(event2 -> {
-                                    if (player.getHealth() != 0)
+                                    if (player.getHealth() != 0 & currentEnemy.getHealth() > 0)
                                     {
                                         buttonContainer.setVisible(true);
-                                        pauseGame = false;
                                     }
-
+                                    pauseGame = false;
                                     if (currentEnemy.getHealth() <= 0)
                                     {
-                                        currentEnemy = null;
-                                        ExploreMenu.exploreMenu();
+                                        deadEnemy();
                                     }
                                 });
                                 delay2.play();
@@ -381,15 +393,14 @@ public class CombatMenu extends GUIController{
                                 delay6.setOnFinished(event2 -> {
                                     player.setGuarding(false);
                                     player.setDefenseMultiplier(oldDefenseMultiplier);
-                                    if (player.getHealth() != 0)
+                                    if (player.getHealth() != 0 & currentEnemy.getHealth() > 0)
                                     {
                                         buttonContainer.setVisible(true);
-                                        pauseGame = false;
                                     }
+                                    pauseGame = false;
                                     if (currentEnemy.getHealth() <= 0)
                                     {
-                                        currentEnemy = null;
-                                        ExploreMenu.exploreMenu();
+                                        deadEnemy();
                                     }
                                 });
                                 delay6.play();
@@ -434,15 +445,14 @@ public class CombatMenu extends GUIController{
                                                 }
                                                 PauseTransition delay9 = new PauseTransition(Duration.seconds(statusLoop(introText, enemyStats, allActions,true,false)));
                                                 delay9.setOnFinished(event2 -> {
-                                                    if (player.getHealth() != 0)
+                                                    if (player.getHealth() != 0 & currentEnemy.getHealth() > 0)
                                                     {
                                                         buttonContainer.setVisible(true);
-                                                        pauseGame = false;
                                                     }
+                                                    pauseGame = false;
                                                     if (currentEnemy.getHealth() <= 0)
                                                     {
-                                                        currentEnemy = null;
-                                                        ExploreMenu.exploreMenu();
+                                                        deadEnemy();
                                                     }
                                                 });
                                                 delay9.play();
