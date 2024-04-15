@@ -130,6 +130,27 @@ public class ItemMenu extends GUIController {
         itemCount.setVisible(false);
 
         //Creates buttons for each item
+
+        Items current = storage.getInventoryHead();
+        while (current != null) {
+            Button itemButton = createButton(current.getItemName(),"Button2","Times New Roman",100,0.25,0.075,0,0);
+            itemButton.setWrapText(true);
+            itemList.getChildren().add(itemButton);
+            //Item Button activation
+            Items finalCurrent = current;
+            itemButton.setOnAction(e -> {
+                if (itemName.isVisible() == false)
+                {
+                    itemName.setVisible(true);
+                    itemDescription.setVisible(true);
+                    itemCount.setVisible(true);
+                }
+                updateItem(finalCurrent,itemName,itemDescription,itemCount);
+            });
+            current = current.next;
+        }
+
+        /*
         for (Items invItems: storage.getInventory()) {
             Button itemButton = createButton(invItems.getItemName(),"Button2","Times New Roman",100,0.25,0.075,0,0);
             itemButton.setWrapText(true);
@@ -145,6 +166,8 @@ public class ItemMenu extends GUIController {
                 updateItem(invItems,itemName,itemDescription,itemCount);
             });
         }
+
+         */
 
         //this hides itemdetails for some reason
         Button useButton = createButton("Use Item","Button2","Times New Roman",100,0.1,0.05,0,0);
@@ -170,9 +193,19 @@ public class ItemMenu extends GUIController {
 
         });
 
+        Button sortButton = createButton("Sort Items","Button2","Times New Roman",150,0.075,0.0,0,0);
+        itemList.getChildren().add(sortButton);
+        sortButton.setTranslateY(screenHeight*0.1);
+        sortButton.setOnAction(e ->{
+            storage.mergeSort(storage.getInventoryHead());
+            itemMenu();
+        });
+
         Button backButton = createButton("Go Back","Button2","Times New Roman",100,0.1,0.05,0,0);
         backButton.setTranslateY(screenHeight*0.2);
         vbox.getChildren().add(backButton);
+        vbox.getChildren().add(sortButton);
+
         backButton.setOnAction(e -> {
             previousSceneCheck();
         });
