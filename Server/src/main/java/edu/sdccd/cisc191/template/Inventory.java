@@ -74,7 +74,6 @@ public class Inventory implements Serializable {
     }
 
     private Items getMiddle(Items head) {
-        // Find the middle using slow and fast pointers
         // fast pointer reaches the end of the linked list first, and when it does, slow pointer will be stopped at the middle
         Items slow = head;
         Items fast = head;
