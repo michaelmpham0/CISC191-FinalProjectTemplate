@@ -1,16 +1,23 @@
 package edu.sdccd.cisc191.template.Enemies;
 
 
+import edu.sdccd.cisc191.template.Effects.StatusEffect;
 import edu.sdccd.cisc191.template.GUI.GUIController;
 import edu.sdccd.cisc191.template.Player;
 
 import java.util.HashMap;
+import java.util.LinkedList;
 
 public class Enemy implements EnemyInterface {
 
     static HashMap<String, Integer> Statuses = new HashMap<String, Integer>()
     {
     };
+
+    private final LinkedList<StatusEffect> enemyStatusEffects = new LinkedList<>();
+    public LinkedList<StatusEffect> getEnemyStatusList(){
+        return enemyStatusEffects;
+    }
 
     private static boolean attacking = false;
     private static int health;

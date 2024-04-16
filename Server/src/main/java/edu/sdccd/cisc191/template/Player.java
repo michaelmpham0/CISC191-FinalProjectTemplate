@@ -1,5 +1,6 @@
 package edu.sdccd.cisc191.template;
 
+import edu.sdccd.cisc191.template.Effects.StatusEffect;
 import edu.sdccd.cisc191.template.GUI.DeathMenu;
 import edu.sdccd.cisc191.template.GUI.ExploreMenu;
 import edu.sdccd.cisc191.template.GUI.GUIController;
@@ -7,6 +8,7 @@ import javafx.animation.PauseTransition;
 import javafx.util.Duration;
 
 import java.io.Serializable;
+import java.util.LinkedList;
 import  java.util.Scanner;
 import java.util.HashMap;
 import java.util.logging.Level;
@@ -38,6 +40,11 @@ public class Player implements Serializable {
         put("Barbarian", new int[]{4,8,0});
         put("Ranger", new int[]{3,5,5});
     }};
+
+    private final LinkedList<StatusEffect> playerStatusEffects = new LinkedList<>();
+    public LinkedList<StatusEffect> getPlayerStatusList(){
+        return playerStatusEffects;
+    }
     static HashMap<String, Integer> Statuses = new HashMap<String, Integer>()
     {
     };
