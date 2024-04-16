@@ -5,26 +5,56 @@ import java.io.Serializable;
 public class Items implements Serializable {
     public String itemName;
     public String itemDesc;
+    public String useDesc;
     public int holdSize;
+    public Items next;
+
+    public int rarity;
+
     public Items() {
-        itemName = "unknown";
-        itemDesc = "unknown";
-        holdSize = 1;
-    }
-    public Items(String inName, String inDesc, int inStack){
-        itemName = inName;
-        itemDesc = inDesc;
-        holdSize = inStack;
+        this.itemName = "unknown";
+        this.itemDesc = "unknown";
+        this.holdSize = 1;
         this.useDesc = "...";
+        this.rarity = 0;
+        this.next = null;
+    }
+    public Items(String inName, String inDesc, int inStack,String useDesc,int rarity){
+        this.itemName = inName;
+        this.itemDesc = inDesc;
+        this.holdSize = inStack;
+        this.useDesc = useDesc;
+        this.useDesc = useDesc;
+        this.rarity = rarity;
     }
 
-    public String useDesc;
-    public Items(String inName, String inDesc, int inStack,String useDesc){
-        itemName = inName;
-        itemDesc = inDesc;
-        holdSize = inStack;
-        this.useDesc = useDesc;
+
+    public void add(Items newItem) {
+        if (itemName.equals(newItem.getItemName()))
+        {
+            //same item, increase stack instead of adding new item
+            setStackSize(getStackSize()+newItem.getStackSize());
+        }
+        else
+        {
+            if (this.next == null)
+            {
+                this.next = newItem;
+            } else
+            {
+                if (this.next.itemName.equals(newItem.itemName))
+                {
+                    //same item, increase stack instead of adding new item
+                    this.next.setStackSize(this.next.getStackSize()+newItem.getStackSize());
+                }
+                else
+                {
+                    this.next.add(newItem);
+                }
+            }
+        }
     }
+
 
 
     public String getItemName() {

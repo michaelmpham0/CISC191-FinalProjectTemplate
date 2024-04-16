@@ -205,7 +205,7 @@ public class CharacterCreationMenu extends GUIController {
 
                 storage = new Inventory(player.getPlayerClass());
                 spells = new Spells(player.getPlayerClass());
-                LinkedList<Items> playerInventoryList = storage.getInventory();
+                Inventory playerInventoryList = storage;
                 Boolean foundWeapon = false;
                 Boolean foundTool = false;
 
@@ -214,25 +214,29 @@ public class CharacterCreationMenu extends GUIController {
                 Items equipTool = player.getCurrentTool();
 
                 // For each loop to go through starting inventory and equip weapons
-                for (Items item : playerInventoryList)
-                {
-                    if (item instanceof Weapons && foundWeapon == false)
+
+                Items currentItem = playerInventoryList.getInventoryHead();
+                while (currentItem != null) {
+                    System.out.println(currentItem);
+                    if (currentItem instanceof Weapons && foundWeapon == false)
                     {
                         if (player.getCurrentWeapon().getItemName().equals("None"))
                         {
                             foundWeapon = true;
-                            equipWeapon = item;
+                            equipWeapon = currentItem;
                         }
                     }
-                    else if (item instanceof Tools && foundTool == false)
+                    else if (currentItem instanceof Tools && foundTool == false)
                     {
                         if (player.getCurrentTool().getItemName().equals("None"))
                         {
                             foundTool = true;
-                            equipTool = item;
+                            equipTool = currentItem;
                         }
                     }
+                    currentItem = currentItem.next;
                 }
+
                 player.equipWeaponOrTool(storage,equipWeapon);
                 player.equipWeaponOrTool(storage,equipTool);
                 ExploreMenu.exploreMenu();

@@ -11,10 +11,11 @@ public class Weapons extends Items implements Serializable {
         weaponDamage = 0;
     }
     // Constructor
-    public Weapons(String name, String description, int damage) {
+    public Weapons(String name, String description, int damage,int rarity) {
         itemName = name;
         itemDesc = description;
         weaponDamage = damage;
+        this.rarity = rarity;
     }
 
 
