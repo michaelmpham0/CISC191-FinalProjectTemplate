@@ -1,10 +1,8 @@
 package edu.sdccd.cisc191.template.Effects;
-import com.sun.java.accessibility.util.GUIInitializedMulticaster;
 import edu.sdccd.cisc191.template.Enemies.Enemy;
 import edu.sdccd.cisc191.template.Items;
 import edu.sdccd.cisc191.template.Server;
 import edu.sdccd.cisc191.template.Player;
-import jdk.jfr.internal.tool.Main;
 
 import java.util.LinkedList;
 public class StatusEffectsHandler {
