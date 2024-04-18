@@ -20,7 +20,7 @@ import java.util.logging.Level;
  * MANA = Mana
  * GOLD = Gold
  */
-public class Player implements Serializable {
+public class Player extends Entity implements Serializable {
 
    //HashMap to store class info. Stats correspond top from bottom of the above list, left to right.
     static HashMap<String, int[]> classStats = new HashMap<String, int[]>()
@@ -54,6 +54,8 @@ public class Player implements Serializable {
     private double defenseMultiplier = 1.0;
     private Weapons currentWeapon = new Weapons();
     private Tools currentTool = new Tools();
+
+    private String status = "None";
 
     public void setCurrentWeapon(Weapons currentWeapon) {
         this.currentWeapon = currentWeapon;
@@ -138,9 +140,7 @@ public class Player implements Serializable {
     public int getAttack(){
         return  ATK;
     }
-    public int getHealth(){
-        return  HP;
-    }
+    public int getHealth(){return  HP;}
     public int getMaxHealth(){
         return  maxHP;
     }
@@ -168,7 +168,7 @@ public class Player implements Serializable {
     public HashMap<String,Integer> getAllStatus() {return Statuses;}
     public boolean hasStatuses() {return Statuses.isEmpty();}
 
-    public boolean getStatus(String status ){return Statuses.containsKey(status);}
+    public String getStatus(){return status;}
     public void setStatus(String status,int statusTime)
     {
         if (Statuses.containsKey(status)) {
@@ -250,17 +250,21 @@ public class Player implements Serializable {
 
     }
 
+    public int takeDamage(int damage){
+        HP-=damage;
+        if(HP < 0){
+            HP = 0;
+            PauseTransition delay = new PauseTransition(Duration.seconds(2));
+            delay.setOnFinished(event -> {
+                DeathMenu.deathMenu();
+            });
+            delay.play();
+        }
+        return (HP);
+    }
+
     public void setHealth(int newHealth){
        HP = newHealth;
-       if(HP < 0){
-           HP = 0;
-           PauseTransition delay = new PauseTransition(Duration.seconds(2));
-           delay.setOnFinished(event -> {
-               DeathMenu.deathMenu();
-           });
-           delay.play();
-
-       }
     }
 
     public void restoreHealth(int healAmount)

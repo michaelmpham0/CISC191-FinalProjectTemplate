@@ -2,13 +2,14 @@ package edu.sdccd.cisc191.template.Enemies;
 
 
 import edu.sdccd.cisc191.template.Effects.StatusEffect;
+import edu.sdccd.cisc191.template.Entity;
 import edu.sdccd.cisc191.template.GUI.GUIController;
 import edu.sdccd.cisc191.template.Player;
 
 import java.util.HashMap;
 import java.util.LinkedList;
 
-public class Enemy implements EnemyInterface {
+public class Enemy  extends Entity implements EnemyInterface {
 
     static HashMap<String, Integer> Statuses = new HashMap<String, Integer>()
     {
@@ -135,7 +136,7 @@ public class Enemy implements EnemyInterface {
             damageDealt=0;
         }
 
-        player.setHealth(player.getHealth()-damageDealt);
+        player.takeDamage(damageDealt);
         GUIController.updateHealthAndMana();
         return trueReturnString;
     }

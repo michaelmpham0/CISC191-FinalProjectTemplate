@@ -9,7 +9,6 @@ public class StatusEffect implements StatusEffectInterface{
         statusName=name;
         statusDuration=duration;
     }
-
     public static String getStatusName() {
         return statusName;
     }
@@ -20,5 +19,5 @@ public class StatusEffect implements StatusEffectInterface{
 
     public static void checkStatus(String target){}
 
-    public static void modifyStatus(String target){}
+    public static void setStatusDuration(String target){}
 }
