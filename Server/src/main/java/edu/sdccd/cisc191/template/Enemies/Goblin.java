@@ -93,7 +93,7 @@ public class Goblin extends Enemy {
     }
 
     public Goblin(){
-        super(80,50,"Goblin","A puny creature scurries towards you.","The goblin cautiously eyes you up.",35,10);
+        super(80,50,"Goblin","A puny creature scurries towards you.","The goblin cautiously eyes you up.",35,10,10);
         this.health = maxHealth = getMaxHealth();
         damage = getDamage();
         name = getName();

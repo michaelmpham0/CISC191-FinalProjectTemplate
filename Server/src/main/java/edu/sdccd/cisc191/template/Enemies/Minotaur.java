@@ -97,7 +97,7 @@ public class Minotaur extends Enemy {
     }
 
     public Minotaur(){
-        super(160,55,"Minotaur","A hulking bull-like creature stands before you.","The Minotaur appears.",55,35);
+        super(160,55,"Minotaur","A hulking bull-like creature stands before you.","The Minotaur appears.",55,35,35);
         this.health = maxHealth = getMaxHealth();
         damage = getDamage();
         name = getName();

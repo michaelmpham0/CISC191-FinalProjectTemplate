@@ -22,6 +22,11 @@ public class DeathMenu extends GUIController {
         Label titleText = createLabel("You Died","Times New Roman",90,0.3,0.05);
         //titleText.setTranslateY(screenHeight*0.1);
         root.getChildren().add(titleText);
+
+        Label scoreText = createLabel("Score: "+player.getScore(),"Times New Roman",150,0.2,0.035);
+        scoreText.setTranslateY(screenHeight*0.1);
+        root.getChildren().add(scoreText);
+
         //Button mainMenu = createButton("Return To Menu","Button1","Times New Roman",120,0.2,0.02,0,0);
         //root.getChildren().add(mainMenu);
 

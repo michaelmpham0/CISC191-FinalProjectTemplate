@@ -49,6 +49,11 @@ public class Player extends Entity implements Serializable {
     {
     };
     private int HP,maxHP,ATK,GOLD,MANA,maxMana,level;
+    private int playerScore = 0;
+    // maybe get score equal to enemy gold drop?
+    // possible score equation:
+    // score * ((1)+(playerLevel*0.1))
+    //ex: if level is 5, score is multiplied by 1.5
     private int exp = 0;
     private int maxExp = 100;
     private double defenseMultiplier = 1.0;
@@ -330,7 +335,15 @@ public class Player extends Entity implements Serializable {
             maxExp = 100*level;
         }
     }
-
+    public void gainScore(int increaseScore)
+    {
+        System.out.println("INCREASE SCORE BY :"+increaseScore);
+        playerScore += increaseScore;
+    }
+    public int getScore()
+    {
+        return playerScore;
+    }
 
     public int getMaxExperience() {
         return maxExp;

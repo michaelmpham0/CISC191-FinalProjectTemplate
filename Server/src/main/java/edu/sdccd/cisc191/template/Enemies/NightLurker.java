@@ -76,7 +76,7 @@ public class NightLurker extends Enemy {
     }
 
     public NightLurker(){
-        super(50,20,"The Bizarre Night Lurker","You sense a mysterious presence somewhere in the shadow","A pair of bloody, red eyes appear from the gloomy walls .",75,30);
+        super(50,20,"The Bizarre Night Lurker","You sense a mysterious presence somewhere in the shadow","A pair of bloody, red eyes appear from the gloomy walls .",75,30,30);
         this.health = maxHealth = getMaxHealth();
         damage = getDamage();
         name = getName();

@@ -84,7 +84,7 @@ public class Grogoroth extends Enemy {
     }
 
     public Grogoroth(){
-        super(1000,50,"Grogoroth, Destroyer of Worlds","An overwhelming entity rises from the dark.","Grogoroth examines you.",400,1000);
+        super(1000,50,"Grogoroth, Destroyer of Worlds","An overwhelming entity rises from the dark.","Grogoroth examines you.",400,1000,1000);
         this.health = maxHealth = getMaxHealth();
         damage = getDamage();
         name = getName();
