@@ -19,6 +19,9 @@ import java.io.*;
 
 import java.awt.*;
 
+import static edu.sdccd.cisc191.template.LeaderboardSystem.Database.connect;
+
+
 
 public class GUIController extends Server {
 
@@ -275,7 +278,7 @@ public class GUIController extends Server {
 
    public Scene startMainMenu(){
 
-
+        connect();
         scene = new Scene(createMainmenu());
         scene.getStylesheets().add("styleSheet.css");
         scene.setFill(Paint.valueOf("Black"));
