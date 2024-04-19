@@ -96,34 +96,37 @@ public class Abilities implements Serializable {
         if (!(Server.getCurrentEnemy()== null) && abilityDamage > 0) {
             if (player.getMana() >= manaCost)
             {
-                GUIController.setFumbleSpell(false);
-                player.setMana(player.getMana()-manaCost);
-                switch (abilityName)
+                if ((Server.getCurrentEnemy().getDefenseMultiplier() == 0.0 && Server.getCurrentEnemy().getName().equals("The Prowling Beast")) == false)
                 {
-                    case "Horizontal":
-                        Server.getCurrentEnemy().setStatus("Bleed",3);
-                        break;
-                    case "Firebolt":
-                        Server.getCurrentEnemy().setStatus("Burn",3);
-                        break;
-                    case "Punching":
-                        Server.getCurrentEnemy().setStatus("Paralyze",1);
-                        break;
-                    case "Charge Shot":
-                        if (turns==0){
-                            previousTurn = 1;
-                            turns=1;
-                            changedDamage=abilityDamage;
-                        }
-                        else {
-                            turns++;
-                            if ((turns-previousTurn)>1){
-                                changedDamage+=abilityDamage;
+                    GUIController.setFumbleSpell(false);
+                    player.setMana(player.getMana()-manaCost);
+                    switch (abilityName)
+                    {
+                        case "Horizontal":
+                            Server.getCurrentEnemy().setStatus("Bleed",3);
+                            break;
+                        case "Firebolt":
+                            Server.getCurrentEnemy().setStatus("Burn",3);
+                            break;
+                        case "Punching":
+                            Server.getCurrentEnemy().setStatus("Paralyze",1);
+                            break;
+                        case "Charge Shot":
+                            if (turns==0){
+                                previousTurn = 1;
+                                turns=1;
+                                changedDamage=abilityDamage;
                             }
-                        }
-                        break;
-                    default:
-                        System.err.println("Ability Not Found");
+                            else {
+                                turns++;
+                                if ((turns-previousTurn)>1){
+                                    changedDamage+=abilityDamage;
+                                }
+                            }
+                            break;
+                        default:
+                            System.err.println("Ability Not Found");
+                    }
                 }
             }
             else

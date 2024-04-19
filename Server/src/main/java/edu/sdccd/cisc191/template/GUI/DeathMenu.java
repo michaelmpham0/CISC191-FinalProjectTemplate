@@ -29,8 +29,8 @@ public class DeathMenu extends GUIController {
 
         //Button mainMenu = createButton("Return To Menu","Button1","Times New Roman",120,0.2,0.02,0,0);
         //root.getChildren().add(mainMenu);
-
-        stage.setScene(new Scene(root));
+        Scene thisScene = new Scene(root);
+        stage.setScene(thisScene);
 
         String savePath = System.getProperty("user.home") + "/Documents/ArchitectSaveFile.ser";
         File saveFile = new File(savePath);
@@ -43,6 +43,11 @@ public class DeathMenu extends GUIController {
             }
         } else {
             System.out.println("Save file doesn't exist, did not delete.");
+        }
+        //while loop, because sometimes it didn't set the death screen
+        while (stage.getScene().equals(thisScene) == false)
+        {
+            stage.setScene(thisScene);
         }
 
         /*

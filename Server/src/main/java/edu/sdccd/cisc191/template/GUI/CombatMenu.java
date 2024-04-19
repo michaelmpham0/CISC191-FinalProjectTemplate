@@ -147,9 +147,9 @@ public class CombatMenu extends GUIController{
 
            player.gainExperience(enemy.getXpReward());
            player.setGold(player.getGold()+enemy.getGoldReward());
+           player.gainScore(enemy.getScoreReward());
            System.out.println("PLAYER SCORE: "+player.getScore());
            System.out.println("ENEMY DROP: "+enemy.getScoreReward());
-           player.gainScore(enemy.getScoreReward());
        }
 
    }
