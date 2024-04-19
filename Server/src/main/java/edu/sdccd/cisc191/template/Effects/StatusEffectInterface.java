@@ -4,10 +4,6 @@ public interface StatusEffectInterface {
     static String statusName="";
     static int statusDuration=0;
 
-    public static void checkStatuses(String target){}
-
-    public static void modifyStatus(String target){}
-
     public static String getStatusName() {
         return statusName;
     }
@@ -15,4 +11,8 @@ public interface StatusEffectInterface {
     public static int getStatusDuration() {
         return statusDuration;
     }
+
+    public static void checkStatus(String target){}
+
+    public static void setStatusDuration(String target){}
 }

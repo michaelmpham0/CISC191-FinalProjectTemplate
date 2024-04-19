@@ -3,6 +3,8 @@ package edu.sdccd.cisc191.template;
 import edu.sdccd.cisc191.template.GUI.GUIController;
 
 import java.io.Serializable;
+import java.util.IllegalFormatException;
+import java.util.UnknownFormatConversionException;
 
 public class Abilities implements Serializable {
     private String abilityName;
@@ -82,7 +84,7 @@ public class Abilities implements Serializable {
             useDesc = String.format(useDesc.replace(Integer.toString(oldDamage), "%d"), abilityDamage);
             abilityDesc = String.format(abilityDesc.replace(Integer.toString(oldDamage), "%d"), abilityDamage);
         }
-        catch (NullPointerException e) {
+        catch (IllegalFormatException e) {
             System.err.println("Ability does no damage, cannot scale.");
         }
         }

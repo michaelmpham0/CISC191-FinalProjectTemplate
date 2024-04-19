@@ -2,13 +2,14 @@ package edu.sdccd.cisc191.template.Enemies;
 
 
 import edu.sdccd.cisc191.template.Effects.StatusEffect;
+import edu.sdccd.cisc191.template.Entity;
 import edu.sdccd.cisc191.template.GUI.GUIController;
 import edu.sdccd.cisc191.template.Player;
 
 import java.util.HashMap;
 import java.util.LinkedList;
 
-public class Enemy implements EnemyInterface {
+public class Enemy  extends Entity implements EnemyInterface {
 
     static HashMap<String, Integer> Statuses = new HashMap<String, Integer>()
     {
@@ -28,13 +29,14 @@ public class Enemy implements EnemyInterface {
     private static String firstText;
     private int xpDrop = 0;
     private int goldDrop = 0;
+    private int scoreReward;
     private double defenseMultiplier = 1.0;
 
     public Enemy(){
         this.health = maxHealth = damage= 0;
         name = "Unknown";
     }
-    public Enemy(int health,int damage, String name,String encounterText,String firstText,int xpDrop,int goldDrop) {
+    public Enemy(int health,int damage, String name,String encounterText,String firstText,int xpDrop,int goldDrop,int scoreReward) {
         this.health = maxHealth = health;
         this.damage = damage;
         this.name = name;
@@ -42,6 +44,7 @@ public class Enemy implements EnemyInterface {
         this.firstText = firstText;
         this.xpDrop = xpDrop;
         this.goldDrop = goldDrop;
+        this.scoreReward = scoreReward;
     }
 
     public static int getDamage() {
@@ -135,7 +138,7 @@ public class Enemy implements EnemyInterface {
             damageDealt=0;
         }
 
-        player.setHealth(player.getHealth()-damageDealt);
+        player.takeDamage(damageDealt);
         GUIController.updateHealthAndMana();
         return trueReturnString;
     }
@@ -178,6 +181,10 @@ public class Enemy implements EnemyInterface {
     public int getGoldReward()
     {
         return this.goldDrop;
+    }
+    public int getScoreReward()
+    {
+        return this.scoreReward;
     }
 
     public String enemyTurn(Player player) {

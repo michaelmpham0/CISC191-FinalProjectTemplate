@@ -13,7 +13,7 @@ public class Prowler extends Enemy {
     private String Claw(Player player)
     {
         setAttacking(true);
-        damageDealt = 18;
+        damageDealt = 12;
         return "The beast rabidly claws at you.";
     }
     private String Pounce(Player player)
@@ -79,7 +79,7 @@ public class Prowler extends Enemy {
     }
 
     public Prowler(){
-        super(100,50,"The Prowling Beast","???","A veil of mist envelopes the area in front of you.",100,25);
+        super(100,50,"The Prowling Beast","???","A veil of mist envelopes the area in front of you.",100,25,200);
         this.health = maxHealth = getMaxHealth();
         damage = getDamage();
         name = getName();
