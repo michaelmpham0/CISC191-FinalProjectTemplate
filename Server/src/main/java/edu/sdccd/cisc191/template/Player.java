@@ -4,6 +4,7 @@ import edu.sdccd.cisc191.template.Effects.StatusEffect;
 import edu.sdccd.cisc191.template.GUI.DeathMenu;
 import edu.sdccd.cisc191.template.GUI.ExploreMenu;
 import edu.sdccd.cisc191.template.GUI.GUIController;
+import edu.sdccd.cisc191.template.LeaderboardSystem.Database;
 import javafx.animation.PauseTransition;
 import javafx.util.Duration;
 
@@ -12,6 +13,8 @@ import java.util.LinkedList;
 import  java.util.Scanner;
 import java.util.HashMap;
 import java.util.logging.Level;
+
+import static edu.sdccd.cisc191.template.Server.player;
 
 /**
  * Stats used for the player:
@@ -261,6 +264,10 @@ public class Player extends Entity implements Serializable {
             HP = 0;
             PauseTransition delay = new PauseTransition(Duration.seconds(2));
             delay.setOnFinished(event -> {
+
+                Player deadPlayer = new Player();
+                Database.insertPlayerDetails(deadPlayer);
+
                 DeathMenu.deathMenu();
             });
             delay.play();
@@ -337,13 +344,14 @@ public class Player extends Entity implements Serializable {
     }
     public void gainScore(int increaseScore)
     {
-        System.out.println("INCREASE SCORE BY :"+increaseScore);
+        System.out.println("INCREASE SCORE BY :" + increaseScore);
         playerScore += increaseScore;
     }
     public int getScore()
     {
         return playerScore;
     }
+
 
     public int getMaxExperience() {
         return maxExp;

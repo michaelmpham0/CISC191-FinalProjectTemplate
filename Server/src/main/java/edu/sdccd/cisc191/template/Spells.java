@@ -9,8 +9,8 @@ public class Spells implements Serializable {
     public Spells(String userClass) {
         switch (userClass.toLowerCase()) {
             case "knight":
-                inventory.add(new Abilities("Vertical", String.format("Deal %d damage.",15),String.format("You strike downwards vertically, dealing %d damage.",15),5,15,2.0,"Exponential"));
-                inventory.add(new Abilities("Horizontal", "Deal 10 damage, then inflict Bleed for 3 turns.","You attack with a broad strike, dealing 10 damage and bleeding the enemy.",10,10,10,"Linear"));
+                inventory.add(new Abilities("Vertical Slash", String.format("Deal %d damage.",15),String.format("You strike downwards vertically, dealing %d damage.",15),5,15,2.0,"Exponential"));
+                inventory.add(new Abilities("Sanguine Sever", "Deal 10 damage, then inflict Bleed for 3 turns.","You attack with a broad strike, dealing 10 damage and bleeding the enemy.",10,10,10,"Linear"));
                 break;
             case "wizard":
                 inventory.add(new Abilities("Heal", String.format("Heal %d%% health.",50),"You call upon heavenly forces, healing your wounds.",15,0,0.0,"Linear"));
