@@ -45,9 +45,12 @@ public class Database {
             ResultSet rs = preparedStatement.executeQuery();
 
             while (rs.next()) {
-                System.out.println("Name: " + rs.getString("player_name") +
+                System.out.println(
+                        "Name: " + rs.getString("player_name") +
                         ", Class: " + rs.getString("class") +
-                        ", Level: " + rs.getInt("level"));
+                        ", Level: " + rs.getInt("level") +
+                        ", Score: " + rs.getInt("score")
+                );
             }
         } catch (SQLException e) {
             System.out.println("Query failed: " + e.getMessage());
@@ -75,6 +78,8 @@ public class Database {
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+        } finally {
+            Database.closeConnection();
         }
     }
 }
