@@ -2,6 +2,8 @@ package edu.sdccd.cisc191.template.Effects;
 
 import edu.sdccd.cisc191.template.Entity;
 
+import java.util.LinkedList;
+
 public class Bleed extends StatusEffect{
     static String statusName="";
     static String statusType="Damage";
@@ -16,18 +18,16 @@ public class Bleed extends StatusEffect{
     public static String getStatusName() {
         return statusName;
     }
-
     public static int getStatusDuration() {
         return statusDuration;
     }
-
     public static void checkStatus(Entity target){}
     public static void setStatusDuration(Entity target){}
 
     public static String activateStatus(Entity target){
         String string;
-        int maxHealth= target.getMaxHealth();;
-        int currentHealth= target.getHealth();;
+        int maxHealth= target.getMaxHealth();
+        int currentHealth= target.getHealth();
         String name = target.getName();
         if (target.getStatus().equals("Attacking")) {
             double bleedDamage = (((double) (maxHealth - currentHealth) / maxHealth) * (maxHealth * 0.25));

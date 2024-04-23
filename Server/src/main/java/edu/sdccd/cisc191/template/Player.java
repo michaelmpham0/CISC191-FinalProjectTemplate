@@ -2,7 +2,6 @@ package edu.sdccd.cisc191.template;
 
 import edu.sdccd.cisc191.template.Effects.StatusEffect;
 import edu.sdccd.cisc191.template.GUI.DeathMenu;
-import edu.sdccd.cisc191.template.GUI.ExploreMenu;
 import edu.sdccd.cisc191.template.GUI.GUIController;
 import edu.sdccd.cisc191.template.LeaderboardSystem.Database;
 import javafx.animation.PauseTransition;
@@ -12,9 +11,6 @@ import java.io.Serializable;
 import java.util.LinkedList;
 import  java.util.Scanner;
 import java.util.HashMap;
-import java.util.logging.Level;
-
-import static edu.sdccd.cisc191.template.Server.player;
 
 /**
  * Stats used for the player:
@@ -43,14 +39,11 @@ public class Player extends Entity implements Serializable {
         put("Barbarian", new int[]{4,8,0});
         put("Ranger", new int[]{3,5,5});
     }};
-
-    private final LinkedList<StatusEffect> playerStatusEffects = new LinkedList<>();
-    public LinkedList<StatusEffect> getPlayerStatusList(){
-        return playerStatusEffects;
+    private final LinkedList<StatusEffect> statusEffectsLinkedList = new LinkedList<>();
+    public LinkedList<StatusEffect> getStatusList(){
+        return statusEffectsLinkedList;
     }
-    static HashMap<String, Integer> Statuses = new HashMap<String, Integer>()
-    {
-    };
+    public int numberOfStatusesInList(){return statusEffectsLinkedList.size();}
     private int HP,maxHP,ATK,GOLD,MANA,maxMana,level;
     private int playerScore = 0;
     // maybe get score equal to enemy gold drop?
@@ -173,83 +166,6 @@ public class Player extends Entity implements Serializable {
         this.defenseMultiplier = playerDefenseMultiplier;
     }
 
-    public HashMap<String,Integer> getAllStatus() {return Statuses;}
-    public boolean hasStatuses() {return Statuses.isEmpty();}
-
-    public String getStatus(){return status;}
-    public void setStatus(String status,int statusTime)
-    {
-        if (Statuses.containsKey(status)) {
-            if (statusTime>Statuses.get(status)){
-                Statuses.replace(status,statusTime);
-            }
-        }
-        else {
-            Statuses.put(status,statusTime);
-        }
-    }
-
-    public String checkStatus(String status,boolean attacking){
-        String returnString = "Unknown.";
-
-        switch (status){
-            case "Bleed":
-                if (Statuses.get("Bleed")>0){
-                    Statuses.replace("Bleed",Statuses.get("Bleed")-1);
-                    if (attacking) {
-                        double bleedDamage = (((double) (maxHP - HP) / maxHP) * (maxHP * 0.25));
-
-                        if (bleedDamage <= 0) {
-                            bleedDamage = 1;
-                        }
-                        returnString = Name + " bleeds for " + bleedDamage + " damage!";
-                        restoreHealth((int) -bleedDamage);
-                    }
-                    else {
-                        returnString = Name + " bleeds for " + ((int)(maxHP * 0.01)) + " damage!";
-                        restoreHealth((int) (-maxHP * 0.01));
-                    }
-                }
-                else {
-                    Statuses.remove("Bleed");
-                    returnString = Name + " stops bleeding.";
-                }
-                break;
-            case "Burn":
-                if (Statuses.get("Burn")>0) {
-                    Statuses.replace("Burn",Statuses.get("Burn")-1);
-                    returnString = Name + " burns for " + ((int) (maxHP * 0.05)) + " damage!";
-                    restoreHealth((int) (-maxHP * 0.05));
-                }
-                else {
-                    Statuses.remove("Burn");
-                    returnString = Name + " stops burning.";
-                }
-                break;
-            case "Paralyze":
-                if (Statuses.get("Paralyze")>0) {
-                    Statuses.replace("Paralyze",Statuses.get("Paralyze")-1);
-                    returnString = Name + " is paralyzed!";
-                }
-                else {
-                    Statuses.remove("Paralyze");
-                    returnString = Name + " stops being paralyzed.";
-                }
-                break;
-            case "ATKBoost":
-                if (Statuses.get("ATKBoost")>0) {
-                    Statuses.replace("ATKBoost",Statuses.get("ATKBoost")-1);
-                    returnString = Name + " is powered up!";
-                }
-                else {
-                    Statuses.remove("ATKBoost");
-                    returnString = Name + " stops being empowered.";
-                }
-                break;
-        }
-        return returnString;
-    }
-
     public void setMana(int newMana){
         MANA = newMana;
         if(MANA < 0){
@@ -258,7 +174,7 @@ public class Player extends Entity implements Serializable {
 
     }
 
-    public int takeDamage(int damage){
+    public void takeDamage(int damage){
         HP-=damage;
         if(HP < 0){
             HP = 0;
@@ -272,7 +188,6 @@ public class Player extends Entity implements Serializable {
             });
             delay.play();
         }
-        return (HP);
     }
 
     public void setHealth(int newHealth){

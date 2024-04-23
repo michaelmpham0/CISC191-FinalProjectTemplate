@@ -13,13 +13,14 @@ public class Entity {
 
     public String getStatus(){return status;}
 
-    public int takeDamage(int dmg){
-        return(HP-=dmg);
+    public void takeDamage(int dmg){
+        HP -= dmg;
     }
 
     public LinkedList<StatusEffect> getStatusList(){
         return statusEffectsLinkedList;
     }
+    public int numberOfStatusesInList(){return statusEffectsLinkedList.size();}
 
     public String getName() {return name;}
 
