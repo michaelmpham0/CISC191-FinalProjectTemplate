@@ -1,5 +1,9 @@
 package edu.sdccd.cisc191.template;
 
+import edu.sdccd.cisc191.template.Effects.Bleed;
+import edu.sdccd.cisc191.template.Effects.DefenseUp;
+import edu.sdccd.cisc191.template.Effects.StatusEffectInterface;
+import edu.sdccd.cisc191.template.Effects.StatusEffectsHandler;
 import edu.sdccd.cisc191.template.GUI.GUIController;
 
 import java.io.Serializable;
@@ -103,7 +107,7 @@ public class Abilities implements Serializable {
                     switch (abilityName)
                     {
                         case "Horizontal":
-                            Server.getCurrentEnemy().setStatus("Bleed",3);
+                            StatusEffectsHandler.applyStatus(new Bleed(3),Server.getCurrentEnemy());
                             break;
                         case "Firebolt":
                             Server.getCurrentEnemy().setStatus("Burn",3);
@@ -146,15 +150,13 @@ public class Abilities implements Serializable {
                 switch (abilityName)
                 {
                     case "Rage":
-                        player.setStatus("ATKBoost",3);
-                        player.setStatus("Burn",3);
-                        player.setStatus("Bleed",3);
+                        StatusEffectsHandler.applyStatus(new Bleed(3),player);
                         break;
                     case "Heal":
                         player.restoreHealth(player.getMaxHealth()/2);
                         break;
                     case "Quickness":
-                        player.setStatus("Guard",3);
+                        StatusEffectsHandler.applyStatus(new DefenseUp(3),player);
                     default:
                         System.err.println("Ability Not Usable");
                 }

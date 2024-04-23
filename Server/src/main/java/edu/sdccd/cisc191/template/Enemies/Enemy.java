@@ -161,17 +161,15 @@ public class Enemy  extends Entity implements EnemyInterface {
         this.name = name;
     }
 
-    public int takeDamage(int damage){
+    public void takeDamage(int damage){
         damage = (int) (damage*defenseMultiplier);
 
         if ((health-damage) <= 0) {
             health = 0;
-            return 0;
         }
         else
         {
             health = health-damage;
-            return health;
         }
     }
     public int getXpReward()
