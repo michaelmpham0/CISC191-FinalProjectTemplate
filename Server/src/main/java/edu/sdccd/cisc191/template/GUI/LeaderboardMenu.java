@@ -58,7 +58,7 @@ public class LeaderboardMenu extends GUIController {
             String[] playerInfo = allPlayerDetails.get(i).split(",");
 
             Label playerLabel = createLabel(playerInfo[0]+" - "+playerInfo[1]+" - Level: "+playerInfo[2]+" - Score: "+playerInfo[3],"Times New Roman",75,0.65,0.05);
-            playerLabel.getStyleClass().add("noBorder");
+            playerLabel.getStyleClass().add("borders");
             playerLabel.setTranslateY(screenHeight*0.015);
             playerList.getChildren().add(playerLabel);
         }
