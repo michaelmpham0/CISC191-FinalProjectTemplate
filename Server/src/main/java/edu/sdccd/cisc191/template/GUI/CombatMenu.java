@@ -1,7 +1,10 @@
 package edu.sdccd.cisc191.template.GUI;
 
+import edu.sdccd.cisc191.template.Effects.StatusEffect;
+import edu.sdccd.cisc191.template.Effects.StatusEffectsHandler;
 import edu.sdccd.cisc191.template.Enemies.Enemy;
 import edu.sdccd.cisc191.template.Enemies.EnemyHandler;
+import edu.sdccd.cisc191.template.Entity;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -19,37 +22,46 @@ import javafx.animation.PauseTransition;
 import javafx.util.Duration;
 
 import java.io.InputStream;
+import java.lang.annotation.Target;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Map;
 
 public class CombatMenu extends GUIController{
     public static int delayTime = 0;
     public static int turn = 1;
-
     private static boolean charged=false;
     protected static int statusLoop(Label name, Label health,Label acts){
-        int count=0;
 
-        if (!currentEnemy.hasStatuses()){
-            HashMap<String,Integer> enemyStatus = currentEnemy.getAllStatus();
-            int i = -1;
-            for (Map.Entry<String, Integer> entry : enemyStatus.entrySet()) {
-                i++;
-                count++;
+        //status loop for enemy
+        if (!(currentEnemy.numberOfStatusesInList()==0)){
+            LinkedList<StatusEffect> targetStatusList  = currentEnemy.getStatusList();
+            int g = 0;
+            for (StatusEffect currentStatusEffect : targetStatusList) {
+                g++;
 
-                String key = entry.getKey();
-                Integer value = entry.getValue();
-                System.out.println("Enemy Status: " + key + ", Time: " + value);
+                System.out.println(currentEnemy.getName() +" Status: " + currentStatusEffect.getStatusName() + ", Time: " + currentStatusEffect.getStatusDuration());
 
-                PauseTransition dl = new PauseTransition(Duration.seconds(i+1));
+                PauseTransition dl = new PauseTransition(Duration.seconds(g+1));
+
+                System.out.println(currentStatusEffect.activateStatus(currentEnemy));
 
                 dl.setOnFinished(evt -> {
-                    refreshGUI(name, health, acts, currentEnemy, "Enemy", currentEnemy.checkStatus(entry.getKey()));
+                    refreshGUI(name, health, acts, currentEnemy, "Status", currentStatusEffect.activateStatus(currentEnemy));
                 });
+                if (currentStatusEffect.getStatusDuration()<=0) {
+                    StatusEffectsHandler.deleteStatus(currentStatusEffect,currentEnemy);
+                }
+
                 dl.play();
             }
         }
-        return count;
+
+        //status loop for player
+
+
+        //number of statuses that will be shown
+        return (currentEnemy.numberOfStatusesInList()+player.numberOfStatusesInList());
     }
 
    protected  static  void refreshGUI(Label name, Label health,Label acts,Enemy enemy,String action,String act){

@@ -15,6 +15,18 @@ public class StatusEffectsHandler {
 
     }
 
+    public static void deleteStatus(StatusEffect deletedStatus, Entity target){
+
+        LinkedList<StatusEffect> targetStatusList = target.getStatusList();
+        int count=0;
+        for (StatusEffect currentStatus : targetStatusList) {
+            if (currentStatus.getStatusName().equals(deletedStatus.getStatusName())){
+                targetStatusList.remove(count);
+            }
+            count++;
+        }
+    }
+
     public static void checkStatus(){
 
     }

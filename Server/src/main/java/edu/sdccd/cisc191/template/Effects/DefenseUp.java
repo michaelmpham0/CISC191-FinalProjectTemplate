@@ -22,7 +22,8 @@ public class DefenseUp extends StatusEffect{
     public static void checkStatus(Entity target){}
     public static void setStatusDuration(Entity target){}
 
-    public static String activateStatus(Entity target){
+    @Override
+    public String activateStatus(Entity target){
         String string="nob";
 
         return string;

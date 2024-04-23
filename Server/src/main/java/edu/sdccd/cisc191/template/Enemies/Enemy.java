@@ -15,10 +15,13 @@ public class Enemy  extends Entity implements EnemyInterface {
     {
     };
 
-    private final LinkedList<StatusEffect> enemyStatusEffects = new LinkedList<>();
-    public LinkedList<StatusEffect> getEnemyStatusList(){
-        return enemyStatusEffects;
+
+    private final LinkedList<StatusEffect> statusEffectsLinkedList = new LinkedList<>();
+    public LinkedList<StatusEffect> getStatusList(){
+        return statusEffectsLinkedList;
     }
+    public int numberOfStatusesInList(){return statusEffectsLinkedList.size();}
+    private final LinkedList<StatusEffect> enemyStatusEffects = new LinkedList<>();
 
     private static boolean attacking = false;
     private static int health;

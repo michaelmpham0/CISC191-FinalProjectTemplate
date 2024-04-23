@@ -2,11 +2,8 @@ package edu.sdccd.cisc191.template.Effects;
 
 import edu.sdccd.cisc191.template.Entity;
 
-import java.util.LinkedList;
-
 public class Bleed extends StatusEffect{
-    static String statusName="";
-    static String statusType="Damage";
+    static String statusName="Bleed";
     static int statusDuration=0;
 
     public Bleed(int duration){
@@ -24,12 +21,15 @@ public class Bleed extends StatusEffect{
     public static void checkStatus(Entity target){}
     public static void setStatusDuration(Entity target){}
 
-    public static String activateStatus(Entity target){
+    @Override
+    public  String activateStatus(Entity target){
         String string;
         int maxHealth= target.getMaxHealth();
         int currentHealth= target.getHealth();
         String name = target.getName();
-        if (target.getStatus().equals("Attacking")) {
+        if (statusDuration>0) {
+
+     //   if (target.getStatus().equals("Attacking")) {
             double bleedDamage = (((double) (maxHealth - currentHealth) / maxHealth) * (maxHealth * 0.25));
 
             if (bleedDamage <= 0) {
@@ -37,11 +37,16 @@ public class Bleed extends StatusEffect{
             }
             string = name + " bleeds for " + bleedDamage + " damage!";
             target.takeDamage((int) bleedDamage);
+     //   }
+    //    else {
+     //       string = name + " bleeds for " + ((int)(maxHealth * 0.01)) + " damage!";
+    //        target.takeDamage((int) (maxHealth * 0.01));
+    //    }
         }
         else {
-            string = name + " bleeds for " + ((int)(maxHealth * 0.01)) + " damage!";
-            target.takeDamage((int) (maxHealth * 0.01));
+            string = name + " stops bleeding.";
         }
+        statusDuration-=1;
         return string;
     }
 }

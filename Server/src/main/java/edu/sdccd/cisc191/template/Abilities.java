@@ -106,8 +106,9 @@ public class Abilities implements Serializable {
                     player.setMana(player.getMana()-manaCost);
                     switch (abilityName)
                     {
-                        case "Horizontal":
+                        case "Sanguine Sever":
                             StatusEffectsHandler.applyStatus(new Bleed(3),Server.getCurrentEnemy());
+                            StatusEffectsHandler.applyStatus(new Bleed(3),player);
                             break;
                         case "Firebolt":
                             Server.getCurrentEnemy().setStatus("Burn",3);
