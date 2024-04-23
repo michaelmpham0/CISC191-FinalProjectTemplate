@@ -1,5 +1,6 @@
 package edu.sdccd.cisc191.template.GUI;
 
+import edu.sdccd.cisc191.template.LeaderboardSystem.Database;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -31,7 +32,8 @@ public class LeaderboardMenu extends GUIController {
 
         VBox playerList = new VBox();
         playerList.getStyleClass().add("borders");
-        playerList.setAlignment(Pos.TOP_CENTER);
+        playerList.setAlignment(Pos.CENTER);
+        playerList.setSpacing(screenHeight*0.01);
         playerList.setMinSize(screenWidth*0.7,screenHeight*0.65);
         playerList.setMaxSize(screenWidth*0.7,screenHeight*0.65);
         playerList.setTranslateY(screenHeight*0.1);
@@ -48,8 +50,17 @@ public class LeaderboardMenu extends GUIController {
             stage.setScene(scene);
         });
 
-        //Button mainMenu = createButton("Return To Menu","Button1","Times New Roman",120,0.2,0.02,0,0);
-        //root.getChildren().add(mainMenu);
+
+        Database.printAllPlayersDetails();
+
+        for (int i=1;i<=10;i++)
+        {
+            Label newButton = createLabel("PLAYER NAME - CLASS NAME - CLASS LEVEL - SCORE - ","Times New Roman",75,0.65,0.05);
+            newButton.getStyleClass().add("noBorder");
+            playerList.getChildren().add(newButton);
+        }
+
+
         Scene thisScene = new Scene(root);
         stage.setScene(thisScene);
 
