@@ -4,6 +4,7 @@ import edu.sdccd.cisc191.template.Player;
 import java.io.InputStream;
 import java.net.URL;
 import java.sql.*;
+import java.util.ArrayList;
 
 public class Database {
     static String databasePath = "jdbc:sqlite:" + System.getProperty("user.home") + "/Documents/architectdatabase.db";
@@ -60,6 +61,33 @@ public class Database {
             Database.closeConnection();
         }
     }
+
+    public static ArrayList<String> getPlayerDetails()
+    {
+        String query = "SELECT * FROM leaderboard";
+        ArrayList<String> playerList = new ArrayList<>();
+        try (Connection conn = Database.connect();
+             PreparedStatement preparedStatement = conn.prepareStatement(query)) {
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next())
+            {
+                System.out.println(
+                        "Name: " + rs.getString("player_name") +
+                                ", Class: " + rs.getString("class") +
+                                ", Level: " + rs.getInt("level") +
+                                ", Score: " + rs.getInt("score")
+                );
+                String playerInfo = rs.getString("player_name")+","+rs.getString("class")+","+rs.getInt("level")+","+rs.getInt("score");
+                playerList.add(playerInfo);
+            }
+        } catch (SQLException e) {
+            System.out.println("Query failed: " + e.getMessage());
+        } finally {
+            Database.closeConnection();
+        }
+        return playerList;
+    }
+
 
     //inserts details of Player object into database.
     public static void insertPlayerDetails(Player player) {
