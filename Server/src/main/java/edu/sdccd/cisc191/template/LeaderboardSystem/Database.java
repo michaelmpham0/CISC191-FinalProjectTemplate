@@ -4,7 +4,8 @@ import edu.sdccd.cisc191.template.Player;
 import java.sql.*;
 
 public class Database {
-    private static final String URL = "jdbc:sqlite:/Users/doluis/Desktop/architectdatabase.db";
+    private static final String URL = "jdbc:sqlite:" + System.getProperty("user.home") + "/Documents/architectdatabase.db";
+    //System.getProperty("user.home") + "/Documents/ArchitectSaveFile.ser"
     private static Connection conn = null;
 
     // creates a connection to the DB browser database
@@ -34,14 +35,13 @@ public class Database {
         }
     }
 
-    //retrieves and prints player details from the database
-    public static void printPlayerDetails(String playerName) {
-        String query = "SELECT * FROM leaderboard WHERE player_name = ?";
+    //retrieves and prints ALL player details from the database
+    public static void printAllPlayersDetails() {
+        String query = "SELECT * FROM leaderboard";
 
         try (Connection conn = Database.connect();
              PreparedStatement preparedStatement = conn.prepareStatement(query)) {
 
-            preparedStatement.setString(1, playerName);
             ResultSet rs = preparedStatement.executeQuery();
 
             while (rs.next()) {
@@ -54,6 +54,8 @@ public class Database {
             }
         } catch (SQLException e) {
             System.out.println("Query failed: " + e.getMessage());
+        } finally {
+            Database.closeConnection();
         }
     }
 
@@ -68,6 +70,11 @@ public class Database {
             preparedStatement.setString(2, player.getPlayerClass());
             preparedStatement.setInt(3, player.getLevel());
             preparedStatement.setInt(4, player.getScore());
+
+            System.out.println(player.getName());
+            System.out.println(player.getPlayerClass());
+            System.out.println(player.getLevel());
+            System.out.println(player.getScore());
 
             int affectedRows = preparedStatement.executeUpdate();
             if (affectedRows > 0) {

@@ -258,6 +258,8 @@ public class GUIController extends Server {
        {
            //Intro
            CharacterCreationMenu.showIntro();
+           String savePath = System.getProperty("user.home");
+           System.out.println(savePath);
        });
        leaderboardButton.setOnAction(e ->
        {
@@ -284,6 +286,7 @@ public class GUIController extends Server {
    public Scene startMainMenu(){
 
         //printPlayerDetails("Alice");
+        printAllPlayersDetails();
         scene = new Scene(createMainmenu());
         scene.getStylesheets().add("styleSheet.css");
         scene.setFill(Paint.valueOf("Black"));

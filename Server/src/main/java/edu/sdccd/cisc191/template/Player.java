@@ -265,8 +265,8 @@ public class Player extends Entity implements Serializable {
             PauseTransition delay = new PauseTransition(Duration.seconds(2));
             delay.setOnFinished(event -> {
 
-                Player deadPlayer = new Player();
-                Database.insertPlayerDetails(deadPlayer);
+
+                Database.insertPlayerDetails(this);
 
                 DeathMenu.deathMenu();
             });
