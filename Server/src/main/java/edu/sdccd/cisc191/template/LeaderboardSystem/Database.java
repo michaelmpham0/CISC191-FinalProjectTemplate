@@ -1,19 +1,20 @@
 package edu.sdccd.cisc191.template.LeaderboardSystem;
 import edu.sdccd.cisc191.template.Player;
 
+import java.io.InputStream;
 import java.sql.*;
 
 public class Database {
-    private static final String URL = "jdbc:sqlite:" + System.getProperty("user.home") + "/Documents/architectdatabase.db";
+    static String databasePath = "jdbc:sqlite:" + System.getProperty("user.home") + "/Documents/architectdatabase.db";
+    static InputStream inputStream = Database.class.getResourceAsStream("/architectdatabase.db");
     //System.getProperty("user.home") + "/Documents/ArchitectSaveFile.ser"
     private static Connection conn = null;
-
     // creates a connection to the DB browser database
     public static Connection connect() {
         if (conn == null) {
             try {
                 // creates a connection to the database
-                conn = DriverManager.getConnection(URL);
+                conn = DriverManager.getConnection("jdbc:sqlite:"+inputStream.toString());
                 System.out.println("Connection to SQLite has been established.");
             } catch (SQLException e) {
                 System.out.println("Error when connecting to SQLite: " + e.getMessage());
