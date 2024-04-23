@@ -1,19 +1,22 @@
 package edu.sdccd.cisc191.template.LeaderboardSystem;
 import edu.sdccd.cisc191.template.Player;
 
+import java.io.InputStream;
+import java.net.URL;
 import java.sql.*;
+import java.util.ArrayList;
 
 public class Database {
-    private static final String URL = "jdbc:sqlite:" + System.getProperty("user.home") + "/Documents/architectdatabase.db";
-    //System.getProperty("user.home") + "/Documents/ArchitectSaveFile.ser"
-    private static Connection conn = null;
+    static String databasePath = "jdbc:sqlite:" + System.getProperty("user.home") + "/Documents/architectdatabase.db";
+    static URL dbUrl = Database.class.getResource("/architectdatabase.db");
 
+    private static Connection conn = null;
     // creates a connection to the DB browser database
     public static Connection connect() {
         if (conn == null) {
             try {
                 // creates a connection to the database
-                conn = DriverManager.getConnection(URL);
+                conn = DriverManager.getConnection("jdbc:sqlite:"+dbUrl.toString());
                 System.out.println("Connection to SQLite has been established.");
             } catch (SQLException e) {
                 System.out.println("Error when connecting to SQLite: " + e.getMessage());
@@ -58,6 +61,33 @@ public class Database {
             Database.closeConnection();
         }
     }
+
+    public static ArrayList<String> getPlayerDetails()
+    {
+        String query = "SELECT * FROM leaderboard";
+        ArrayList<String> playerList = new ArrayList<>();
+        try (Connection conn = Database.connect();
+             PreparedStatement preparedStatement = conn.prepareStatement(query)) {
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next())
+            {
+                System.out.println(
+                        "Name: " + rs.getString("player_name") +
+                                ", Class: " + rs.getString("class") +
+                                ", Level: " + rs.getInt("level") +
+                                ", Score: " + rs.getInt("score")
+                );
+                String playerInfo = rs.getString("player_name")+","+rs.getString("class")+","+rs.getInt("level")+","+rs.getInt("score");
+                playerList.add(playerInfo);
+            }
+        } catch (SQLException e) {
+            System.out.println("Query failed: " + e.getMessage());
+        } finally {
+            Database.closeConnection();
+        }
+        return playerList;
+    }
+
 
     //inserts details of Player object into database.
     public static void insertPlayerDetails(Player player) {

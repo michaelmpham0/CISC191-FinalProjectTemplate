@@ -1,5 +1,6 @@
 package edu.sdccd.cisc191.template.GUI;
 
+import edu.sdccd.cisc191.template.LeaderboardSystem.Database;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -11,6 +12,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
 
 import java.io.File;
+import java.util.ArrayList;
 
 public class LeaderboardMenu extends GUIController {
     public static void leaderboardMenu()
@@ -32,6 +34,7 @@ public class LeaderboardMenu extends GUIController {
         VBox playerList = new VBox();
         playerList.getStyleClass().add("borders");
         playerList.setAlignment(Pos.TOP_CENTER);
+        playerList.setSpacing(screenHeight*0.025);
         playerList.setMinSize(screenWidth*0.7,screenHeight*0.65);
         playerList.setMaxSize(screenWidth*0.7,screenHeight*0.65);
         playerList.setTranslateY(screenHeight*0.1);
@@ -48,8 +51,21 @@ public class LeaderboardMenu extends GUIController {
             stage.setScene(scene);
         });
 
-        //Button mainMenu = createButton("Return To Menu","Button1","Times New Roman",120,0.2,0.02,0,0);
-        //root.getChildren().add(mainMenu);
+
+        ArrayList<String> allPlayerDetails = Database.getPlayerDetails();
+        for (int i=0;i<allPlayerDetails.size();i++)
+        {
+            String[] playerInfo = allPlayerDetails.get(i).split(",");
+
+            Label playerLabel = createLabel(playerInfo[0]+" - "+playerInfo[1]+" - Level: "+playerInfo[2]+" - Score: "+playerInfo[3],"Times New Roman",75,0.65,0.05);
+            playerLabel.getStyleClass().add("borders");
+            playerLabel.setTranslateY(screenHeight*0.015);
+            playerList.getChildren().add(playerLabel);
+        }
+
+
+
+
         Scene thisScene = new Scene(root);
         stage.setScene(thisScene);
 

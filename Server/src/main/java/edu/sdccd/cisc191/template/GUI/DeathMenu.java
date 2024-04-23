@@ -25,7 +25,7 @@ public class DeathMenu extends GUIController {
         root.getChildren().add(titleText);
 
         Label scoreText = createLabel("Score: "+player.getScore(),"Times New Roman",150,0.2,0.035);
-        scoreText.setTranslateY(screenHeight*0.1);
+        scoreText.setTranslateY(screenHeight*0.025);
         root.getChildren().add(scoreText);
 
         //Button mainMenu = createButton("Return To Menu","Button1","Times New Roman",120,0.2,0.02,0,0);
@@ -51,7 +51,7 @@ public class DeathMenu extends GUIController {
             stage.setScene(thisScene);
         }
 
-        Button backButton = createButton("Go Back","Button2","Times New Roman",100,0.1,0.05,0,0);
+        Button backButton = createButton("Main Menu","Button2","Times New Roman",150,0.15,0.05,0,0);
         backButton.setTranslateY(screenHeight*0.125);
         root.getChildren().add(backButton);
 
