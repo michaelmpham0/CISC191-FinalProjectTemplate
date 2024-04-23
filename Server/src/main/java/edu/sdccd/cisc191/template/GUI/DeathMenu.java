@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Paint;
 
 import java.io.File;
 
@@ -50,13 +51,15 @@ public class DeathMenu extends GUIController {
             stage.setScene(thisScene);
         }
 
-        /*
-        mainMenu.setOnAction(e ->
-        {
-            //Intro
-            GUIController.showMainMenu();
-        });
+        Button backButton = createButton("Go Back","Button2","Times New Roman",100,0.1,0.05,0,0);
+        backButton.setTranslateY(screenHeight*0.125);
+        root.getChildren().add(backButton);
 
-         */
+        backButton.setOnAction(e -> {
+            Scene scene = new Scene(createMainmenu());
+            scene.getStylesheets().add("styleSheet.css");
+            scene.setFill(Paint.valueOf("Black"));
+            stage.setScene(scene);
+        });
     }
 }

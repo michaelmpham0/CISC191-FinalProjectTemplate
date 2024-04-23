@@ -203,8 +203,10 @@ public class GUIController extends Server {
        Text text = createText("Game","Times New Roman","White",(screenHeight+screenWidth)/15,0,screenHeight*0.1);
        Button startButton = createButton("New Game","Button1","Times New Roman",120,0.2,0.02,0,screenHeight*0.3);
        Button loadButton = createButton("Load Game","Button3","Times New Roman",120,0.2,0.02,0,screenHeight*0.325);
-       Button quitButton = createButton("Quit","Button1","Times New Roman",120,0.2,0.02,0,screenHeight*0.35);
+       Button leaderboardButton = createButton("The Graveyard","Button3","Times New Roman",120,0.2,0.02,0,screenHeight*0.35);
+       Button quitButton = createButton("Quit","Button1","Times New Roman",120,0.2,0.02,0,screenHeight*0.375);
 
+       leaderboardButton.getStyleClass().add("Button1");
        loadButton.setOpacity(0.2);
 
        // quote label that updates every attack phase
@@ -250,22 +252,28 @@ public class GUIController extends Server {
            {
                System.out.println("Save data wrong version.");
            }
-
-
        }
 
        startButton.setOnAction(e ->
        {
            //Intro
            CharacterCreationMenu.showIntro();
+           String savePath = System.getProperty("user.home");
+           System.out.println(savePath);
        });
+       leaderboardButton.setOnAction(e ->
+       {
+           LeaderboardMenu.leaderboardMenu();
+       });
+
+
        quitButton.setOnAction(e ->
        {
            System.out.println("GAME IS CLOSING, SAVE HERE");
            System.exit(0);
        });
 
-       vbox.getChildren().addAll(text,quoteLabel,divider,startButton,loadButton,quitButton);
+       vbox.getChildren().addAll(text,quoteLabel,divider,startButton,loadButton,leaderboardButton,quitButton);
        return vbox;
    }
 
@@ -278,6 +286,7 @@ public class GUIController extends Server {
    public Scene startMainMenu(){
 
         //printPlayerDetails("Alice");
+        printAllPlayersDetails();
         scene = new Scene(createMainmenu());
         scene.getStylesheets().add("styleSheet.css");
         scene.setFill(Paint.valueOf("Black"));
