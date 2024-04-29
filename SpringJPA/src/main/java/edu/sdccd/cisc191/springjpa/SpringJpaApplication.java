@@ -18,6 +18,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+//for this to work, you have to add the vm option thing that points to jfx 21.0.3 lib
 @SpringBootApplication
 public class SpringJpaApplication extends Application {
 	public ConfigurableApplicationContext springContext;
