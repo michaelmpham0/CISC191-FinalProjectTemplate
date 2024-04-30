@@ -1,9 +1,10 @@
 package edu.sdccd.cisc191.template.GUI;
 
 import edu.sdccd.cisc191.template.*;
+import edu.sdccd.cisci191.template.LeaderboardApplication.client.PlayerClient;
+import edu.sdccd.cisci191.template.LeaderboardApplication.model.H2Player;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -13,13 +14,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import org.junit.Test;
 
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.LinkedList;
-
-import static org.junit.Assert.assertNotNull;
 
 public class CharacterCreationMenu extends GUIController {
 
@@ -202,6 +198,11 @@ public class CharacterCreationMenu extends GUIController {
                     player.setName(nameField.getText());
                     // else, name is "Unknown"
                 }
+
+                PlayerClient playerClient = new PlayerClient();
+                H2Player h2Player = new H2Player(null,player.getName(),player.getPlayerClass(),player.getScore(),player.getLevel());
+
+                playerClient.addPlayer(h2Player);
 
                 storage = new Inventory(player.getPlayerClass());
                 spells = new Spells(player.getPlayerClass());

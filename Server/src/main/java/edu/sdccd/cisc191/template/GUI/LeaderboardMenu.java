@@ -1,22 +1,19 @@
 package edu.sdccd.cisc191.template.GUI;
 
 import edu.sdccd.cisc191.template.LeaderboardSystem.Database;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
 
-import java.io.File;
 import java.util.ArrayList;
 
 public class LeaderboardMenu extends GUIController {
     public static void leaderboardMenu()
     {
+
         VBox root = new VBox();
         root.setPrefSize(screenWidth,screenHeight);
         root.setAlignment(Pos.TOP_CENTER);
