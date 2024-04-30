@@ -3,7 +3,7 @@ package edu.sdccd.cisci191.template.LeaderboardApplication.model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "Players")
+@Table(name="players")
 public class H2Player {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
