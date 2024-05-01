@@ -465,7 +465,7 @@ public class CombatMenu extends GUIController{
                             inMenu = true;
                             ItemMenu.itemMenu();
 
-                            /*creates new thread so this javafx thread isn't paused. Because if htis thread is paused,
+                            /*creates new thread so this javafx thread isn't paused. Because if this thread is paused,
                             javafx does not update when it is paused
                              */
                             Thread newThread = new Thread(new Runnable() {

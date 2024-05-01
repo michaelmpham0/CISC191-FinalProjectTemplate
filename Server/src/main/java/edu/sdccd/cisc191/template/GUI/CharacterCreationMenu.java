@@ -246,7 +246,8 @@ public class CharacterCreationMenu extends GUIController {
 
                 player.equipWeaponOrTool(storage,equipWeapon);
                 player.equipWeaponOrTool(storage,equipTool);
-                ExploreMenu.exploreMenu();
+                EventMenu.eventMenu("Intro");
+                //ExploreMenu.exploreMenu();
             }
         });
 
