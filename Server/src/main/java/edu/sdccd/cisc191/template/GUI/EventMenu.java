@@ -28,8 +28,8 @@ public class EventMenu extends GUIController
         put("Prompt2.1", "Having entered the dungeon proper, a cold atmosphere suddenly settles upon you. Despite the proximity to the surface, the air grows stale and musty.");
         put("Answer2.1", "Continue Forward");
         put("Prompt3.1", "You don't break your stride and march onwards. A tickle runs down your spine, bringing you to a halt. You notice a murky fog in front of you. The air becomes stifling, unsure what lies ahead of you. An unsettling intuition grabs your attention to a large door in the side of the hall.");
-        put("Answer3.1", "Continue Forward");
-        put("Answer3.2","Take The Side Path");
+        put("Answer3.1", "Continue Forward/End");
+        put("Answer3.2","Take The Side Path/End");
     }};
     protected static int dialogueBranch = 1;
     protected  static int dialogueSubBranch = 1;
@@ -103,18 +103,32 @@ public class EventMenu extends GUIController
         buttonContainer.getChildren().clear();
         if (currentDialogueTree != null)
         {
+
             middleTextBox.setText(currentDialogueTree.get("Prompt"+dialogueBranch+"."+dialogueSubBranch));
             for (int i = 0;i <4;i++)
             {
                 if (currentDialogueTree.get("Answer"+dialogueBranch+"."+i) != null)
                 {
-                    Button newButton = createButton(currentDialogueTree.get("Answer"+dialogueBranch+"."+i),"Button2","Times New Roman",100,8000,8000,0,0);
+                    String[] answerInfo = currentDialogueTree.get("Answer"+dialogueBranch+"."+i).split("/");
+                    System.out.println(answerInfo[0]);
+                    Button newButton = createButton(answerInfo[0],"Button2","Times New Roman",100,8000,8000,0,0);
                     int subBranch = i;
                     newButton.setOnAction(e -> {
                         traverseDialogue(subBranch);
                         updateDialogue(middleTextBox,buttonContainer);
+                        if (answerInfo.length > 1)
+                        {
+                            if (answerInfo[1].equals("End"))
+                            {
+                                // this answer ends dialogue
+                                if (answerInfo[0].equals("Take The Side Path"))
+                                {
+                                    player.setFoughtProwler(true);
+                                }
+                                ExploreMenu.exploreMenu();
+                            }
+                        }
                     });
-
                     buttonContainer.getChildren().add(newButton);
                 }
             }
