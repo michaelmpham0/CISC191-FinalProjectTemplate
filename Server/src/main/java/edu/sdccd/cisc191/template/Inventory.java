@@ -7,7 +7,8 @@ import java.util.LinkedList;
 public class Inventory implements Serializable {
     //private final LinkedList<Items> inventory = new LinkedList<>();
 
-    Items inventory = new Items("Flask of Crimson Tears", "Used to replenish missing health", 3,"You gulp down the bottle of thick liquid and feel immediately rejuvenated.",100);
+    Items inventory = new Items("Flask of Crimson Tears", "Used to replenish missing health",
+            3,"You gulp down the bottle of thick liquid and feel immediately rejuvenated.",100);
 
     //private int size; -- was unused, so I just commented it out for now
 
@@ -41,7 +42,7 @@ public class Inventory implements Serializable {
         inventory.add(new Weapons("test weapon", "meant to test switching weapons", 12,49));
     }
 
-    public Items mergeSort(Items head) {
+    public static Items mergeSort(Items head) {
         if (head == null || head.next == null) {
             return head;
         }
@@ -55,7 +56,7 @@ public class Inventory implements Serializable {
 
         return merge(left, right);
     }
-    private Items merge(Items left, Items right) {
+    private static Items merge(Items left, Items right) {
         Items result;
 
         if (left == null)
@@ -73,7 +74,7 @@ public class Inventory implements Serializable {
         return result;
     }
 
-    private Items getMiddle(Items head) {
+    private static Items getMiddle(Items head) {
         // fast pointer reaches the end of the linked list first, and when it does, slow pointer will be stopped at the middle
         Items slow = head;
         Items fast = head;

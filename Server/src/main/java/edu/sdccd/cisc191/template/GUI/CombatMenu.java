@@ -416,7 +416,7 @@ public class CombatMenu extends GUIController{
                             Thread spellThread = new Thread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    //while pit to wait until player exits item menu
+                                    //while pit to wait until player exits spell menu
                                     while (inMenu == true) {
                                         try {
                                             Thread.sleep(100);
@@ -483,7 +483,6 @@ public class CombatMenu extends GUIController{
                                     if (usedItem != null)
                                     {
                                         pauseGame = true;
-                                        //i dont really know what Platform is, but i needed it, because i couldn't update JavaFX in a new thread
                                         Platform.runLater(() -> {
                                             refreshGUI(introText, enemyStats, allActions, currentEnemy, "UseItem", usedItem.getUseDesc());
                                             usedItem = null;
