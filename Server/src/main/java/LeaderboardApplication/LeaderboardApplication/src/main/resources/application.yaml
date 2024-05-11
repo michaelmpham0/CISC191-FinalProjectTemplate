@@ -1,15 +1,17 @@
 server:
   port: 5432
 spring:
+  application:
+    name: LeaderboardApplication
   datasource:
-    url: jdbc:h2:mem:playerdb
+    url: jdbc:h2:mem:playerdb;DB_CLOSE_ON_EXIT=FALSE;
     driver-class-name: org.h2.Driver
     username:
     password:
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: create-drop
     properties:
       hibernate:
         format_sql: true
@@ -17,4 +19,4 @@ spring:
   h2:
     console:
       enabled: true
-      path: /h2
+      path: /h2-console

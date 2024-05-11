@@ -13,7 +13,8 @@ public class PlayerController {
     private PlayerService playerService;
 
     @PostMapping("/players")
-    public void createPlayer(@RequestBody H2Player h2Player) {
+    public H2Player createPlayer(@RequestBody H2Player h2Player) {
         playerService.save(h2Player);
+        return h2Player;
     }
 }
