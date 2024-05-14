@@ -15,7 +15,7 @@ public class EnemyHandler {
             {
                     {"Goblin","Grogoroth"}, // level 1, add 1 goblin to enemy pool
                     {"Goblin","Minotaur"},// level 2, add 1 goblin and 1 minotaur
-                    {"Minotaur", "NightLurker"}, //level 3. add one minotaur and 1 night lurker
+                    {"Minotaur"}, //level 3. add one minotaur
                     {"Grogoroth"}, // level 4
             };
 
