@@ -1,7 +1,6 @@
 package edu.sdccd.cisc191.template.GUI;
 
 import edu.sdccd.cisc191.template.*;
-import edu.sdccd.cisci191.template.LeaderboardApplication.model.H2Player;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -13,7 +12,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import org.springframework.web.client.RestTemplate;
 
 import java.io.InputStream;
 
@@ -197,17 +195,6 @@ public class CharacterCreationMenu extends GUIController {
                 {
                     player.setName(nameField.getText());
                     // else, name is "Unknown"
-                }
-
-                //H2 database
-                try {
-                    H2Player h2Player = new H2Player(1L,player.getName(),player.getPlayerClass(),player.getScore(),player.getLevel());
-
-                    RestTemplate restTemplate = new RestTemplate();
-                    restTemplate.postForObject("http://localhost:5432/players", h2Player, H2Player.class);
-                }
-                catch (Exception eclair){
-                    System.err.println("Spring JPA not running most likely.");
                 }
 
                 storage = new Inventory(player.getPlayerClass());
