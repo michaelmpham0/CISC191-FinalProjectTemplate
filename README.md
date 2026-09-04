@@ -1,5 +1,6 @@
 # CISC191
-Intermediate Java Programming Final Project Template
+Intermediate Java Programming Final Project 
+Dungeon crawler game with turn based combat
 ## Prerequisites
 1. Maven
 2. Git
