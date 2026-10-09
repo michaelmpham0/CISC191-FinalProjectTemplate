@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"edu.sdccd.cisc191.template"},{"l":"edu.sdccd.cisc191.template.Effects"},{"l":"edu.sdccd.cisc191.template.Enemies"},{"l":"edu.sdccd.cisc191.template.GUI"},{"l":"edu.sdccd.cisc191.template.LeaderboardSystem"}];updateSearchResults();

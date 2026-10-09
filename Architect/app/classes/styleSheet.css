@@ -1,0 +1,132 @@
+
+/*
+    Document   : controlStyle2
+*/
+
+
+
+.root{
+    -fx-font-size: 16pt;
+    -fx-font-family: "Times New Roman";
+    -fx-base: rgb(255, 255, 255);
+    -fx-background-color: rgb(0, 0, 0);
+}
+
+.Button1:hover {
+    -fx-scale-x: 1.1;
+    -fx-scale-y: 1.1;
+}
+.Button1:pressed {
+    -fx-background-color: rgb(42, 42, 42);
+}
+
+.Button2:hover {
+    -fx-background-color: rgb(194, 194, 194);
+}
+
+.Button1{
+    -fx-border-width: 2;
+    -fx-font-family: "Times New Roman";
+    -fx-background-color: rgb(0, 0, 0);
+    -fx-text-fill: rgb(255, 255, 255);
+    -fx-border-color: rgb(255, 255, 255);
+    -fx-border-radius: 9;
+    -fx-padding: 3 6 6 6;
+}
+.Button2{
+    -fx-border-width: 0;
+    -fx-background-color: rgb(255, 255, 255);
+    -fx-text-fill: rgb(0, 0, 0);
+    -fx-border-color: rgb(255, 255, 255);
+    -fx-border-radius: 20;
+    -fx-padding: 3 6 6 6;
+}
+/* Button3 so .Button1:hover doesn't activate. For unselectable buttons such as Load Game without save */
+.Button3{
+    -fx-border-width: 2;
+    -fx-font-family: "Times New Roman";
+    -fx-background-color: rgb(0, 0, 0);
+    -fx-text-fill: rgb(255, 255, 255);
+    -fx-border-color: rgb(255, 255, 255);
+    -fx-border-radius: 9;
+    -fx-padding: 3 6 6 6;
+}
+
+.label{
+    -fx-border-color: rgb(255, 255, 255);
+    -fx-text-fill: rgb(255, 255, 255);
+
+    -fx-border-style: solid;
+    -fx-border-width: 1.5;
+    -fx-border-insets: -5;
+}
+
+.customBorder{
+    -fx-base: rgb(255, 255, 255);
+    -fx-background-color: rgb(255, 0, 0);
+    -fx-border-color: rgb(255, 255, 255);
+    -fx-border-style: solid;
+    -fx-border-width: 1.5;
+    -fx-border-insets: -5;
+}
+
+.customBorder14{
+    -fx-base: rgb(255, 255, 255);
+    -fx-background-color: rgb(15, 220, 187);
+    -fx-border-color: rgb(255, 255, 255);
+    -fx-border-style: solid;
+    -fx-border-width: 1.5;
+    -fx-border-insets: -5;
+}
+.customBorder15{
+    -fx-base: rgb(255, 255, 255);
+    -fx-background-color: rgb(175, 99, 148);
+    -fx-border-color: rgb(255, 255, 255);
+    -fx-border-style: solid;
+    -fx-border-width: 1.5;
+    -fx-border-insets: -5;
+}
+.scroll-pane {
+    -fx-base: rgb(255, 255, 255);
+    -fx-border-color: rgb(255, 255, 255);
+    -fx-background-color: transparent;
+}
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.borders{
+    -fx-base: rgb(255, 255, 255);
+    -fx-border-color: rgb(255, 255, 255);
+    -fx-border-style: solid;
+    -fx-border-width: 1.5;
+    -fx-border-insets: -5;
+}
+.healthBar{
+    -fx-base: transparent;
+    -fx-background-color: transparent;
+    -fx-accent: rgb(203, 30, 30);
+    -fx-border-color: rgb(255, 255, 255);
+    -fx-border-style: solid;
+    -fx-border-width: 1.5;
+    -fx-border-insets: -5;
+    -fx-border-radius: 6;
+    -fx-padding: 2 2 2 2;
+}
+.manaBar{
+    -fx-base: transparent;
+    -fx-background-color: transparent;
+    -fx-accent: rgb(49, 90, 238);
+    -fx-border-color: rgb(255, 255, 255);
+    -fx-border-style: solid;
+    -fx-border-width: 1.5;
+    -fx-border-insets: -5;
+    -fx-border-radius: 6;
+    -fx-padding: 2 2 2 2;
+}
+
+.noBorder{
+    -fx-border-width: 0;
+}
+
+
